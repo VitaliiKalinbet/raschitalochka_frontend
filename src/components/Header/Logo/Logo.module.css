@@ -1,0 +1,19 @@
+.heading {
+  color: #2c353e;
+  font-family: 'Helvetica Neue Cyr';
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 1.2px;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.logo_container {
+  width: 32px;
+  height: 28px;
+}
