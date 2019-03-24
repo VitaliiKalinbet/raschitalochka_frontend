@@ -1,10 +1,12 @@
 {
   "name": "raschitalochka_frontend",
-  "version": "0.1.0",
+  "author": "Viktor Bulvarenko, Vitalii Kalinbet, Volodymyr Omelianiuk, Andrii Tokar, Kostia Drobotovych, Oleg Naumik",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "moment": "^2.24.0",
+    "normalize.css": "8.0.1",
     "react": "^16.8.4",
     "react-datepicker": "^2.2.0",
     "react-dom": "^16.8.4",
