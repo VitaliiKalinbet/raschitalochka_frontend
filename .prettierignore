@@ -3,4 +3,3 @@ config/*
 scripts/*
 src/serviceWorker.js
 package.json
-.eslintrc.json

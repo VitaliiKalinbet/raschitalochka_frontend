@@ -1,5 +1,7 @@
 {
     "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
       "airbnb",
       "prettier",
       "prettier/react"
@@ -15,7 +17,8 @@
       "react/jsx-filename-extension": "off",
       "react/no-array-index-key": "off",
       "no-console": "off",
-      "camelcase": "off"
+      "camelcase": "off",
+      "prettier/prettier": "error"
     },
     "parserOptions": {
       "ecmaVersion": 2016,
