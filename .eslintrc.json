@@ -1,7 +1,6 @@
 {
     "extends": [
-      "standard",
-      "standard-react",
+      "airbnb",
       "prettier",
       "prettier/react"
     ],
@@ -16,20 +15,7 @@
       "react/jsx-filename-extension": "off",
       "react/no-array-index-key": "off",
       "no-console": "off",
-      "camelcase": "off",
-      "prettier/prettier": [
-        "error",
-        {
-          "printWidth": 120,
-          "tabWidth": 2,
-          "singleQuote": true,
-          "trailingComma": "none",
-          "bracketSpacing": true,
-          "jsxBracketSameLine": false,
-          "parser": "flow",
-          "semi": true
-        }
-      ]
+      "camelcase": "off"
     },
     "parserOptions": {
       "ecmaVersion": 2016,
@@ -45,6 +31,7 @@
       "jquery": true
     },
     "globals": {
+      "__DEVTOOL__": true,
       "slConfig": true,
       "kendo": true
     }

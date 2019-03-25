@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import DashboardPage from "../pages/DashboardPage/DashboardPage";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage/LoginPage';
+import RegistrationPage from '../pages/RegistrationPage/RegistrationPage';
+import DashboardPage from '../pages/DashboardPage/DashboardPage';
 
 class App extends Component {
   state = {};
