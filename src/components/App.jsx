@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import DashboardPage from "../pages/DashboardPage/DashboardPage";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
+import LoginPage from '../pages/LoginPage/LoginPage';
+import RegistrationPage from '../pages/RegistrationPage/RegistrationPage';
+import DashboardPage from '../pages/DashboardPage/DashboardPage';
 
 class App extends Component {
   state = {};
@@ -15,9 +16,10 @@ class App extends Component {
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/dashboard/home" component={DashboardPage} />
         </Router>
+        <som />
       </div>
     );
   }
 }
 
-export default App;
+export default hot(App);

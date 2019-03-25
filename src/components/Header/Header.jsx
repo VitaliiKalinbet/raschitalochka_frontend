@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as selectors from '../../redux/modules/User/slectors';
+import * as selectors from '../../redux/modules/User/selectors';
 import { signOut } from '../../redux/modules/User/operations';
 
 import UserControl from './UserControl/UserControl';
