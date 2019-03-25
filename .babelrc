@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    [
+        "react-hot-loader/babel",
+        {
+        "safetyNet": false
+        }
+    ]
+  ],
+  "presets": [
+    "react-app"
+  ]
+}
