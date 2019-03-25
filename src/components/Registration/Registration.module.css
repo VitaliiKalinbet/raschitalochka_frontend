@@ -1,0 +1,59 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: ffffff;
+    width: 550px;
+    height: 540px; 
+    border-radius: 2px;
+}
+
+.title{
+    font-weight: bold;
+    margin: 35px;
+    font-size: 20px;
+    line-height: 30px;
+    color: #282828;
+    letter-spacing: 0.05em;
+}
+
+.input{
+    width: 435px;
+    height: 55px;
+    padding: 0px 15px;
+    color: #b9c9d4;
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.025em;
+    background-color: #f9fbfb;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    background: url(/public/baseline-lock-24px.svg) no-repeat 7px 7px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.link{
+    font-size: 12px;
+    letter-spacing: 0.025em;
+    line-height: 30px;
+    margin-top: 20px;
+    color: #6b7d83;
+}
+
+.submitButton{
+    margin-top: 50px;
+    text-align: center;
+    width: 432px;
+    height: 55px;
+    color: #ffffff;
+    background: linear-gradient(to right, #ecb22a, #ff6c00);
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.025em;
+    border-radius: 8px;
+}
