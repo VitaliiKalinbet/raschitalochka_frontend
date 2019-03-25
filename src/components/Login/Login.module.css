@@ -1,0 +1,58 @@
+.formWrapper{
+  display: block;
+  padding: 1rem;
+  width: 18rem;
+  margin: 0 auto;
+}
+
+.titleWrapper{
+  display: block; 
+}
+.form{
+  min-width: 260px;
+  max-width: 550px;
+  padding-top: 36px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
+  font-family: "HelveticaNeueCyr";
+  }
+
+.formTitle{
+  margin-bottom: 27px;
+  position: relative;
+  display: block;
+  text-align: center;
+  font-size: 1.25rem;
+  color: rgb(44, 53, 62);
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+
+.input{
+  font-size: 1rem;
+  /* font-family: "HelveticaNeueCyr"; */
+  color: rgb(185, 201, 212);
+  line-height: 2;
+  border-radius: 0.3125px;
+  border: none;
+  background-color: rgb(249, 251, 251);
+}
+
+.form>input{
+margin-bottom: 0.875;
+}
+
+.input::placeholder{
+  background: url('../../assets/images/email.svg') no-repeat center left
+}
+
+
+
+
+/* .form input{
+  margin-top: ;
+} */
