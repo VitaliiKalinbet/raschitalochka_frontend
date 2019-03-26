@@ -23,6 +23,10 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     console.log(email, password);
+    this.setState({
+      email: '',
+      password: ''
+    });
   };
 
   handleChange = e => {
@@ -39,7 +43,6 @@ class Login extends Component {
 
   render() {
     const { email, password, width } = this.state;
-    console.log(width);
     return (
       <div className={s.wrap}>
         <div className={s.bgWrap}>
