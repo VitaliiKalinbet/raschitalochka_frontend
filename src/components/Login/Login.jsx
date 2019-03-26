@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import withAuth from '../../services/hoc/withAuth';
+
 import s from './Login.module.css';
 
 class Login extends Component {
@@ -22,11 +24,15 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    console.log(email, password);
-    this.setState({
-      email: '',
-      password: ''
-    });
+    /* eslint-disable react/prop-types */
+    const { login } = this.props;
+    login({ email, password });
+
+    // console.log(this.props);
+    // this.setState({
+    //   email: '',
+    //   password: ''
+    // });
   };
 
   handleChange = e => {
@@ -89,4 +95,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withAuth(Login);
