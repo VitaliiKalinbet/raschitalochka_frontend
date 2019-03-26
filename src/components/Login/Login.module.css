@@ -1,58 +1,145 @@
-.formWrapper{
-  display: block;
-  padding: 1rem;
-  width: 18rem;
-  margin: 0 auto;
-}
+@media (min-width: 320px) {
 
-.titleWrapper{
-  display: block; 
-}
-.form{
-  min-width: 260px;
-  max-width: 550px;
-  padding-top: 36px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
-  font-family: "HelveticaNeueCyr";
+  .wrap{
+    font-family: "HelveticaNeueCyr";
   }
 
-.formTitle{
-  margin-bottom: 27px;
-  position: relative;
-  display: block;
-  text-align: center;
-  font-size: 1.25rem;
-  color: rgb(44, 53, 62);
-  font-weight: bold;
-  line-height: 1.5;
+  .formWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 100vh;
+    margin: 0 auto;
+    background-image: 
+      url('../../assets/images/waves-chart-bg.svg'),
+      url('../../assets/images/background.jpg');
+    background-repeat: repeat-x, repeat;
+    background-position: bottom center;
+    background-size:  auto 200px, auto;
+  }
+
+  .titleWrapper{
+    display: flex; 
+  }
+
+  .form{
+    width: 550px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
+  }
+
+  .inputWithIcon{
+    position: relative;
+    margin-bottom: 0.875rem;
+  }
+
+  .iconEmail::before,
+  .iconPass::before{
+    position: absolute;
+    top: 50%;
+    left: 32px;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 24px;
+    height: 24px;
+    fill: #000
+  }
+  .iconEmail::before{
+    content: url('../../assets/images/email.svg');
+  }
+  .iconPass::before{
+    content: url('../../assets/images/lock.svg');
+  }
+
+  .formTitle{
+    margin-bottom: 27px;
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 1.25rem;
+    color: rgb(44, 53, 62);
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .inputEmail,
+  .inputPass{
+    width:100%;
+    position: relative;
+    font-size: 1rem;
+    padding: 1rem;
+    padding-left: 3.635rem;
+    outline: none;
+    line-height: 2;
+    border-radius: 0.3125rem;
+    border: none;
+    background-color: rgb(249, 251, 251);
+  }
+
+  .inputEmail::placeholder,
+  .inputPass::placeholder{
+    color: #b9c9d4;
+  }
+
+  .submitBtn{
+    margin-bottom: 1.25rem;
+  }
+  .registerLink{
+    font-size: 0.75rem;
+    text-align: center;
+    color: rgb(107, 125, 131);
+    line-height: 2.5;
+  }
 }
 
-
-.input{
-  font-size: 1rem;
-  /* font-family: "HelveticaNeueCyr"; */
-  color: rgb(185, 201, 212);
-  line-height: 2;
-  border-radius: 0.3125px;
-  border: none;
-  background-color: rgb(249, 251, 251);
+@media (min-width: 768px){
+  .wrap{
+    display: flex;
+  }
+  .formWrapper{
+    width: 50%;
+  }
+  .bgWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    background-image: 
+      url('../../assets/images/techandall.jpg');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: cover;
+  }
+  .slogan{
+    max-width: 86%;
+    text-align: center;
+    font-size: 2.18rem;
+    color: rgb(255, 255, 255);
+    line-height: 1.286;
+  }
+  
 }
 
-.form>input{
-margin-bottom: 0.875;
+@media (min-width: 900px){
+  .bgWrap{
+    justify-content: flex-end;
+    width: 50%;
+    background-image: 
+      url('../../assets/images/iPhone.png'),
+      url('../../assets/images/techandall.jpg');
+    background-repeat: no-repeat;
+    background-position: 12%, center, center, center ;
+    background-size: 50%, cover;
+  }
+
+  .slogan{
+    max-width: 50%;
+    text-align: center;
+    padding: 0.3125rem;
+  }
 }
-
-.input::placeholder{
-  background: url('../../assets/images/email.svg') no-repeat center left
-}
-
-
-
-
-/* .form input{
-  margin-top: ;
-} */
