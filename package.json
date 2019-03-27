@@ -148,10 +148,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "src/*.{js,jsx}": [
       "eslint"
     ],
-    "*.{js,jsx,json,md}": [
+    "src/*.{js,jsx,json,md}": [
       "prettier --write",
       "git add"
     ]
