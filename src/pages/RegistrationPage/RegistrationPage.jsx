@@ -8,7 +8,6 @@ class RegistrationPage extends Component {
   render() {
     return (
       <div className={styles.main}>
-        <h2>RegistrationPage</h2>
         <Registration />
       </div>
     );
