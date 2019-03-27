@@ -1,0 +1,112 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: ffffff;
+    width: 550px;
+    height: 540px; 
+    border-radius: 2px;
+    box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
+}
+
+.title{
+    font-weight: bold;
+    margin: 35px;
+    font-size: 20px;
+    line-height: 30px;
+    color: #282828;
+    letter-spacing: 0.05em;
+}
+
+.input{
+    text-indent: 56px;
+    width: 435px;
+    height: 55px;
+    padding: 0px 15px;
+    color: #b9c9d4;
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.025em;
+    background-color: #f9fbfb;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: url(/public/baseline-lock-24px.svg) no-repeat 7px 7px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.link{
+    font-size: 12px;
+    letter-spacing: 0.025em;
+    line-height: 30px;
+    margin-top: 20px;
+    color: #6b7d83;
+}
+
+.submitButton{
+    margin-top: 50px;
+    text-align: center;
+    width: 432px;
+    height: 55px;
+    color: #ffffff;
+    background: linear-gradient(to right, #ecb22a, #ff6c00);
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.025em;
+    border-radius: 8px;
+    box-shadow: 0px 3px 3px 0px rgba(255, 108, 0, 0.2);   
+}
+
+.label{
+    position: relative;
+    height: 55px;
+    margin-top: 10px;
+    background-color: #f9fbfb;
+}
+
+.icon {
+    position: absolute;
+    left: 18px;
+    top: 20px;
+  }
+
+  .lineStatus {
+    width: 432px;
+    height: 4px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #dfe9df;
+    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
+    border-radius: 20%;
+  }
+  
+  .halfLine {
+    background: linear-gradient(to right, #619361 50%, #dfe9df 50%);
+    width: 432px;
+    height: 4px;
+    margin-top: 22px;
+    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
+    border-radius: 20%;
+  }
+  
+  .fullLine {
+    background: linear-gradient(to right, #619361 50%, #619361 50%);
+    width: 432px;
+    height: 4px;
+    border: 1px solid grey;
+    margin-top: 22px;
+    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
+    border-radius: 20%;
+  }
+  
+
+
+  
+
+
+  
+
+  
