@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../Button/Button';
-import withAuth from '../../services/hoc/withAuth';
+import withAuth from '../../hoc/withAuth';
 
 import s from './Login.module.css';
 
@@ -17,10 +17,12 @@ class Login extends Component {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions.bind(this));
+    window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
+    window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
   handleSubmit = e => {
@@ -29,12 +31,10 @@ class Login extends Component {
     /* eslint-disable react/prop-types */
     const { login } = this.props;
     login({ email, password });
-
-    // console.log(this.props);
-    // this.setState({
-    //   email: '',
-    //   password: ''
-    // });
+    this.setState({
+      email: '',
+      password: ''
+    });
   };
 
   handleChange = e => {
@@ -43,6 +43,12 @@ class Login extends Component {
     this.setState({
       [name]: value
     });
+  };
+
+  pressEnter = e => {
+    const { email, password } = this.state;
+    if (email === '' || password === '') return;
+    if (e.code === 'Enter') this.handleSubmit(e);
   };
 
   updateDimensions() {
@@ -65,6 +71,7 @@ class Login extends Component {
                 type="email"
                 value={email}
                 required
+                autoComplete="username"
                 onChange={this.handleChange}
               />
               <i className={s.iconEmail} />
@@ -77,12 +84,13 @@ class Login extends Component {
                 type="password"
                 value={password}
                 required
+                autoComplete="current-password"
                 onChange={this.handleChange}
               />
               <i className={s.iconPass} />
             </div>
-            <Button style={s.submitBtn} type="button" value="Enter" />
-            <Link className={s.registerLink} activeClassName={s.activeLink} to="/registration">
+            <Button style={s.submitBtn} type="submit" value="Enter" />
+            <Link className={s.registerLink} to="/registration">
               Register
             </Link>
           </form>

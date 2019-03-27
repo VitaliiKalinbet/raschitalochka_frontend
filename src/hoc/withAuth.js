@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
-import { register, login } from '../../redux/reducers/session/sessionOperations';
-import { getIsAuthenticated } from '../../redux/reducers/session/sessionSelectors';
+import { register, login } from '../redux/reducers/session/sessionOperations';
+import { getIsAuthenticated } from '../redux/reducers/session/sessionSelectors';
 
 const withAuth = WrappedComponent => {
   class WithAuth extends Component {
@@ -11,7 +11,7 @@ const withAuth = WrappedComponent => {
       /* eslint-disable react/prop-types */
       const { isAuthenticated, location, history } = this.props;
 
-      const { from } = location.state || { from: { pathname: '/' } };
+      const { from } = location.state || { from: { pathname: '/dashboard/home' } };
 
       if (isAuthenticated) {
         history.push({
