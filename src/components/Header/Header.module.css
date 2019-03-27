@@ -1,12 +1,32 @@
 .container {
-  width: 100%;
-  box-shadow: 2px 3px 3px rgba(1, 1, 0, 0.12);
-  background-color: #ffffff;
+  max-width: 100%;
+  margin: auto;
+  background-color: #3f5544;
 }
 .content {
-  width: 93.3%;
+  max-width: 306px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 9px 7px;
+}
+
+@media(min-width: 768px) {
+  .container {
+    box-shadow: 2px 3px 3px rgba(1, 1, 0, 0.12);
+    background-color: #ffffff;
+  }
+  .content {
+    max-width: 748px;
+    padding: 26px 32px;
+    
+  }
+}
+
+@media(min-width: 1920px) {
+  .content {
+    max-width: 1658px;
+    padding: 26px 0px;
+  }
 }

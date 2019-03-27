@@ -2,15 +2,16 @@ import axios from 'axios';
 import { getToken } from './selectors';
 import { signOutRequest, signOutSuccess } from './actions';
 
-axios.defaults.baseURL = 'http://localhost:4040';
+axios.defaults.baseURL = 'https://rashchitalochka.vbguard.dev/api';
+axios.defaults.headers.put['Content-Type'] = 'applications/json';
 
 // const setAuthHeader = token => {
-//   Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+//   Axios.defaults.headers.common[Authorization] = `Bearer ${token}`;
 // };
 
-// const clearAuthHeader = () => {
-//   Axios.defaults.headers.common['Authorization'] = null;
-// };
+const clearAuthHeader = () => {
+  Axios.defaults.headers.common[Authorization] = null;
+};
 
 const signOut = () => (dispatch, getState) => {
   dispatch(signOutRequest());
@@ -26,7 +27,8 @@ const signOut = () => (dispatch, getState) => {
   axios
     .post('/auth/signout', {}, config)
     .then(() => {
-      // clearAuthHeader();
+      clearAuthHeader();
+      localStorage.clear();
       dispatch(signOutSuccess());
     })
     .catch(error => console.log(error));

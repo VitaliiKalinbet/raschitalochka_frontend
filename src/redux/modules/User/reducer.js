@@ -1,6 +1,6 @@
 import { actionTypes } from './actions';
 
-const user = (state = null, { type, payload }) => {
+export const user = (state = null, { type, payload }) => {
   switch (type) {
     case actionTypes.SIGN_UP_SUCCESS:
     case actionTypes.SIGN_IN_SUCCESS:
@@ -13,7 +13,7 @@ const user = (state = null, { type, payload }) => {
   }
 };
 
-const token = (state = null, { type, payload }) => {
+export const token = (state = null, { type, payload }) => {
   switch (type) {
     case actionTypes.SIGN_UP_SUCCESS:
     case actionTypes.SIGN_IN_SUCCESS:
@@ -29,7 +29,7 @@ const token = (state = null, { type, payload }) => {
   }
 };
 
-const isAuthenticated = (state = false, { type }) => {
+export const isAuthenticated = (state = false, { type }) => {
   switch (type) {
     case actionTypes.SIGN_UP_SUCCESS:
     case actionTypes.SIGN_IN_SUCCESS:
@@ -44,4 +44,4 @@ const isAuthenticated = (state = false, { type }) => {
   }
 };
 
-export default { user, token, isAuthenticated };
+// export default { user, token, isAuthenticated };

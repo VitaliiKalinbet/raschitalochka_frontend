@@ -30,13 +30,13 @@ const mapDispatch = {
 
 Header.propTypes = {
   isAuthenticated: PropTypes.bool,
-  user: PropTypes.objectOf,
+  user: PropTypes.objectOf(),
   onSignOut: PropTypes.func
 };
 
 Header.defaultProps = {
   isAuthenticated: false,
-  user: {},
+  user: () => {},
   onSignOut: () => {}
 };
 

@@ -1,10 +1,13 @@
+.container {
+  max-width: 112px;
+}
 .text {
-  color: #6b7d83;
-  font-family: 'Helvetica Neue Cyr - Roman';
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 59.27px;
-  letter-spacing: 0.45px;
+font-family: "Helvetica Neue Cyr - Roman";
+font-size: 15px;
+font-weight: 400;
+line-height: 59.27px;
+color: #669668;
+letter-spacing: 0.45px;
 }
 
 .button {
@@ -12,12 +15,22 @@
   position: relative;
   margin: 0;
   padding: 0;
+  margin-left: 19px;
   width: auto;
   overflow: visible;
   background: transparent;   
   color: inherit;
   font: inherit;
   line-height: normal;
+}
+.button-text {
+  font-family: "Helvetica Neue Cyr - Roman";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 59.27px;
+  color: #669668;
+  letter-spacing: 0.45px;
+  display: none;
 }
 .button::before {
   content: "";
@@ -28,4 +41,13 @@
   width: 14px;
   height: 14px;
   margin-right: 10px;
+}
+
+@media(min-width: 768px) {
+  .container {
+    max-width: 190px;
+  }
+  .button-text {
+    display: inline-block;
+  }
 }
