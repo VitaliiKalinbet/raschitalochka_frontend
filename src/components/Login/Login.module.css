@@ -1,139 +1,161 @@
-  .wrap{
-    font-family: "HelveticaNeueCyr";
+.wrap {
+  font-family: 'HelveticaNeueCyr';
+}
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 auto;
+  background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -117px
+    left -211px;
+  background-size: auto 304px;
+}
+
+.titleWrapper {
+  display: flex;
+}
+
+.form {
+  width: 550px;
+  padding: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+}
+
+.inputWithIcon {
+  position: relative;
+  margin-bottom: 0.875rem;
+}
+
+.iconEmail::before,
+.iconPass::before {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: #000;
+}
+
+.iconEmail::before {
+  content: url('../../assets/images/email.svg');
+}
+
+.iconPass::before {
+  content: url('../../assets/images/lock.svg');
+}
+
+.formTitle {
+  margin-bottom: 27px;
+  position: relative;
+  display: block;
+  text-align: center;
+  font-size: 1.25rem;
+  color: rgb(44, 53, 62);
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.inputEmail,
+.inputPass {
+  width: 100%;
+  position: relative;
+  font-size: 1rem;
+  padding: 1rem;
+  padding-left: 3.635rem;
+  outline: none;
+  line-height: 2;
+  border-radius: 0.3125rem;
+  border: none;
+  background-color: rgb(249, 251, 251);
+}
+
+.inputEmail::placeholder,
+.inputPass::placeholder {
+  color: #b9c9d4;
+}
+
+.submitBtn {
+  margin-bottom: 1.25rem;
+  border-radius: 6px;
+  background-image: linear-gradient(
+    0deg,
+    rgb(117, 193, 110) 0%,
+    rgba(81, 109, 87, 0.70196) 100%
+  );
+  box-shadow: 0px 3px 3px 0px rgba(92, 135, 94, 0.2);
+  min-width: 275px;
+  min-height: 48px;
+  border: none;
+  font-size: 0.94rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  line-height: 2;
+}
+
+.registerLink {
+  font-size: 0.75rem;
+  text-align: center;
+  color: rgb(107, 125, 131);
+  line-height: 2.5;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    display: flex;
   }
 
-  .formWrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    height: 100vh;
-    margin: 0 auto;
-    background:
-    url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -156px left -372px,
-    url('../../assets/images/waves-chart-bg.svg')no-repeat bottom -134px left 90px,
-    url('../../assets/images/background.jpg');
-    background-size: auto 465px, auto 511px, auto;
-    }
-
-  .titleWrapper{
-    display: flex; 
-  }
-
-  .form{
-    width: 550px;
-    padding: 36px;
-    display: flex;
+  .formWrapper {
+    width: 100%;
     flex-direction: column;
-    border-radius: 4px;
-    background-color: rgb(255, 255, 255);
+    background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px
+        right -372px,
+      url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px left -726px,
+      url('../../assets/images/background.jpg');
+    background-size: auto 541px, auto 541px, auto;
+  }
+
+  .form {
+    padding: 2.5rem 3.75rem;
     box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
   }
 
-  .inputWithIcon{
-    position: relative;
-    margin-bottom: 0.875rem;
-  }
-
-  .iconEmail::before,
-  .iconPass::before{
+  .slogan {
     position: absolute;
-    top: 50%;
-    left: 32px;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 24px;
-    height: 24px;
-    fill: #000
-  }
-
-  .iconEmail::before{
-    content: url('../../assets/images/email.svg');
-  }
-
-  .iconPass::before{
-    content: url('../../assets/images/lock.svg');
-  }
-
-  .formTitle{
-    margin-bottom: 27px;
-    position: relative;
-    display: block;
-    text-align: center;
-    font-size: 1.25rem;
-    color: rgb(44, 53, 62);
-    font-weight: bold;
-    line-height: 1.5;
-  }
-
-  .inputEmail,
-  .inputPass{
-    width:100%;
-    position: relative;
-    font-size: 1rem;
-    padding: 1rem;
-    padding-left: 3.635rem;
-    outline: none;
-    line-height: 2;
-    border-radius: 0.3125rem;
-    border: none;
-    background-color: rgb(249, 251, 251);
-  }
-
-  .inputEmail::placeholder,
-  .inputPass::placeholder{
-    color: #b9c9d4;
-  }
-
-  .submitBtn{
-    margin-bottom: 1.25rem;
-  }
-  .registerLink{
-    font-size: 0.75rem;
-    text-align: center;
-    color: rgb(107, 125, 131);
+    bottom: 40px;
+    font-size: 1.125rem;
+    color: rgb(40, 40, 40);
     line-height: 2.5;
+    text-align: center;
   }
-
-@media (min-width: 768px){
-  .wrap{
-    display: flex;
-  }
-  .formWrapper{
-    width: 50%;
-  }
-  .bgWrap{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    background-image: 
-      url('../../assets/images/techandall.jpg');
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: cover;
-  }
-
-  .slogan{
-    max-width: 86%;
-    font-size: 2.18rem;
-    color: rgb(255, 255, 255);
-    line-height: 1.286;
-  }
-  
 }
 
-@media (min-width: 1024px){
-  .bgWrap{
+@media (min-width: 1280px) {
+  .formWrapper {
+    width: 50%;
+  }
+
+  .bgWrap {
+    display: flex;
+    align-items: center;
     justify-content: flex-end;
     width: 50%;
-    background:
-     url('../../assets/images/iPhone.png') no-repeat 12% center,
-     url('../../assets/images/techandall.jpg') no-repeat center;
+    background: url('../../assets/images/iPhone.png') no-repeat 12% center,
+      url('../../assets/images/techandall.jpg') no-repeat center;
     background-size: 41%, cover;
   }
 
-  .slogan{
+  .slogan {
+    font-size: 2.18rem;
+    line-height: 1.286;
+    position: static;
+    color: rgb(255, 255, 255);
     max-width: 35%;
     margin-right: 7%;
     padding: 0.3125rem;

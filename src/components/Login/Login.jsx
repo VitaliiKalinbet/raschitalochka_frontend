@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import Button from '../Button/Button';
 import withAuth from '../../services/hoc/withAuth';
 
 import s from './Login.module.css';
 
+const slogan = <p className={s.slogan}>Manage your budget with finance app</p>;
 class Login extends Component {
   state = {
     email: '',
@@ -51,9 +53,7 @@ class Login extends Component {
     const { email, password, width } = this.state;
     return (
       <div className={s.wrap}>
-        <div className={s.bgWrap}>
-          {width >= 768 && <p className={s.slogan}>Manage your budget with finance app</p>}
-        </div>
+        {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
             <h3 className={s.formTitle}>Raschitalochka</h3>
@@ -81,14 +81,12 @@ class Login extends Component {
               />
               <i className={s.iconPass} />
             </div>
-
-            <button className={s.submitBtn} type="submit">
-              Enter
-            </button>
-            <NavLink className={s.registerLink} activeClassName={s.activeLink} to="/registration">
+            <Button style={s.submitBtn} type="button" value="Enter" />
+            <Link className={s.registerLink} activeClassName={s.activeLink} to="/registration">
               Register
-            </NavLink>
+            </Link>
           </form>
+          {width >= 768 && width < 1280 && slogan}
         </div>
       </div>
     );
