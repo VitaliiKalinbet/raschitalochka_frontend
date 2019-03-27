@@ -16,7 +16,6 @@ class App extends Component {
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/dashboard/home" component={DashboardPage} />
         </Router>
-        <som />
       </div>
     );
   }

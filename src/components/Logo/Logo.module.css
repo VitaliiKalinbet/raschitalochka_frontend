@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .heading {
   color: #2c353e;
   font-family: 'Helvetica Neue Cyr';
@@ -13,7 +18,8 @@
   display: block;
 }
 
-.logo_container {
+.imgContainer {
   width: 32px;
   height: 28px;
+  margin-right: 12px;
 }
