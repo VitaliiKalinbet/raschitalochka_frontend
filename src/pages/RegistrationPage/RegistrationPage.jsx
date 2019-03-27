@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import Registration from '../../components/Registration/Registration';
+import styles from './RegistrationPage.module.css';
 
 class RegistrationPage extends Component {
   state = {};
 
   render() {
     return (
-      <div>
-        <h2>RegistrationPage</h2>
+      <div className={styles.main}>
+        <Registration />
       </div>
     );
   }

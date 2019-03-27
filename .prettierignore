@@ -3,3 +3,4 @@ config/*
 scripts/*
 src/serviceWorker.js
 package.json
+package-lock.json

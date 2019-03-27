@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading {
+  display: none;
+  color: #2c353e;
+  font-family: 'Helvetica Neue Cyr';
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 1.2px;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.imgContainer {
+  width: 32px;
+  height: 28px;
+  margin-right: 12px;
+}
+
+@media(min-width: 768px) {
+  .heading {
+    display: inline-block;
+  }
+}
