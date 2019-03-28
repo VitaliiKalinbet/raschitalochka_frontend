@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '../Button/Button';
 
-import register from '../../services/api';
+import { register } from '../../services/api';
 import emailIco from './email.svg';
 import passwordIco from './lock.svg';
 import accountIco from './user-account-box.svg';

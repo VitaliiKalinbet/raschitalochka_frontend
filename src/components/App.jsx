@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader/root';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegistrationPage from '../pages/RegistrationPage/RegistrationPage';
 import DashboardPage from '../pages/DashboardPage/DashboardPage';
+import DiagramPage from '../pages/DiagramPage/DiagramPage';
 
 class App extends Component {
   state = {};
@@ -15,6 +16,7 @@ class App extends Component {
           <Route path="/login" component={LoginPage} />
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/dashboard/home" component={DashboardPage} />
+          <Route path="/dashboard/diagram" component={DiagramPage} />
         </Router>
       </div>
     );
