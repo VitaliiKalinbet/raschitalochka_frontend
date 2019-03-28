@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import Button from '../Button/Button';
-import styles from './Registration.module.css';
+
+import register from '../../services/api';
 import emailIco from './email.svg';
 import passwordIco from './lock.svg';
 import accountIco from './user-account-box.svg';
 
+import styles from './Registration.module.css';
+
 const INITIAL_STATE = {
-  login: '',
+  email: '',
   password: '',
   reEnterPassword: '',
   name: '',
-  lineState: 0
+  lineState: 0,
+  errorMsg: '',
+  successMsg: ''
 };
 
 class Registration extends Component {
@@ -43,22 +49,32 @@ class Registration extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { lineState } = this.state;
+    const { email, password, name, lineState } = this.state;
     if (lineState !== 1) alert('Паролі не рівні!!!');
+
+    const data = JSON.stringify({ name, email, password });
+    register(data)
+      .then(response => {
+        if (response.status === 200) {
+          const { message } = response.data;
+          this.setState({ successMsg: message });
+        }
+      })
+      .catch(error => this.setState({ errorMsg: error.message }));
   };
 
   render() {
-    const { login, password, reEnterPassword, name, lineState } = this.state;
+    const { email, password, reEnterPassword, name, lineState, errorMsg, successMsg } = this.state;
 
     return (
       <form className={styles.main} onSubmit={this.handleSubmit}>
         <div className={styles.title}>Registration</div>
-        <label htmlFor="login" className={styles.label}>
+        <label htmlFor="email" className={styles.label}>
           <input
             className={styles.input}
             type="text"
-            name="login"
-            value={login}
+            name="email"
+            value={email}
             onChange={this.handleChange}
             placeholder="E-mail as Login"
           />
@@ -99,10 +115,24 @@ class Registration extends Component {
           />
           <img className={styles.icon} src={accountIco} alt="account icon" />
         </label>
-        <Button style={styles.submitButton} type="button" value="Register" />
+        <Button style={styles.submitButton} type="submit" value="Register" />
         <Link className={styles.link} to="/login">
           Login
         </Link>
+        {errorMsg && (
+          <div className={styles.errorMsg}>
+            {errorMsg}
+            {/* <img
+              role="presentation"
+              onClick={this.handleCloseErrorMsg}
+              onKeyDown={() => null}
+              className={styles.closeIcon}
+              src={closeIcon}
+              alt="closeIcon"
+            /> */}
+          </div>
+        )}
+        {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
       </form>
     );
   }
