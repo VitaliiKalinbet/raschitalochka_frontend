@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { loginRequest, loginSuccess, loginError } from './sessionActions';
 
-const setBaseURL = () => {
+export const setBaseURL = () => {
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   axios.defaults.baseURL = 'https://rashchitalochka.vbguard.dev';
 };
