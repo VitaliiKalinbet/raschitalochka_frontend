@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
-import styles from './Registration.module.css';
+
+import register from '../../services/api';
 import emailIco from './email.svg';
 import passwordIco from './lock.svg';
 import accountIco from './user-account-box.svg';
+import closeIcon from './close.svg';
+
+import styles from './Registration.module.css';
 
 const INITIAL_STATE = {
-  login: '',
+  email: '',
   password: '',
   reEnterPassword: '',
   name: '',
-  lineState: 0
+  lineState: 0,
+  errorMsg: '',
+  successMsg: ''
 };
 
 class Registration extends Component {
@@ -41,24 +48,52 @@ class Registration extends Component {
     );
   };
 
+  handleCloseErrorMsg = () => {
+    return this.setState({ errorMsg: '' });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    const { lineState } = this.state;
-    if (lineState !== 1) alert('Паролі не рівні!!!');
+    const { email, password, name, lineState } = this.state;
+    const { handSuccesRedirectyToLogin } = this.props;
+    if (!email || !password || !name) {
+      return this.setState({ errorMsg: 'Please fill all fields' });
+    }
+
+    if (lineState !== 1) {
+      return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
+    }
+
+    this.setState({ errorMsg: '', successMsg: 'Successfully created new user and his Finance Data. You can Login' });
+
+    const data = JSON.stringify({ name, email, password });
+
+    return register(data)
+      .then(response => {
+        if (response.status === 200) {
+          const { message } = response.data;
+          this.setState({ successMsg: message });
+
+          setTimeout(() => {
+            return handSuccesRedirectyToLogin();
+          }, 2000);
+        }
+      })
+      .catch(error => this.setState({ errorMsg: error.message }));
   };
 
   render() {
-    const { login, password, reEnterPassword, name, lineState } = this.state;
+    const { email, password, reEnterPassword, name, lineState, errorMsg, successMsg } = this.state;
 
     return (
       <form className={styles.main} onSubmit={this.handleSubmit}>
         <div className={styles.title}>Registration</div>
-        <label htmlFor="login" className={styles.label}>
+        <label htmlFor="email" className={styles.label}>
           <input
             className={styles.input}
             type="text"
-            name="login"
-            value={login}
+            name="email"
+            value={email}
             onChange={this.handleChange}
             placeholder="E-mail as Login"
           />
@@ -99,13 +134,35 @@ class Registration extends Component {
           />
           <img className={styles.icon} src={accountIco} alt="account icon" />
         </label>
-        <Button style={styles.submitButton} type="button" value="Register" />
+        <Button style={styles.submitButton} type="submit" value="Register" />
         <Link className={styles.link} to="/login">
           Login
         </Link>
+        {errorMsg && (
+          <div className={styles.errorMsg}>
+            {errorMsg}
+            <img
+              role="presentation"
+              onClick={this.handleCloseErrorMsg}
+              onKeyDown={() => null}
+              className={styles.closeIcon}
+              src={closeIcon}
+              alt="closeIcon"
+            />
+          </div>
+        )}
+        {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
       </form>
     );
   }
 }
+
+Registration.defaultProps = {
+  handSuccesRedirectyToLogin: () => null
+};
+
+Registration.propTypes = {
+  handSuccesRedirectyToLogin: PropTypes.func
+};
 
 export default Registration;
