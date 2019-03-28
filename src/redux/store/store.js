@@ -11,7 +11,6 @@ const rootPersistConfig = {
   key: 'root',
   storage
 };
-// const DevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(applyMiddleware(thunk));
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 const enhancer = composeWithDevTools(applyMiddleware(thunk));
 const store = createStore(persistedReducer, enhancer);

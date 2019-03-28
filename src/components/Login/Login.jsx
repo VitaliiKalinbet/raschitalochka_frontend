@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
@@ -20,6 +21,19 @@ class Login extends Component {
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
+  componentDidUpdate() {
+    const { isAuthenticated, location, history } = this.props;
+
+    const { from } = location.state || { from: { pathname: '/dashboard/home' } };
+
+    if (isAuthenticated) {
+      history.push({
+        pathname: from.pathname,
+        state: { from: location }
+      });
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
@@ -28,7 +42,6 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    /* eslint-disable react/prop-types */
     const { login } = this.props;
     login({ email, password });
     this.setState({
@@ -100,5 +113,15 @@ class Login extends Component {
     );
   }
 }
+Login.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+  login: PropTypes.func.isRequired
+};
 
 export default withAuth(Login);

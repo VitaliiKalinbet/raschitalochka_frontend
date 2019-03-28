@@ -4,12 +4,10 @@ import * as actionTypes from './sessionActionsTypes';
 
 const user = (state = null, { type, payload }) => {
   switch (type) {
-    case actionTypes.AUTH_SUCCESS:
-    case actionTypes.GET_CURRENT_USER_SUCCESS:
+    case actionTypes.LOGIN_SUCCESS:
       return payload.user;
 
-    case actionTypes.AUTH_ERROR:
-    case actionTypes.LOGOUT_SUCCESS:
+    case actionTypes.LOGIN_ERROR:
       return null;
 
     default:
@@ -18,11 +16,10 @@ const user = (state = null, { type, payload }) => {
 };
 const token = (state = null, { type, payload }) => {
   switch (type) {
-    case actionTypes.AUTH_SUCCESS:
+    case actionTypes.LOGIN_SUCCESS:
       return payload.token;
 
-    case actionTypes.AUTH_ERROR:
-    case actionTypes.LOGOUT_SUCCESS:
+    case actionTypes.LOGIN_ERROR:
       return null;
 
     default:
@@ -32,12 +29,10 @@ const token = (state = null, { type, payload }) => {
 
 const isAuthenticated = (state = false, { type }) => {
   switch (type) {
-    case actionTypes.AUTH_SUCCESS:
-    case actionTypes.GET_CURRENT_USER_SUCCESS:
+    case actionTypes.LOGIN_SUCCESS:
       return true;
 
-    case actionTypes.AUTH_ERROR:
-    case actionTypes.LOGOUT_SUCCESS:
+    case actionTypes.LOGIN_ERROR:
       return false;
     default:
       return state;

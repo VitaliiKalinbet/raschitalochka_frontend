@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-import { register, login } from '../redux/reducers/session/sessionOperations';
+import login from '../redux/reducers/session/sessionOperations';
 import { getIsAuthenticated } from '../redux/reducers/session/sessionSelectors';
 
 const withAuth = WrappedComponent => {
   class WithAuth extends Component {
     componentDidUpdate() {
-      /* eslint-disable react/prop-types */
       const { isAuthenticated, location, history } = this.props;
 
       const { from } = location.state || { from: { pathname: '/dashboard/home' } };
@@ -26,12 +25,21 @@ const withAuth = WrappedComponent => {
     }
   }
 
+  WithAuth.propTypes = {
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired
+    }).isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
+  };
+
   const mstp = state => ({
     isAuthenticated: getIsAuthenticated(state)
   });
 
   const mdtp = {
-    register,
     login
   };
   return connect(
