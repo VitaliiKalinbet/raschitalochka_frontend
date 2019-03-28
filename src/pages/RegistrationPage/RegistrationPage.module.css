@@ -1,6 +1,55 @@
 .main{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+
+.left{
+    width: 91.875rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/images/BackgroundRegister.png') no-repeat
+}
+.leftContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+.leftText{
+    width: 320px;
+    color: #ffffff;
+    font-size: 35px;
+
+}
+
+.leftTitle{
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.logo{
+    margin-right: 20px;
+}
+
+.right{
+    right: 28.125rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 205px;
+ 
+}
+
