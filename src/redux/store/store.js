@@ -5,7 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-import rootReducer from '../reducers/allReducers';
+import rootReducer from '../reducers/rootReducers';
 
 const rootPersistConfig = {
   key: 'root',
