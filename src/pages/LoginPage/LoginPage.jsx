@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Login from '../../components/Login/Login';
 
-class LoginPage extends Component {
-  state = {};
-
-  render() {
-    return (
-      <div>
-        <h2>LoginPage</h2>
-      </div>
-    );
-  }
-}
+const LoginPage = props => <Login {...props} />;
 
 export default LoginPage;

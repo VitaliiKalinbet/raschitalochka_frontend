@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
-import styles from './Registration.module.css';
+
+import register from '../../services/api';
 import emailIco from './email.svg';
 import passwordIco from './lock.svg';
 import accountIco from './user-account-box.svg';
 import closeIcon from './close.svg';
 
+import styles from './Registration.module.css';
+
 const INITIAL_STATE = {
-  login: '',
+  email: '',
   password: '',
   reEnterPassword: '',
   name: '',
@@ -51,10 +54,9 @@ class Registration extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { lineState, password, name, login } = this.state;
+    const { email, password, name, lineState } = this.state;
     const { handSuccesRedirectyToLogin } = this.props;
-
-    if (!login || !password || !name) {
+    if (!email || !password || !name) {
       return this.setState({ errorMsg: 'Please fill all fields' });
     }
 
@@ -64,23 +66,34 @@ class Registration extends Component {
 
     this.setState({ errorMsg: '', successMsg: 'Successfully created new user and his Finance Data. You can Login' });
 
-    return setTimeout(() => {
-      return handSuccesRedirectyToLogin();
-    }, 2000);
+    const data = JSON.stringify({ name, email, password });
+
+    return register(data)
+      .then(response => {
+        if (response.status === 200) {
+          const { message } = response.data;
+          this.setState({ successMsg: message });
+
+          setTimeout(() => {
+            return handSuccesRedirectyToLogin();
+          }, 2000);
+        }
+      })
+      .catch(error => this.setState({ errorMsg: error.message }));
   };
 
   render() {
-    const { login, password, reEnterPassword, name, lineState, errorMsg, successMsg } = this.state;
+    const { email, password, reEnterPassword, name, lineState, errorMsg, successMsg } = this.state;
 
     return (
       <form className={styles.main} onSubmit={this.handleSubmit}>
         <div className={styles.title}>Registration</div>
-        <label htmlFor="login" className={styles.label}>
+        <label htmlFor="email" className={styles.label}>
           <input
             className={styles.input}
             type="text"
-            name="login"
-            value={login}
+            name="email"
+            value={email}
             onChange={this.handleChange}
             placeholder="E-mail as Login"
           />

@@ -1,9 +1,18 @@
 /* eslint-disable no-underscore-dangle */
-import { createStore } from 'redux';
-import rootReducer from '../reducers/allReducers';
+import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
 
-const DevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+import rootReducer from '../reducers/rootReducers';
 
-const store = createStore(rootReducer, DevTools);
-
+const rootPersistConfig = {
+  key: 'root',
+  storage
+};
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+const enhancer = composeWithDevTools(applyMiddleware(thunk));
+const store = createStore(persistedReducer, enhancer);
+export const persistor = persistStore(store);
 export default store;

@@ -1,0 +1,53 @@
+.container {
+  max-width: 112px;
+}
+.text {
+font-family: "Helvetica Neue Cyr - Roman";
+font-size: 15px;
+font-weight: 400;
+line-height: 59.27px;
+color: #669668;
+letter-spacing: 0.45px;
+}
+
+.button {
+  border: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  margin-left: 19px;
+  width: auto;
+  overflow: visible;
+  background: transparent;   
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+}
+.button-text {
+  font-family: "Helvetica Neue Cyr - Roman";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 59.27px;
+  color: #669668;
+  letter-spacing: 0.45px;
+  display: none;
+}
+.button::before {
+  content: "";
+  position: absolute;
+  background: url(../../assets/images/exit.png);
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+}
+
+@media(min-width: 768px) {
+  .container {
+    max-width: 190px;
+  }
+  .button-text {
+    display: inline-block;
+  }
+}
