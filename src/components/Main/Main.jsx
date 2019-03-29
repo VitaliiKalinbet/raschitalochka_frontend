@@ -7,6 +7,7 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
+import { getChartData, getCategoriesArr, getTotalByType } from './functions';
 import * as API from '../../services/api';
 
 const options = {
@@ -14,20 +15,6 @@ const options = {
     display: false
   }
 };
-const colors = [
-  'rgb(236, 178, 42)',
-  'rgb(226, 139, 32)',
-  'rgb(210, 89, 37)',
-  'rgb(103, 183, 208)',
-  'rgb(85, 147, 215)',
-  'rgb(255, 171, 0)',
-  'rgb(156, 194, 84)',
-  'rgb(115, 173, 87)',
-  'rgb(185, 199, 177)',
-  'rgb(217, 165, 170)',
-  'rgb(100, 84, 40)',
-  'rgb(26, 71, 60)'
-];
 
 class Main extends Component {
   state = {
@@ -46,7 +33,7 @@ class Main extends Component {
     const { user, token } = this.props;
     if (user !== null && prevProps !== this.props) {
       API.getFinanceById(user.id, token)
-        .then(res => this.getCategoriesArr(res.data.finance.data))
+        .then(({ data }) => getCategoriesArr(data.finance.data))
         .then(data => this.setStateData(data))
         .catch(error => this.setState({ error }));
     }
@@ -59,36 +46,10 @@ class Main extends Component {
   setStateData = data => {
     return this.setState({
       data,
-      totalCosts: this.getTotalByType(data, '+'),
-      totalIncome: this.getTotalByType(data, '-')
+      totalCosts: getTotalByType(data, '+'),
+      totalIncome: getTotalByType(data, '-')
     });
   };
-
-  getCategoriesArr = arr => arr.filter(data => data.comments !== '');
-
-  getTotalByType = (arr, type) => {
-    return arr.reduce((sum, item) => {
-      return item.type !== type ? sum : sum + item.amount;
-    }, 0);
-  };
-
-  getTotalIncomeArr = arr => arr.filter(item => item.type === '-');
-
-  getChartData(arr) {
-    const labelsArr = arr.map(item => item.category);
-    const income = this.getTotalIncomeArr(arr, '-');
-    const amountArr = income.map(item => item.amount);
-    return {
-      labels: labelsArr,
-      datasets: [
-        {
-          data: amountArr,
-          backgroundColor: colors,
-          hoverBackgroundColor: colors
-        }
-      ]
-    };
-  }
 
   updateDimensions() {
     this.setState({ width: window.innerWidth });
@@ -107,7 +68,7 @@ class Main extends Component {
               <Diagram
                 data={data}
                 options={options}
-                chartData={this.getChartData(data)}
+                chartData={getChartData(data)}
                 totalCosts={totalCosts}
                 totalIncome={totalIncome}
                 width={width}

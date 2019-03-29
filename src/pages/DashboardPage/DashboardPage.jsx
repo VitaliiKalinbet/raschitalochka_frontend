@@ -11,7 +11,7 @@ class DashboardPage extends Component {
       <div>
         <Header />
         <Sidebar />
-        <Main />
+        <Main {...this.props} />
       </div>
     );
   }
