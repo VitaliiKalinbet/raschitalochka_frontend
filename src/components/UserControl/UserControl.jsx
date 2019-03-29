@@ -6,7 +6,7 @@ const UserControl = ({ user: { name }, onSignOut = () => null }) => (
   <div className={s.container}>
     <h5 className={s.text}>{name}</h5>
     <button className={s.button} type="button" onClick={onSignOut}>
-      <span>Logout</span>
+      <span className={s.button - text}>Logout</span>
     </button>
   </div>
 );
