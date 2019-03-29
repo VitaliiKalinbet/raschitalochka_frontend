@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 
-class DashboardPage extends Component {
+import s from './DiagramPage.module.css';
+
+class DiagramPage extends Component {
   state = {};
 
   render() {
     return (
-      <div>
+      <div className={s.wrap}>
         <Header />
-        <Main />
+        <Main {...this.props} />
       </div>
     );
   }
 }
 
-export default DashboardPage;
+export default DiagramPage;

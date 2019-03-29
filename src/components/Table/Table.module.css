@@ -1,0 +1,58 @@
+.tableWrap{
+	width: 100%;
+}
+
+.table{
+	border-bottom: 2px solid rgb(185, 201, 212);
+}
+
+.rowHeader,.row,.totalRow{
+		display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1.3rem;
+}
+
+.rowHeader{
+  background-color: rgb(243, 246, 246);
+	height: 3.125rem;
+  font-size: 0.93rem;
+  color: rgb(40, 40, 40);
+  font-weight: bold;
+  line-height: 2;
+}
+
+.row{
+  font-size: 0.81rem;
+  color: rgb(40, 40, 40);
+	line-height: 1.385;
+	height: 2.56rem;
+	border-bottom: 2px solid rgb(243, 246, 246);
+}
+
+.total{
+	padding-top: 1rem;
+	padding-bottom: 2.5rem;
+}
+
+.totalRow{
+  font-size: 0.93rem;
+  color: rgb(40, 40, 40);
+  line-height: 2;
+}
+
+.totalIncome,
+.totalCostsAmaunt,
+.totalIncomeAmaunt{
+	font-weight: bold;
+}
+
+.totalCostsAmaunt{
+	color: rgb(255, 108, 0);
+}
+
+.totalIncomeAmaunt{
+	color: rgb(111, 167, 111);
+}
+
+

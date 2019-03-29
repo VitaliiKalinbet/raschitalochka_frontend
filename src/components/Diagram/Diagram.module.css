@@ -1,0 +1,31 @@
+.wrap{
+  display: flex;
+	flex-direction: column;
+  align-items: center;
+  
+}
+
+.selectors{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 1.3rem
+}
+
+.select,
+.option{
+  font-size: 13px;
+  color: rgb(44, 53, 62);
+  font-weight: bold;
+  line-height: 2.308;
+  border-width: 2px;
+  border-color: rgb(185, 201, 212);
+  border-style: solid;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  width: 126px;
+  height: 31px;
+  padding: 0 0.75rem;
+}
+

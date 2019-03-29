@@ -1,41 +1,49 @@
 import React from 'react';
-// import ReactTable from 'react-table';
+import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import Table from '../Table/Table';
 import Chart from '../Chart/Chart';
 
+import btnStyle from '../Login/Login.module.css';
+
 import s from './Diagram.module.css';
 
-const Diagram = ({ financeData }) => {
-  console.log(financeData);
+const Diagram = ({ data, chartData, totalCosts, totalIncome, width }) => {
   return (
     <div className={s.wrap}>
-      <Chart />
-      <p className={s.title}>Cost Diagram</p>
+      {width >= 768 && <p className={s.title}>Cost Diagram</p>}
+      <Chart data={chartData} width={width} />
       <div className={s.diagramWrap} />
-      <Button value="Udate" />
+      <Button style={btnStyle.submitBtn} type="submit" value="Udate" />
+
       <div className={s.selectors}>
-        <select className={s.manthSelect} name="manth">
-          <option value="January">January</option>
-          <option value="February">February</option>
+        <select className={s.select} name="manth">
+          <option className={s.option} value="January">
+            January
+          </option>
+          <option className={s.option} value="February">
+            February
+          </option>
         </select>
-        <select className={s.yearSelect} name="year">
-          <option value="2019">2019</option>
+        <select className={s.select} name="year">
+          <option className={s.option} value="2019">
+            2019
+          </option>
         </select>
       </div>
 
-      <Table />
+      <Table data={data} totalCosts={totalCosts} totalIncome={totalIncome} />
     </div>
   );
 };
 
-Diagram.defaultProps = {
-  financeData: []
-};
-
 Diagram.propTypes = {
-  financeData: PropTypes.arrayOf(PropTypes.array)
+  data: PropTypes.arrayOf(PropTypes.array).isRequired,
+  totalCosts: PropTypes.number.isRequired,
+  totalIncome: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  chartData: PropTypes.arrayOf(PropTypes.array).isRequired
 };
 
 export default Diagram;

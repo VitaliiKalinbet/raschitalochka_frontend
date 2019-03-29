@@ -11,7 +11,6 @@ export const register = async credentials => {
 export const getFinanceById = async (userId, token) => {
   setBaseURL();
   setAuthHeader(token);
-  const response = await axios.post(`/api/finance/${userId}`);
+  const response = await axios.get(`/api/finance/${userId}`);
   return response;
-  // return response.data;
 };
