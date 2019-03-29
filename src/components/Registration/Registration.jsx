@@ -79,7 +79,7 @@ class Registration extends Component {
           }, 2000);
         }
       })
-      .catch(error => this.setState({ errorMsg: error.message }));
+      .catch(() => this.setState({ errorMsg: 'Failed to login' }));
   };
 
   render() {
