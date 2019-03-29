@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Registration from '../../components/Registration/Registration';
 import styles from './RegistrationPage.module.css';
-import phoneImg from './iPhone 6.png';
 import logo from './logo.png';
 
 class RegistrationPage extends Component {
   state = {};
 
   handSuccesRedirectyToLogin = () => {
-    console.log('handSuccesRedirectyToLogin');
     const { history } = this.props;
     return history.push('/login');
   };
@@ -24,9 +22,6 @@ class RegistrationPage extends Component {
               Raschitalochka
             </p>
             <p className={styles.leftText}>Create your own categories of costs</p>
-          </div>
-          <div>
-            <img src={phoneImg} alt="phoneImg" />
           </div>
         </div>
         <div className={styles.right}>
