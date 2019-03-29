@@ -1,24 +1,33 @@
 import React from 'react';
-// import ReactTable from 'react-table';
 import PropTypes from 'prop-types';
 
 import s from './Table.module.css';
 
-const Table = ({ data, totalCosts, totalIncome }) => {
+import { colors } from '../Main/config';
+
+const Table = ({ data, totalCosts, totalIncome, width }) => {
   return (
     <div className={s.tableWrap}>
       <ul className={s.table}>
-        <li className={s.rowHeader}>
-          <p className={s.tableHeader}>Categories</p>
-          <p className={s.tableHeader}>Amount</p>
-        </li>
-        {data.map(item => (
-          // eslint-disable-next-line no-underscore-dangle
-          <li className={s.row} key={item._id}>
-            <p className={s.cell}>{item.category}</p>
-            <p className={s.cell}>{item.amount}</p>
+        {width < 768 && (
+          <li className={s.rowHeader}>
+            <p className={s.tableHeader}>Categories</p>
+            <p className={s.tableHeader}>Amount</p>
           </li>
-        ))}
+        )}
+        {data.map((item, index) => {
+          const color = { backgroundColor: colors[index] };
+          return (
+            // eslint-disable-next-line no-underscore-dangle
+            <li className={s.row} key={item._id}>
+              <div className={s.categoryWrap}>
+                <div className={s.square} style={color} />
+                <p className={s.cellCategory}>{item.category}</p>
+              </div>
+              <p className={s.cell}>{item.amount}</p>
+            </li>
+          );
+        })}
       </ul>
       <ul className={s.total}>
         <li className={s.totalRow}>
@@ -43,7 +52,8 @@ Table.defaultProps = {
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   totalCosts: PropTypes.number,
-  totalIncome: PropTypes.number
+  totalIncome: PropTypes.number,
+  width: PropTypes.number.isRequired
 };
 
 export default Table;

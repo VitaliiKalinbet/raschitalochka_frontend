@@ -1,9 +1,16 @@
 .tableWrap{
-	width: 100%;
+	min-width: 320px;
+	max-width: 700px;
+	margin: 0 auto;
 }
 
 .table{
 	border-bottom: 2px solid rgb(185, 201, 212);
+}
+
+.table, .total{
+	width: 320px;
+	margin: 0 auto;
 }
 
 .rowHeader,.row,.totalRow{
@@ -30,6 +37,21 @@
 	border-bottom: 2px solid rgb(243, 246, 246);
 }
 
+.categoryWrap{
+	display: flex;
+}
+
+.square{
+	margin-right: 13px;
+	margin: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.cellCategory{
+	margin-left: 13px;
+}
+
 .total{
 	padding-top: 1rem;
 	padding-bottom: 2.5rem;
@@ -41,6 +63,7 @@
   line-height: 2;
 }
 
+.totalCosts,
 .totalIncome,
 .totalCostsAmaunt,
 .totalIncomeAmaunt{
@@ -55,4 +78,37 @@
 	color: rgb(111, 167, 111);
 }
 
+@media (min-width: 768px){
+	.table{
+		height: 300px;
+		display: flex;
+    flex-direction: column;
+		flex-wrap: wrap;
+		background-color: #fff;
+	}
+	.table, .total{
+		width: auto;
+	}
+	.totalRow{
+		display: flex;
+    justify-content: flex-end;
+	}
+	.totalCosts,
+	.totalIncome,
+	.totalCostsAmaunt,
+	.totalIncomeAmaunt{
+		width: 110px;
+		font-weight: bold;
+	}
+	.totalCostsAmaunt,
+	.totalIncomeAmaunt{
+		text-align: right;
+	}
+}
+
+@media (min-width: 1280px){
+	.table{
+		height: auto;
+	}
+}
 
