@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
+import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
 class DashboardPage extends Component {
@@ -10,6 +11,7 @@ class DashboardPage extends Component {
       <div>
         <Header />
         <Sidebar />
+        <Main {...this.props} />
       </div>
     );
   }

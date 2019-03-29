@@ -1,0 +1,121 @@
+.container{
+  display: flex;
+	flex-direction: column;
+  align-items: center;
+}
+ .wrap{
+   width: 100%;
+ } 
+
+
+.chartWrap{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.selectors{
+  max-width: 360px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 1rem auto;
+  padding: 0 1.3rem
+}
+
+.select,
+.option{
+  font-size: 13px;
+  color: rgb(44, 53, 62);
+  font-weight: bold;
+  line-height: 2.308;
+  border-width: 2px;
+  border-color: rgb(185, 201, 212);
+  border-style: solid;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  width: 126px;
+  height: 31px;
+  padding: 0 0.75rem;
+}
+
+.submitBtn {
+  border-radius: 6px;
+  background-image: linear-gradient(
+    0deg,
+    rgb(117, 193, 110) 0%,
+    rgba(81, 109, 87, 0.70196) 100%
+  );
+  box-shadow: 0px 3px 3px 0px rgba(92, 135, 94, 0.2);
+  min-width: 275px;
+  min-height: 48px;
+  border: none;
+  font-size: 0.94rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  line-height: 2;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .chartWrap{
+    width: 80%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 17.321px 40px 0px rgba(1, 1, 0, 0.15);
+  }
+  .submitBtn{
+    margin-bottom: 40px;
+    background-image: linear-gradient( 90deg, rgb(236,178,42) 0%, rgba(255,108,0,1) 100%);
+    box-shadow: 0px 3px 3px 0px rgba(255, 108, 0, 0.2);
+  }
+  .title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(81, 109, 87);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    height: 5.625rem;
+    width: 100%;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .selectors{
+    width: 47%;
+    margin: 0 auto 1rem auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrap{
+    display: flex;
+    min-height: 700px;
+    
+  }
+
+  .chartWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    box-shadow: none;
+    margin: 0;
+  }
+  .tableContaiter{
+    width: 50%;
+        display: flex;
+    flex-direction: column;
+     justify-content: center;
+    align-items: center;
+  }
+  .submitBtn{
+    margin: 0;
+  }
+
+}
