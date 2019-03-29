@@ -24,17 +24,21 @@
     width: 435px;
     height: 55px;
     padding: 0px 15px;
-    color: #b9c9d4;
     font-size: 15px;
     line-height: 30px;
     letter-spacing: 0.025em;
     background-color: #f9fbfb;
     border: 1px solid transparent;
     border-radius: 5px;
+    color: #282828;
 }
 
 .input:focus {
     outline: none;
+}
+
+.input::placeholder {
+  color: #b9c9d4;
 }
 
 .link{
@@ -134,6 +138,115 @@
     top: -24px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 20em) {
+    .main{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: ffffff;
+      width: 20em;
+      height: 700px;
+      border-radius: 2px;
+    }
+
+    .input{
+      text-indent: 56px;
+      width:  17.5em;
+      height: 55px;
+      padding: 0px 15px;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.025em;
+      background-color: #f9fbfb;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+
+    .submitButton{
+      width: 275px;
+      margin-top: 25px;
+    }
+
+    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
+      width: 275px;
+      margin-top: 25px;
+    }
+
+    .successMsg, .errorMsg{
+      width: 275px;
+      margin-top: 0px;
+    }
+
+    .closeIcon{
+      right: 0px;
+      top: -32px;
+    }
+
+    .title{
+      display: none;
+    }
+
+    .link {
+      margin-top: 8px;
+    }
+  }
+
+  @media screen and (max-width: 47.5em) and  (min-device-width: 21em) {
+    .main{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: ffffff;
+      width: 550px;
+      height: 600px;
+      border-radius: 2px;
+      padding-top: 27px;
+      background-color: #fff;
+    }
+
+    .input{
+      text-indent: 56px;
+      width:  26.5625rem;
+      height: 55px;
+      padding: 0px 15px;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.025em;
+      background-color: #f9fbfb;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+
+    .submitButton{
+      width: 26.5625rem;
+      margin-top: 25px;
+    }
+
+    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
+      width: 26.5625rem;
+      margin-top: 25px;
+    }
+
+    .successMsg, .errorMsg{
+      width: 26.5625rem;
+      margin-top: 0px;
+    }
+
+    .closeIcon{
+      right: 0px;
+      top: -32px;
+    }
+
+    .link {
+      margin-top: 8px;
+    }
+  }
+  
+
+
 
 
   
