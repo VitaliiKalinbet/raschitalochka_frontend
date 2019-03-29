@@ -5,7 +5,7 @@
     align-items: center;
     background-color: ffffff;
     width: 550px;
-    height: 540px; 
+    height: 700px;
     border-radius: 2px;
     box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
 }
@@ -24,18 +24,21 @@
     width: 435px;
     height: 55px;
     padding: 0px 15px;
-    color: #b9c9d4;
     font-size: 15px;
     line-height: 30px;
     letter-spacing: 0.025em;
     background-color: #f9fbfb;
     border: 1px solid transparent;
     border-radius: 5px;
-    background: url(/public/baseline-lock-24px.svg) no-repeat 7px 7px;
+    color: #282828;
 }
 
 .input:focus {
     outline: none;
+}
+
+.input::placeholder {
+  color: #b9c9d4;
 }
 
 .link{
@@ -44,6 +47,7 @@
     line-height: 30px;
     margin-top: 20px;
     color: #6b7d83;
+    margin-bottom: 48px;
 }
 
 .submitButton{
@@ -76,8 +80,7 @@
   .lineStatus {
     width: 432px;
     height: 4px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 22px;
     background-color: #dfe9df;
     box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
     border-radius: 20%;
@@ -102,6 +105,148 @@
     border-radius: 20%;
   }
   
+
+  .errorMsg {
+    width: 432px; 
+    height: 55px;
+    padding: 10px 15px;
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.025em;
+    border-radius: 5px;
+    background-color: red;
+    margin-bottom: 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  .successMsg{
+    width: 432px; 
+    height: 55px;
+    padding: 10px 15px;
+    font-size: 15px;
+    letter-spacing: 0.025em;
+    border-radius: 5px;
+    background-color: green;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .closeIcon{
+    position: absolute;
+    right: -24px;
+    top: -24px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 20em) {
+    .main{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: ffffff;
+      width: 20em;
+      height: 700px;
+      border-radius: 2px;
+    }
+
+    .input{
+      text-indent: 56px;
+      width:  17.5em;
+      height: 55px;
+      padding: 0px 15px;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.025em;
+      background-color: #f9fbfb;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+
+    .submitButton{
+      width: 275px;
+      margin-top: 25px;
+    }
+
+    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
+      width: 275px;
+      margin-top: 25px;
+    }
+
+    .successMsg, .errorMsg{
+      width: 275px;
+      margin-top: 0px;
+    }
+
+    .closeIcon{
+      right: 0px;
+      top: -32px;
+    }
+
+    .title{
+      display: none;
+    }
+
+    .link {
+      margin-top: 8px;
+    }
+  }
+
+  @media screen and (max-width: 47.5em) and  (min-device-width: 21em) {
+    .main{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: ffffff;
+      width: 550px;
+      height: 600px;
+      border-radius: 2px;
+      padding-top: 27px;
+      background-color: #fff;
+    }
+
+    .input{
+      text-indent: 56px;
+      width:  26.5625rem;
+      height: 55px;
+      padding: 0px 15px;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.025em;
+      background-color: #f9fbfb;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+
+    .submitButton{
+      width: 26.5625rem;
+      margin-top: 25px;
+    }
+
+    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
+      width: 26.5625rem;
+      margin-top: 25px;
+    }
+
+    .successMsg, .errorMsg{
+      width: 26.5625rem;
+      margin-top: 0px;
+    }
+
+    .closeIcon{
+      right: 0px;
+      top: -32px;
+    }
+
+    .link {
+      margin-top: 8px;
+    }
+  }
+  
+
+
 
 
   

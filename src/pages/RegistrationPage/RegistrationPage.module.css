@@ -1,6 +1,155 @@
 .main{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+  
+
+.left{
+    width: 60rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: url('../../assets/images/registration/iPhone6.png') no-repeat right 75px top 90px , url('../../assets/images/registration/BackgroundRegister.png');
+    padding-left: 78px; 
+}
+.leftContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+.leftText{
+    width: 320px;
+    color: #ffffff;
+    font-size: 35px;
+
+}
+
+.leftTitle{
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.logo{
+    margin-right: 20px;
+}
+
+.right{
+    width: 60rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -230px
+    right -372px,
+    url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -230px left -726px,
+    url('../../assets/images/background.jpg');
+    background-size: auto 541px, auto 541px, auto;
+}
+
+@media screen and (max-width: 20em) {
+    .main{
+     margin: 0;
+     padding: 0;
+     width: 100vw;
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-start;
+     align-items: center;
+     margin-left: -75px;
+     position: relative;
+    }
+    .left{
+        width: 0rem;
+        height: 0vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background: none;
+    }
+
+    .right{
+        margin-top: 120px;
+        width: 20em;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: none;
+    }
+
+    .leftTitle{
+        position: absolute;
+        top: 45px;
+        left: 5%;
+        color: #2c353e;
+        text-align: center;
+        width: 20em;
+        font-weight: bold;
+        background: url('../../assets/images/logo.svg') no-repeat top 0 left 30%;
+        background-size: 50px;
+    }
+    
+  }
+
+  
+@media screen and (max-width: 47.5em) and  (min-device-width: 21em) {
+    .main{
+     margin: 0;
+     padding: 0;
+     width: 47.5em;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+
+    }
+    .left{
+        width: 0rem;
+        height: 0vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background: none;
+    }
+
+    .right{
+        margin-left: -80px;
+        width: 47.5em;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: url('../../assets/images/registration/mock-up.png') no-repeat;
+    }
+
+    .leftTitle{
+        position: absolute;
+        top: 5%;
+        left: 25%;
+        color: #ffffff;
+        text-align: center;
+        width: 20em;
+        font-weight: bold;
+        background-size: 50px;
+        margin-bottom: 12px;
+    }
+    
+  }
+
+
+

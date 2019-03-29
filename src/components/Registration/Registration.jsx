@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 
 import register from '../../services/api';
 import emailIco from './email.svg';
 import passwordIco from './lock.svg';
 import accountIco from './user-account-box.svg';
+import closeIcon from './close.svg';
 
 import styles from './Registration.module.css';
 
@@ -47,20 +48,38 @@ class Registration extends Component {
     );
   };
 
+  handleCloseErrorMsg = () => {
+    return this.setState({ errorMsg: '' });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const { email, password, name, lineState } = this.state;
-    if (lineState !== 1) alert('Паролі не рівні!!!');
+    const { handSuccesRedirectyToLogin } = this.props;
+    if (!email || !password || !name) {
+      return this.setState({ errorMsg: 'Please fill all fields' });
+    }
+
+    if (lineState !== 1) {
+      return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
+    }
+
+    this.setState({ errorMsg: '', successMsg: 'Successfully created new user and his Finance Data. You can Login' });
 
     const data = JSON.stringify({ name, email, password });
-    register(data)
+
+    return register(data)
       .then(response => {
         if (response.status === 200) {
           const { message } = response.data;
           this.setState({ successMsg: message });
+
+          setTimeout(() => {
+            return handSuccesRedirectyToLogin();
+          }, 2000);
         }
       })
-      .catch(error => this.setState({ errorMsg: error.message }));
+      .catch(() => this.setState({ errorMsg: 'Failed to login' }));
   };
 
   render() {
@@ -122,14 +141,14 @@ class Registration extends Component {
         {errorMsg && (
           <div className={styles.errorMsg}>
             {errorMsg}
-            {/* <img
+            <img
               role="presentation"
               onClick={this.handleCloseErrorMsg}
               onKeyDown={() => null}
               className={styles.closeIcon}
               src={closeIcon}
               alt="closeIcon"
-            /> */}
+            />
           </div>
         )}
         {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
@@ -137,5 +156,13 @@ class Registration extends Component {
     );
   }
 }
+
+Registration.defaultProps = {
+  handSuccesRedirectyToLogin: () => null
+};
+
+Registration.propTypes = {
+  handSuccesRedirectyToLogin: PropTypes.func
+};
 
 export default Registration;
