@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 class DashboardPage extends Component {
   state = {};
@@ -8,6 +9,7 @@ class DashboardPage extends Component {
     return (
       <div>
         <Header />
+        <Sidebar />
       </div>
     );
   }

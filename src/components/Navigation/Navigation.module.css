@@ -1,0 +1,138 @@
+.container {
+  max-width: 100%;
+  margin: auto;
+  box-shadow: 2px 3px 3px rgba(92, 135, 94, 0.2);
+  background-color: #516d57;
+  margin-bottom: 20px;
+}
+.nav {
+  max-width: 320px;
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.listItem {
+  margin-right: 13px;
+  line-height: 1;
+}
+
+.listItem {
+  display: inline-block;
+  text-decoration: none;
+  width: 30px;
+  height: 25px;
+  border-radius: 4px;
+  background-color: #3f5544;
+}
+
+.linkText {
+  display: none;
+  color: #6b7d83;
+  font-family: "Helvetica Neue Cyr - Roman";
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.45px;
+}
+.linkText .balanceAmount {
+  color: #6b7d83;
+  font-family: "Helvetica Neue Cyr - Roman";
+  font-size: 15px;
+  font-weight: 400;
+  color: #669668;
+  letter-spacing: 0.45px;
+}
+
+/* .link:nth-child(1) {
+  background-image: url('../../assets/images/home.png');
+  background-repeat: no-repeat; 
+  background-position: center;
+}
+.link:nth-child(2) {
+  background-image: url('../../assets/images/diagrams.png');
+  background-repeat: no-repeat; 
+  background-position: center;
+}
+.link:nth-child(3) {
+  background-image: url('../../assets/images/balance.png');
+  background-repeat: no-repeat; 
+  background-position: center;
+} */
+
+.activeLink {
+  composes: listItem;
+  background-color: #669668;
+}
+
+
+
+@media(min-width: 768px) {
+  .container {
+    background-color: #ffffff;
+    box-shadow: none;
+  }
+  .nav {
+    max-width: 492px;
+    display: flex;
+    padding: 35px 0 30px;
+  }
+  .linkText {
+    display: inline-block;
+  }
+  
+  .nav .listItem {
+    flex: 1 1 auto;
+    height: 15px;
+    padding-left: 30px;
+    border-right: 1px solid #6b7d83; 
+    border-radius: 0;
+    background-color: #ffffff;
+    position: relative;
+  }
+  .nav .listItem:last-child {
+    text-align: left;
+    border-right: 0; 
+    border-radius: 0;
+    flex: 2 1 auto;
+    padding-left: 0px;
+    background-color: #ffffff;
+    margin-right: 0;
+  }
+
+  .nav > .listItem:first-child::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 13px;
+    background-image: url('../../assets/images/home@768.png');
+    background-repeat: no-repeat; 
+    background-position: center;
+  }
+
+  .nav > .listItem:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    width: 18px;
+    height: 10px;
+    background-image: url('../../assets/images/Diagrams@768.png');
+    background-repeat: no-repeat; 
+    background-position: center;
+  }
+  
+  .activeLink {
+    display: inline-block;
+    text-decoration: none;
+    width: 0px;
+    height: 0px;
+    color: #669668;
+    background-color: #ffffff;
+  }
+ 
+}
