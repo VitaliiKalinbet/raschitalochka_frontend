@@ -10,8 +10,8 @@ class DashboardPage extends Component {
     return (
       <div>
         <Header />
-        <Main />
         <Sidebar />
+        <Main />
       </div>
     );
   }

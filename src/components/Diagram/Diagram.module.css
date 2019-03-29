@@ -5,6 +5,11 @@
   
 }
 
+.title{
+  background-color: rgb(81, 109, 87);
+  height: 90px;
+}
+
 .selectors{
   display: flex;
   justify-content: space-between;

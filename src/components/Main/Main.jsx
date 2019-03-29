@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import withUserData from '../../hoc/withUserData';
-import { getUser, getToken, getIsAuthenticated } from '../../redux/reducers/session/sessionSelectors';
+import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 
 import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
 import * as API from '../../services/api';
 
+const options = {
+  legend: {
+    display: false
+  }
+};
 const colors = [
   'rgb(236, 178, 42)',
   'rgb(226, 139, 32)',
@@ -19,10 +23,10 @@ const colors = [
   'rgb(255, 171, 0)',
   'rgb(156, 194, 84)',
   'rgb(115, 173, 87)',
-  'rgb(80, 124, 58)',
-  'rgb(60, 124, 58)',
-  'rgb(40, 100, 58)',
-  'rgb(20, 124, 100)'
+  'rgb(185, 199, 177)',
+  'rgb(217, 165, 170)',
+  'rgb(100, 84, 40)',
+  'rgb(26, 71, 60)'
 ];
 
 class Main extends Component {
@@ -30,7 +34,8 @@ class Main extends Component {
     data: [],
     totalCosts: 0,
     totalIncome: 0,
-    width: 800
+    width: window.innerWidth,
+    error: ''
   };
 
   componentDidMount() {
@@ -38,22 +43,12 @@ class Main extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isAuthenticated, location, history } = this.props;
-
-    const { from } = location.state || { from: { pathname: '/login' } };
-
-    if (!isAuthenticated) {
-      history.push({
-        pathname: from.pathname,
-        state: { from: location }
-      });
-    }
-
     const { user, token } = this.props;
     if (user !== null && prevProps !== this.props) {
       API.getFinanceById(user.id, token)
         .then(res => this.getCategoriesArr(res.data.finance.data))
-        .then(data => this.setStateData(data));
+        .then(data => this.setStateData(data))
+        .catch(error => this.setState({ error }));
     }
   }
 
@@ -77,16 +72,14 @@ class Main extends Component {
     }, 0);
   };
 
-  getTotalIncomeArr = arr =>
-    arr.reduce((acc, item) => {
-      return item.type !== '-' ? acc : acc.push(item);
-    }, []);
+  getTotalIncomeArr = arr => arr.filter(item => item.type === '-');
 
-  getChartData = arr => {
-    // const labelsArr = arr.map(item => item.category);
-    const amountArr = arr.map(item => item.amount);
+  getChartData(arr) {
+    const labelsArr = arr.map(item => item.category);
+    const income = this.getTotalIncomeArr(arr, '-');
+    const amountArr = income.map(item => item.amount);
     return {
-      // labels: labelsArr,
+      labels: labelsArr,
       datasets: [
         {
           data: amountArr,
@@ -95,30 +88,34 @@ class Main extends Component {
         }
       ]
     };
-  };
+  }
 
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
 
   render() {
-    const { data, totalCosts, totalIncome, width } = this.state;
+    const { data, error, width, totalCosts, totalIncome } = this.state;
     return (
-      <Switch>
-        <Route path="/dashboard/home" render={() => <Home data={data} />} />
-        <Route
-          path="/dashboard/diagram"
-          render={() => (
-            <Diagram
-              data={data}
-              chartData={this.getChartData(data)}
-              totalCosts={totalCosts}
-              totalIncome={totalIncome}
-              width={width}
-            />
-          )}
-        />
-      </Switch>
+      <>
+        {error && <h1>{error.message}</h1>}
+        <Switch>
+          <Route path="/dashboard/home" render={() => <Home data={data} />} />
+          <Route
+            path="/dashboard/diagram"
+            render={() => (
+              <Diagram
+                data={data}
+                options={options}
+                chartData={this.getChartData(data)}
+                totalCosts={totalCosts}
+                totalIncome={totalIncome}
+                width={width}
+              />
+            )}
+          />
+        </Switch>
+      </>
     );
   }
 }
@@ -138,7 +135,6 @@ Main.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired
@@ -146,8 +142,7 @@ Main.propTypes = {
 const mstp = state => {
   return {
     user: getUser(state),
-    token: getToken(state),
-    isAuthenticated: getIsAuthenticated(state)
+    token: getToken(state)
   };
 };
 

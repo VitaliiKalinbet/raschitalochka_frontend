@@ -9,11 +9,11 @@ import btnStyle from '../Login/Login.module.css';
 
 import s from './Diagram.module.css';
 
-const Diagram = ({ data, chartData, totalCosts, totalIncome, width }) => {
+const Diagram = ({ data, options, chartData, totalCosts, totalIncome, width }) => {
   return (
     <div className={s.wrap}>
       {width >= 768 && <p className={s.title}>Cost Diagram</p>}
-      <Chart data={chartData} width={width} />
+      <Chart data={chartData} options={options} width={width} />
       <div className={s.diagramWrap} />
       <Button style={btnStyle.submitBtn} type="submit" value="Udate" />
 
@@ -39,11 +39,16 @@ const Diagram = ({ data, chartData, totalCosts, totalIncome, width }) => {
 };
 
 Diagram.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.array).isRequired,
+  options: PropTypes.shape({
+    legend: PropTypes.object
+  }).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   totalCosts: PropTypes.number.isRequired,
   totalIncome: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  chartData: PropTypes.arrayOf(PropTypes.array).isRequired
+  chartData: PropTypes.shape({
+    datasets: PropTypes.array
+  }).isRequired
 };
 
 export default Diagram;

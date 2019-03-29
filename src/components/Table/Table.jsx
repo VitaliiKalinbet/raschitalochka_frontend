@@ -41,7 +41,7 @@ Table.defaultProps = {
 };
 
 Table.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.array),
+  data: PropTypes.arrayOf(PropTypes.object),
   totalCosts: PropTypes.number,
   totalIncome: PropTypes.number
 };
