@@ -1,6 +1,6 @@
 {
   "name": "raschitalochka_frontend",
-  "author": "Viktor Bulvarenko, Vitalii Kalinbet, Volodymyr Omelianiuk, Andrii Tokar, Kostia Drobotovych, Oleg Naumik",
+  "author": "Viktor Bulvarenko, Vitalii Kalinbet, Volodymyr Omelianiuk, Andrii Tokar, Kostia Drobotovych, Oleg Naumik, Oleksandr Yatsenko",
   "version": "1.0.0",
   "private": true,
   "engines": {
@@ -17,6 +17,7 @@
   "dependencies": {
     "@babel/core": "7.2.2",
     "@svgr/webpack": "4.1.0",
+    "apexcharts": "^3.6.4",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
@@ -26,6 +27,7 @@
     "babel-preset-react-app": "^7.0.2",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "chart.js": "^2.8.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
@@ -50,6 +52,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-app-polyfill": "^0.2.2",
+    "react-chartjs-2": "^2.7.6",
     "react-datepicker": "^2.2.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "^16.8.4",

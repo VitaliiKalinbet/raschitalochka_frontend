@@ -7,7 +7,7 @@ export const setBaseURL = () => {
   axios.defaults.baseURL = 'https://rashchitalochka.vbguard.dev';
 };
 
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 

@@ -1,11 +1,16 @@
 import axios from 'axios';
 
-import { setBaseURL } from '../redux/reducers/session/sessionOperations';
+import { setBaseURL, setAuthHeader } from '../redux/reducers/session/sessionOperations';
 
-const register = async credentials => {
+export const register = async credentials => {
   setBaseURL();
-  const response = axios.post('/api/register', credentials);
+  const response = await axios.post('/api/register', credentials);
   return response;
 };
 
-export default register;
+export const getFinanceById = async (userId, token) => {
+  setBaseURL();
+  setAuthHeader(token);
+  const response = await axios.get(`/api/finance/${userId}`);
+  return response;
+};
