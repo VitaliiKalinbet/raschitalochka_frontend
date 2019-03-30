@@ -1,257 +1,196 @@
-.main{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: ffffff;
-    width: 550px;
-    height: 700px;
-    border-radius: 2px;
-    box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
+.wrap {
+  font-family: 'HelveticaNeueCyr';
 }
 
-.title{
-    font-weight: bold;
-    margin: 35px;
-    font-size: 20px;
-    line-height: 30px;
-    color: #282828;
-    letter-spacing: 0.05em;
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 auto;
+  /* background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -117px
+    left -211px;
+  background-size: auto 304px; */
 }
 
-.input{
-    text-indent: 56px;
-    width: 435px;
-    height: 55px;
-    padding: 0px 15px;
-    font-size: 15px;
-    line-height: 30px;
-    letter-spacing: 0.025em;
-    background-color: #f9fbfb;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    color: #282828;
+.titleWrapper {
+  display: flex;
 }
 
-.input:focus {
-    outline: none;
+.form {
+  width: 550px;
+  padding: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
 }
 
-.input::placeholder {
+.logo{
+  width:100px;  
+  height:70px;
+  background-repeat: no-repeat;
+  background-size: 34 auto;
+  background-image: url(../../assets/images/logo.svg)
+}
+
+.inputWithIcon {
+  position: relative;
+  margin-bottom: 0.875rem;
+}
+
+.inputEmail,
+.inputPass,
+.inputConfirmPass,
+.inputName {
+  width: 100%;
+  position: relative;
+  font-size: 1rem;
+  padding: 1rem;
+  padding-left: 3.635rem;
+  outline: none;
+  line-height: 2;
+  border-radius: 0.3125rem;
+  border: none;
+  background-color: rgb(249, 251, 251);
+}
+
+
+
+.iconEmail::before,
+.iconPass::before,
+.inputConfirmPass::before,
+.inputName::before {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: #000;
+}
+
+.inputEmail::placeholder,
+.inputPass::placeholder,
+.inputConfirmPass::placeholder,
+.inputName::placeholder {
   color: #b9c9d4;
 }
 
-.link{
-    font-size: 12px;
-    letter-spacing: 0.025em;
-    line-height: 30px;
-    margin-top: 20px;
-    color: #6b7d83;
-    margin-bottom: 48px;
+.iconEmail::before {
+  content: url('../../assets/images/email.svg');
 }
 
-.submitButton{
-    margin-top: 50px;
-    text-align: center;
-    width: 432px;
-    height: 55px;
-    color: #ffffff;
-    background: linear-gradient(to right, #ecb22a, #ff6c00);
-    font-size: 20px;
-    line-height: 30px;
-    letter-spacing: 0.025em;
-    border-radius: 8px;
-    box-shadow: 0px 3px 3px 0px rgba(255, 108, 0, 0.2);   
+.iconPass::before,
+.inputConfirmPass::before {
+  content: url('../../assets/images/lock.svg');
 }
 
-.label{
-    position: relative;
-    height: 55px;
-    margin-top: 10px;
-    background-color: #f9fbfb;
+.inputName::before {
+  content: url('../../assets/images/user-account-box.svg');
 }
 
-.icon {
+.formTitle {
+  margin-bottom: 27px;
+  position: relative;
+  display: block;
+  text-align: center;
+  font-size: 1.25rem;
+  color: rgb(44, 53, 62);
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+
+
+.submitBtn {
+  margin-bottom: 1.25rem;
+  border-radius: 6px;
+  background-image: linear-gradient(
+    0deg,
+    rgb(117, 193, 110) 0%,
+    rgba(81, 109, 87, 0.70196) 100%
+  );
+  box-shadow: 0px 3px 3px 0px rgba(92, 135, 94, 0.2);
+  min-width: 275px;
+  min-height: 48px;
+  border: none;
+  font-size: 0.94rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  line-height: 2;
+  cursor: pointer;
+}
+
+.submitBtn:focus{
+  outline: none
+}
+
+.loginLink {
+  font-size: 0.75rem;
+  text-align: center;
+  color: rgb(107, 125, 131);
+  line-height: 2.5;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    display: flex;
+  }
+
+  .formWrapper {
+    width: 100%;
+    flex-direction: column;
+    background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px
+        right -372px,
+      url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px left -726px,
+      url('../../assets/images/background.jpg');
+    background-size: auto 541px, auto 541px, auto;
+  }
+
+  .form {
+    padding: 2.5rem 3.75rem;
+    box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
+  }
+
+  .slogan {
     position: absolute;
-    left: 18px;
-    top: 20px;
-  }
-
-  .lineStatus {
-    width: 432px;
-    height: 4px;
-    margin-top: 22px;
-    background-color: #dfe9df;
-    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
-    border-radius: 20%;
-  }
-  
-  .halfLine {
-    background: linear-gradient(to right, #619361 50%, #dfe9df 50%);
-    width: 432px;
-    height: 4px;
-    margin-top: 22px;
-    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
-    border-radius: 20%;
-  }
-  
-  .fullLine {
-    background: linear-gradient(to right, #619361 50%, #619361 50%);
-    width: 432px;
-    height: 4px;
-    border: 1px solid grey;
-    margin-top: 22px;
-    box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
-    border-radius: 20%;
-  }
-  
-
-  .errorMsg {
-    width: 432px; 
-    height: 55px;
-    padding: 10px 15px;
-    font-size: 15px;
-    line-height: 30px;
-    letter-spacing: 0.025em;
-    border-radius: 5px;
-    background-color: red;
-    margin-bottom: 48px;
-    text-align: center;
-    position: relative;
-  }
-
-  .successMsg{
-    width: 432px; 
-    height: 55px;
-    padding: 10px 15px;
-    font-size: 15px;
-    letter-spacing: 0.025em;
-    border-radius: 5px;
-    background-color: green;
-    margin-bottom: 48px;
+    bottom: 40px;
+    font-size: 1.125rem;
+    color: rgb(40, 40, 40);
+    line-height: 2.5;
     text-align: center;
   }
+}
 
-  .closeIcon{
-    position: absolute;
-    right: -24px;
-    top: -24px;
-    cursor: pointer;
+@media (min-width: 1280px) {
+  .formWrapper {
+    width: 50%;
   }
 
-  @media screen and (max-width: 20em) {
-    .main{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      background-color: ffffff;
-      width: 20em;
-      height: 700px;
-      border-radius: 2px;
-    }
-
-    .input{
-      text-indent: 56px;
-      width:  17.5em;
-      height: 55px;
-      padding: 0px 15px;
-      font-size: 15px;
-      line-height: 30px;
-      letter-spacing: 0.025em;
-      background-color: #f9fbfb;
-      border: 1px solid transparent;
-      border-radius: 5px;
-    }
-
-    .submitButton{
-      width: 275px;
-      margin-top: 25px;
-    }
-
-    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
-      width: 275px;
-      margin-top: 25px;
-    }
-
-    .successMsg, .errorMsg{
-      width: 275px;
-      margin-top: 0px;
-    }
-
-    .closeIcon{
-      right: 0px;
-      top: -32px;
-    }
-
-    .title{
-      display: none;
-    }
-
-    .link {
-      margin-top: 8px;
-    }
+  .bgWrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    background: url('../../assets/images/iPhone.png') no-repeat 12% center,
+      url('../../assets/images/techandall.jpg') no-repeat center;
+    background-size: 41%, cover;
   }
 
-  @media screen and (max-width: 47.5em) and  (min-device-width: 21em) {
-    .main{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      background-color: ffffff;
-      width: 550px;
-      height: 600px;
-      border-radius: 2px;
-      padding-top: 27px;
-      background-color: #fff;
-    }
-
-    .input{
-      text-indent: 56px;
-      width:  26.5625rem;
-      height: 55px;
-      padding: 0px 15px;
-      font-size: 15px;
-      line-height: 30px;
-      letter-spacing: 0.025em;
-      background-color: #f9fbfb;
-      border: 1px solid transparent;
-      border-radius: 5px;
-    }
-
-    .submitButton{
-      width: 26.5625rem;
-      margin-top: 25px;
-    }
-
-    .lineStatus, .halfLine, .fullLine, .successMsg, .errorMsg{
-      width: 26.5625rem;
-      margin-top: 25px;
-    }
-
-    .successMsg, .errorMsg{
-      width: 26.5625rem;
-      margin-top: 0px;
-    }
-
-    .closeIcon{
-      right: 0px;
-      top: -32px;
-    }
-
-    .link {
-      margin-top: 8px;
-    }
+  .submitBtn{
+  background-image: linear-gradient( 90deg, rgb(236,178,42) 0%, rgba(255,108,0,1) 100%);
+  box-shadow: 0px 3px 3px 0px rgba(255, 108, 0, 0.2);
   }
-  
 
-
-
-
-  
-
-
-  
-
-  
+  .slogan {
+    font-size: 2.18rem;
+    line-height: 1.286;
+    position: static;
+    color: rgb(255, 255, 255);
+    max-width: 35%;
+    margin-right: 7%;
+    padding: 0.3125rem;
+  }
+}
