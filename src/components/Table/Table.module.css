@@ -80,7 +80,7 @@
 
 @media (min-width: 768px){
 	.table{
-		height: 300px;
+		max-height: 300px;
 		display: flex;
     flex-direction: column;
 		flex-wrap: wrap;
