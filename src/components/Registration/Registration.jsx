@@ -134,12 +134,10 @@ class Registration extends Component {
       <div className={s.wrap}>
         {width >= 1280 && (
           <div className={s.bgWrap}>
-            {width >= 1280 && (
-              <div className={s.logoWrap}>
-                <img className={s.logo} src={logoWite} alt="app logo" />
-                <h1 className={s.formTitle}>Raschitalochka</h1>
-              </div>
-            )}
+            <div className={s.logoWrap}>
+              <img className={s.logo} src={logoWite} alt="app logo" />
+              <h1 className={s.formTitle}>Raschitalochka</h1>
+            </div>
             {slogan}
           </div>
         )}
