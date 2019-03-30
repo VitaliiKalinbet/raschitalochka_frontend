@@ -5,10 +5,18 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
 
+import logo from '../../assets/images/logo.svg';
+import logoWite from '../../assets/images/registration/logo_white.png';
+import closeIcon from '../../assets/images/registration/close.svg';
 import { register } from '../../services/api';
 
-import closeIcon from '../../assets/images/registration/close.svg';
 import s from './Registration.module.css';
+
+const getStyle = num => {
+  if (num === 0) return s.lineStatus;
+  if (num === 0.5) return s.halfLine;
+  return s.fullLine;
+};
 
 const slogan = <p className={s.slogan}>Create your own categories of costs</p>;
 const INITIAL_STATE = {
@@ -92,8 +100,6 @@ class Registration extends Component {
       return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
     }
 
-    this.setState({ errorMsg: '', successMsg: 'Successfully created new user and his Finance Data. You can Login' });
-
     const data = JSON.stringify({ name, email, password });
 
     return register(data)
@@ -101,11 +107,13 @@ class Registration extends Component {
         if (response.status === 200) {
           const { message } = response.data;
           this.setState({ successMsg: message });
-
-          setTimeout(() => {
-            return this.handSuccesRedirectyToLogin();
-          }, 2000);
+        } else {
+          this.setState({ errorMsg: message });
         }
+
+        setTimeout(() => {
+          return this.handSuccesRedirectyToLogin();
+        }, 2000);
       })
       .catch(() => this.setState({ errorMsg: 'Failed to login' }));
   };
@@ -124,10 +132,25 @@ class Registration extends Component {
     const { width, email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
     return (
       <div className={s.wrap}>
-        {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
+        {width >= 1280 && (
+          <div className={s.bgWrap}>
+            {width >= 1280 && (
+              <div className={s.logoWrap}>
+                <img className={s.logo} src={logoWite} alt="app logo" />
+                <h1 className={s.formTitle}>Raschitalochka</h1>
+              </div>
+            )}
+            {slogan}
+          </div>
+        )}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
-            <h3 className={s.formTitle}>Raschitalochka</h3>
+            {width < 768 && (
+              <div className={s.logoWrap}>
+                <img className={s.logo} src={logo} alt="app logo" />
+              </div>
+            )}
+            <h3 className={s.formTitle}>{width < 768 ? 'Raschitalochka' : 'Registration'}</h3>
             <div className={s.inputWithIcon}>
               <input
                 className={s.inputEmail}
@@ -168,7 +191,7 @@ class Registration extends Component {
               <i className={s.iconPass} />
             </div>
             {/* eslint-disable-next-line */}
-            <div className={lineState === 0 ? s.lineStatus : lineState === 0.5 ? s.halfLine : s.fullLine} />
+            <div className={getStyle(lineState)} />
             <div className={s.inputWithIcon}>
               <input
                 className={s.inputName}
