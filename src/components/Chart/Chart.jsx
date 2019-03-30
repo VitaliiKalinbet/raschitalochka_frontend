@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 
 import s from './Chart.module.css';
 
-const Chart = ({ data, options }) => {
+const getChartSize = num => (num < 768 ? 265 : 410);
+
+const Chart = ({ data, options, width }) => {
+  const size = getChartSize(width);
   return (
     <div className={s.wrap}>
       <div className={s.diagramWrap}>
-        <Pie options={options} data={data} width={320} height={320} />
+        <Pie options={options} data={data} width={size} height={size} />
       </div>
     </div>
   );
@@ -21,7 +24,8 @@ Chart.propTypes = {
   data: PropTypes.shape({
     labels: PropTypes.array,
     datasets: PropTypes.array
-  }).isRequired
+  }).isRequired,
+  width: PropTypes.number.isRequired
 };
 
 export default Chart;

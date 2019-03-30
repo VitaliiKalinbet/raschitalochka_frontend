@@ -1,7 +1,7 @@
 import { colors } from './config';
+import 'chart.piecelabel.js';
 
 export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
-//+++++++++++++++++++
 export const getChartData = arr => {
   const labelsArr = arr.map(item => item.category);
   const income = arr.filter(item => item.type === '-');

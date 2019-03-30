@@ -8,13 +8,8 @@ import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
 import { getChartData, getCategoriesArr, getTotalByType } from './functions';
+import { options } from './config';
 import * as API from '../../services/api';
-
-const options = {
-  legend: {
-    display: false
-  }
-};
 
 class Main extends Component {
   state = {
