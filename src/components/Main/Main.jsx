@@ -7,20 +7,41 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
-import { getChartData, getCategoriesArr, getTotalByType } from './functions';
+import {
+  getChartData,
+  getCategoriesArr,
+  getTotalByType,
+  getCurrentMonth,
+  getCurrentYear,
+  getMonths,
+  getYears,
+  getFilteredDataBySelectedMonth,
+  getFilteredDataBySelectedYear
+} from './functions';
 import { options } from './config';
 import * as API from '../../services/api';
 
 class Main extends Component {
   state = {
     data: [],
+    selectedMonth: '',
+    currentMonth: '',
+    currentYear: '',
+    selectedYear: '2018',
     totalCosts: 0,
     totalIncome: 0,
+    chartData: {},
     width: window.innerWidth,
     error: ''
   };
 
   componentDidMount() {
+    this.setState({
+      currentMonth: getCurrentMonth(),
+      currentYear: getCurrentYear(),
+      selectedMonth: getCurrentMonth(),
+      selectedYear: getCurrentYear()
+    });
     window.addEventListener('resize', this.updateDimensions.bind(this));
   }
 
@@ -29,7 +50,9 @@ class Main extends Component {
     if (user !== null && prevProps !== this.props) {
       API.getFinanceById(user.id, token)
         .then(({ data }) => getCategoriesArr(data.finance.data))
-        .then(data => this.setStateData(data))
+        .then(data => {
+          this.setStateData(data);
+        })
         .catch(error => this.setState({ error }));
     }
   }
@@ -38,11 +61,43 @@ class Main extends Component {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
 
+  handleChange = e => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleChangeYear = e => {
+    e.preventDefault();
+    const { data } = this.state;
+    const { value } = e.target;
+    this.setState({
+      selectedYear: value,
+      selectedMonth: getMonths(getFilteredDataBySelectedYear(data, value))[0]
+    });
+  };
+
+  handleUpdate = e => {
+    e.preventDefault();
+    const { selectedYear, selectedMonth, data } = this.state;
+    this.setState({
+      chartData: getChartData(
+        getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, selectedYear), selectedMonth)
+      )
+    });
+  };
+
   setStateData = data => {
+    const { currentYear, currentMonth } = this.state;
     return this.setState({
       data,
       totalCosts: getTotalByType(data, '+'),
-      totalIncome: getTotalByType(data, '-')
+      totalIncome: getTotalByType(data, '-'),
+      chartData: getChartData(
+        getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, currentYear), currentMonth)
+      )
     });
   };
 
@@ -51,7 +106,18 @@ class Main extends Component {
   }
 
   render() {
-    const { data, error, width, totalCosts, totalIncome } = this.state;
+    const {
+      data,
+      error,
+      width,
+      totalCosts,
+      totalIncome,
+      selectedMonth,
+      currentMonth,
+      selectedYear,
+      currentYear,
+      chartData
+    } = this.state;
     return (
       <>
         {error && <h1>{error.message}</h1>}
@@ -63,10 +129,19 @@ class Main extends Component {
               <Diagram
                 data={data}
                 options={options}
-                chartData={getChartData(data)}
+                chartData={chartData}
                 totalCosts={totalCosts}
                 totalIncome={totalIncome}
                 width={width}
+                onChange={this.handleChange}
+                months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
+                selectedMonth={selectedMonth}
+                currentMonth={currentMonth}
+                years={getYears(data)}
+                currentYear={currentYear}
+                onChangeYear={this.handleChangeYear}
+                selectedYear={selectedYear}
+                onUpdate={this.handleUpdate}
               />
             )}
           />

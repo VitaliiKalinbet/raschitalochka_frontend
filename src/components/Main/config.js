@@ -13,6 +13,21 @@ export const colors = [
   'rgb(26, 71, 60)'
 ];
 
+export const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
 export const options = {
   border: 2000,
   responsive: true,

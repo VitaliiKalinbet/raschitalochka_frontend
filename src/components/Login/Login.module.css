@@ -100,6 +100,10 @@
   cursor: pointer;
 }
 
+.submitBtn:focus{
+  outline: none
+}
+
 .registerLink {
   font-size: 0.75rem;
   text-align: center;
