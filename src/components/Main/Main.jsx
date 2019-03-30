@@ -15,8 +15,8 @@ import {
   getCurrentYear,
   getMonths,
   getYears,
-  getFilteredDataBySelectedMonth,
-  getFilteredDataBySelectedYear
+  getFilteredDataBySelectedYear,
+  getFilteredDataByYearAndMonth
 } from './functions';
 import { options } from './config';
 import * as API from '../../services/api';
@@ -31,6 +31,7 @@ class Main extends Component {
     totalCosts: 0,
     totalIncome: 0,
     chartData: {},
+    tableData: [],
     width: window.innerWidth,
     error: ''
   };
@@ -83,9 +84,8 @@ class Main extends Component {
     e.preventDefault();
     const { selectedYear, selectedMonth, data } = this.state;
     this.setState({
-      chartData: getChartData(
-        getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, selectedYear), selectedMonth)
-      )
+      chartData: getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)),
+      tableData: getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)
     });
   };
 
@@ -95,9 +95,8 @@ class Main extends Component {
       data,
       totalCosts: getTotalByType(data, '+'),
       totalIncome: getTotalByType(data, '-'),
-      chartData: getChartData(
-        getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, currentYear), currentMonth)
-      )
+      chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
+      tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
     });
   };
 
@@ -108,6 +107,7 @@ class Main extends Component {
   render() {
     const {
       data,
+      tableData,
       error,
       width,
       totalCosts,
@@ -128,6 +128,7 @@ class Main extends Component {
             render={() => (
               <Diagram
                 data={data}
+                tableData={tableData}
                 options={options}
                 chartData={chartData}
                 totalCosts={totalCosts}
@@ -170,6 +171,7 @@ Main.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired
 };
+
 const mstp = state => {
   return {
     user: getUser(state),

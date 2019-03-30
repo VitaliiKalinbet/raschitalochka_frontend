@@ -5,12 +5,10 @@ import Button from '../Button/Button';
 import Table from '../Table/Table';
 import Chart from '../Chart/Chart';
 
-// import { months } from '../Main/config';
-
 import s from './Diagram.module.css';
 
 const Diagram = ({
-  data,
+  tableData,
   options,
   chartData,
   totalCosts,
@@ -21,16 +19,13 @@ const Diagram = ({
   months,
   years,
   onChangeYear,
-  // currentYear,
   selectedYear,
   onUpdate
-  // currentMonth
 }) => {
   return (
     <div className={s.container}>
       {width >= 1280 && <p className={s.title}>Cost Diagram</p>}
       <div className={s.wrap}>
-        {/* {console.log(chartData)} */}
         <div className={s.chartWrap}>
           {width >= 768 && width <= 1280 && <p className={s.title}>Cost Diagram</p>}
           <Chart data={chartData} options={options} width={width} />
@@ -39,10 +34,6 @@ const Diagram = ({
         <div className={s.tableContaiter}>
           <div className={s.selectors}>
             <select className={s.select} onChange={onChange} value={selectedMonth} name="selectedMonth">
-              {/* <option className={s.option} value={currentMonth}>
-                {currentMonth}
-              </option> */}
-              {/* {console.log(months)} */}
               {months.map(month => (
                 <option key={month} className={s.option} value={month}>
                   {month}
@@ -59,7 +50,7 @@ const Diagram = ({
             </select>
           </div>
 
-          <Table data={data} totalCosts={totalCosts} width={width} totalIncome={totalIncome} />
+          <Table data={tableData} totalCosts={totalCosts} width={width} totalIncome={totalIncome} />
         </div>
       </div>
     </div>
@@ -70,7 +61,7 @@ Diagram.propTypes = {
   options: PropTypes.shape({
     legend: PropTypes.object
   }).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
   totalCosts: PropTypes.number.isRequired,
   totalIncome: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
@@ -80,8 +71,6 @@ Diagram.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   selectedMonth: PropTypes.string.isRequired,
-  // currentMonth: PropTypes.string.isRequired,
-  // currentYear: PropTypes.string.isRequired,
   selectedYear: PropTypes.string.isRequired,
   onChangeYear: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

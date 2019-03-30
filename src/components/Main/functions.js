@@ -14,6 +14,9 @@ export const getFilteredDataBySelectedYear = (arr, selectedYear) => {
   return income.filter(el => String(new Date(el.date).getFullYear()) === selectedYear);
 };
 
+export const getFilteredDataByYearAndMonth = (data, year, month) =>
+  getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, year), month);
+
 export const getChartData = arr => {
   const income = getIncome(arr);
   const labelsArr = arr.map(item => item.category);
