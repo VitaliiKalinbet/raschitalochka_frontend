@@ -5,13 +5,16 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
 
+import { register } from '../../services/api';
+
+import closeIcon from '../../assets/images/registration/close.svg';
 import s from './Registration.module.css';
 
-const slogan = <p className={s.slogan}>Manage your budget with finance app</p>;
+const slogan = <p className={s.slogan}>Create your own categories of costs</p>;
 const INITIAL_STATE = {
   email: '',
   password: '',
-  confirmPassword: '',
+  confirmPass: '',
   name: '',
   lineState: 0,
   errorMsg: '',
@@ -46,16 +49,16 @@ class Registration extends Component {
   }
 
   handleCheckPasswords = () => {
-    const { password, confirmPassword } = this.state;
-    if (password.length >= 5 || confirmPassword.length >= 5) {
+    const { password, confirmPass } = this.state;
+    if (password.length >= 5 || confirmPass.length >= 5) {
       this.setState({ lineState: 0.5 });
     }
 
-    if (password.length >= 5 && confirmPassword.length >= 5 && password === confirmPassword) {
+    if (password.length >= 5 && confirmPass.length >= 5 && password === confirmPass) {
       this.setState({ lineState: 1 });
     }
 
-    if (password.length <= 5 && confirmPassword.length <= 5) {
+    if (password.length <= 5 && confirmPass.length <= 5) {
       this.setState({ lineState: 0 });
     }
   };
@@ -73,10 +76,14 @@ class Registration extends Component {
     return this.setState({ errorMsg: '' });
   };
 
+  handSuccesRedirectyToLogin = () => {
+    const { history } = this.props;
+    return history.push('/login');
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const { email, password, name, lineState } = this.state;
-    const { handSuccesRedirectyToLogin } = this.props;
     if (!email || !password || !name) {
       return this.setState({ errorMsg: 'Please fill all fields' });
     }
@@ -96,7 +103,7 @@ class Registration extends Component {
           this.setState({ successMsg: message });
 
           setTimeout(() => {
-            return handSuccesRedirectyToLogin();
+            return this.handSuccesRedirectyToLogin();
           }, 2000);
         }
       })
@@ -114,16 +121,13 @@ class Registration extends Component {
   }
 
   render() {
-    const { width, email, password, confirmPassword, name, lineState, errorMsg, successMsg } = this.state;
+    const { width, email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
     return (
       <div className={s.wrap}>
         {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
-            {/* <div className={s.logoWrap}> */}
-            {/* <div className={s.logo} /> */}
             <h3 className={s.formTitle}>Raschitalochka</h3>
-            {/* </div> */}
             <div className={s.inputWithIcon}>
               <input
                 className={s.inputEmail}
@@ -156,7 +160,7 @@ class Registration extends Component {
                 name="confirmPass"
                 placeholder="Password Confirmation"
                 type="password"
-                value={confirmPassword}
+                value={confirmPass}
                 required
                 autoComplete="current-password"
                 onChange={this.handleChange}
@@ -164,7 +168,7 @@ class Registration extends Component {
               <i className={s.iconPass} />
             </div>
             {/* eslint-disable-next-line */}
-            <div className={lineState === 0 ? styles.lineStatus : lineState === 0.5 ? styles.halfLine : styles.fullLine}/>
+            <div className={lineState === 0 ? s.lineStatus : lineState === 0.5 ? s.halfLine : s.fullLine} />
             <div className={s.inputWithIcon}>
               <input
                 className={s.inputName}
@@ -175,28 +179,27 @@ class Registration extends Component {
                 required
                 onChange={this.handleChange}
               />
-              <i className={s.iconPass} />
+              <i className={s.iconName} />
             </div>
             <Button style={s.submitBtn} type="submit" value="Register" />
             <Link className={s.loginLink} to="/login">
               Login
             </Link>
             {errorMsg && (
-              <div className={styles.errorMsg}>
+              <div className={s.errorMsg}>
                 {errorMsg}
                 <img
                   role="presentation"
                   onClick={this.handleCloseErrorMsg}
                   onKeyDown={() => null}
-                  className={styles.closeIcon}
+                  className={s.closeIcon}
                   src={closeIcon}
                   alt="closeIcon"
                 />
               </div>
             )}
-            {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
+            {successMsg && <div className={s.successMsg}>{successMsg}</div>}
           </form>
-          {width >= 768 && width < 1280 && slogan}
         </div>
       </div>
     );
