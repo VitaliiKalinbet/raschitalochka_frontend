@@ -55,6 +55,7 @@
     "react": "^16.8.4",
     "react-app-polyfill": "^0.2.2",
     "react-chartjs-2": "^2.7.6",
+    "react-date-picker": "^7.4.0",
     "react-datepicker": "^2.2.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "^16.8.4",
