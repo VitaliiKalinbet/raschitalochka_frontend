@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
+import logo from '../../assets/images/logo.svg';
 
 import s from './Login.module.css';
 
@@ -75,7 +76,10 @@ class Login extends Component {
         {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
-            <h3 className={s.formTitle}>Raschitalochka</h3>
+            <div className={s.logoWrap}>
+              <img className={s.logo} src={logo} alt="app logo" />
+              <h1 className={s.formTitle}>Raschitalochka</h1>
+            </div>
             <div className={s.inputWithIcon}>
               <input
                 className={s.inputEmail}
