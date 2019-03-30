@@ -13,4 +13,37 @@ export const colors = [
   'rgb(26, 71, 60)'
 ];
 
-export const qwe = {};
+export const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+export const options = {
+  border: 2000,
+  responsive: true,
+  tooltips: {
+    enabled: false
+  },
+  legend: {
+    display: false
+  },
+  pieceLabel: {
+    render(args) {
+      return args.label;
+    },
+    fontSize: 10,
+    fontColor: '#fff',
+    position: 'default',
+    overlap: true
+  }
+};

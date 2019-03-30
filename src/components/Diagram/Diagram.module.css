@@ -59,6 +59,10 @@
   cursor: pointer;
 }
 
+.submitBtn:focus{
+  outline: none
+}
+
 @media (min-width: 768px) {
   .chartWrap{
     width: 80%;

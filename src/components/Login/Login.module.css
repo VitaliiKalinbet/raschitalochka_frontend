@@ -17,6 +17,19 @@
   display: flex;
 }
 
+.logoWrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 27px;
+}
+
+.logo{
+  width:34px;  
+  height:26px;
+  margin-bottom: 10px;
+}
+
 .form {
   width: 550px;
   padding: 1.375rem;
@@ -52,7 +65,7 @@
 }
 
 .formTitle {
-  margin-bottom: 27px;
+  
   position: relative;
   display: block;
   text-align: center;
@@ -100,6 +113,10 @@
   cursor: pointer;
 }
 
+.submitBtn:focus{
+  outline: none
+}
+
 .registerLink {
   font-size: 0.75rem;
   text-align: center;
@@ -122,6 +139,19 @@
     background-size: auto 541px, auto 541px, auto;
   }
 
+  .logoWrap{
+    flex-direction: row;
+    justify-content: center;
+  }
+  .formTitle,
+  .logo{
+    margin: 0;
+  }
+
+  .logo{
+    margin-right: 10px;
+  }
+  
   .form {
     padding: 2.5rem 3.75rem;
     box-shadow: 10px 17.321px 40px 0px rgba(107, 125, 131, 0.3);
