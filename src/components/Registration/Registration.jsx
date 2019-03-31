@@ -1,40 +1,72 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Button from '../Button/Button';
+import withAuth from '../../hoc/withAuth';
 
+import logo from '../../assets/images/logo.svg';
+import logoWite from '../../assets/images/registration/logo_white.png';
+import closeIcon from '../../assets/images/registration/close.svg';
 import { register } from '../../services/api';
-import emailIco from './email.svg';
-import passwordIco from './lock.svg';
-import accountIco from './user-account-box.svg';
-import closeIcon from './close.svg';
 
-import styles from './Registration.module.css';
+import s from './Registration.module.css';
 
+const getStyle = num => {
+  if (num === 0) return s.lineStatus;
+  if (num === 0.5) return s.halfLine;
+  return s.fullLine;
+};
+
+const slogan = <p className={s.slogan}>Create your own categories of costs</p>;
 const INITIAL_STATE = {
   email: '',
   password: '',
-  reEnterPassword: '',
+  confirmPass: '',
   name: '',
   lineState: 0,
   errorMsg: '',
-  successMsg: ''
+  successMsg: '',
+  width: 768
 };
-
 class Registration extends Component {
   state = { ...INITIAL_STATE };
 
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions.bind(this));
+    window.addEventListener('keydown', this.pressEnter.bind(this));
+  }
+
+  componentDidUpdate() {
+    const { isAuthenticated, location, history } = this.props;
+
+    const { from } = location.state || { from: { pathname: '/dashboard/home' } };
+
+    if (isAuthenticated) {
+      history.push({
+        pathname: from.pathname,
+        state: { from: location }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions.bind(this));
+    window.addEventListener('keydown', this.pressEnter.bind(this));
+  }
+
   handleCheckPasswords = () => {
-    const { password, reEnterPassword } = this.state;
-    if (password.length >= 5 || reEnterPassword.length >= 5) {
+    const { password, confirmPass } = this.state;
+    if (password.length >= 5 || confirmPass.length >= 5) {
       this.setState({ lineState: 0.5 });
     }
 
-    if (password.length >= 5 && reEnterPassword.length >= 5 && password === reEnterPassword) {
+    if (password.length >= 5 && confirmPass.length >= 5 && password === confirmPass) {
       this.setState({ lineState: 1 });
     }
 
-    if (password.length <= 5 && reEnterPassword.length <= 5) {
+    if (password.length <= 5 && confirmPass.length <= 5) {
       this.setState({ lineState: 0 });
     }
   };
@@ -52,10 +84,14 @@ class Registration extends Component {
     return this.setState({ errorMsg: '' });
   };
 
+  handSuccesRedirectyToLogin = () => {
+    const { history } = this.props;
+    return history.push('/login');
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const { email, password, name, lineState } = this.state;
-    const { handSuccesRedirectyToLogin } = this.props;
     if (!email || !password || !name) {
       return this.setState({ errorMsg: 'Please fill all fields' });
     }
@@ -64,8 +100,6 @@ class Registration extends Component {
       return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
     }
 
-    this.setState({ errorMsg: '', successMsg: 'Successfully created new user and his Finance Data. You can Login' });
-
     const data = JSON.stringify({ name, email, password });
 
     return register(data)
@@ -73,96 +107,133 @@ class Registration extends Component {
         if (response.status === 200) {
           const { message } = response.data;
           this.setState({ successMsg: message });
-
-          setTimeout(() => {
-            return handSuccesRedirectyToLogin();
-          }, 2000);
+        } else {
+          this.setState({ errorMsg: message });
         }
+
+        setTimeout(() => {
+          return this.handSuccesRedirectyToLogin();
+        }, 2000);
       })
       .catch(() => this.setState({ errorMsg: 'Failed to login' }));
   };
 
-  render() {
-    const { email, password, reEnterPassword, name, lineState, errorMsg, successMsg } = this.state;
+  pressEnter = e => {
+    const { email, password } = this.state;
+    if (email === '' || password === '') return;
+    if (e.code === 'Enter') this.handleSubmit(e);
+  };
 
+  updateDimensions() {
+    this.setState({ width: window.innerWidth });
+  }
+
+  render() {
+    const { width, email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
     return (
-      <form className={styles.main} onSubmit={this.handleSubmit}>
-        <div className={styles.title}>Registration</div>
-        <label htmlFor="email" className={styles.label}>
-          <input
-            className={styles.input}
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            placeholder="E-mail as Login"
-          />
-          <img className={styles.icon} src={emailIco} alt="email icon" />
-        </label>
-        <label htmlFor="password" className={styles.label}>
-          <input
-            className={styles.input}
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            placeholder="Password"
-          />
-          <img className={styles.icon} src={passwordIco} alt="password icon" />
-        </label>
-        <label htmlFor="reEnterPassword" className={styles.label}>
-          <input
-            className={styles.input}
-            type="password"
-            name="reEnterPassword"
-            value={reEnterPassword}
-            onChange={this.handleChange}
-            placeholder="Password Confirmation"
-          />
-          <img className={styles.icon} src={passwordIco} alt="password icon" />
-        </label>
-        {/* eslint-disable-next-line */}
-        <div className={lineState === 0 ? styles.lineStatus : lineState === 0.5 ? styles.halfLine : styles.fullLine} />
-        <label htmlFor="name" className={styles.label}>
-          <input
-            className={styles.input}
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-            placeholder="Your Name"
-          />
-          <img className={styles.icon} src={accountIco} alt="account icon" />
-        </label>
-        <Button style={styles.submitButton} type="submit" value="Register" />
-        <Link className={styles.link} to="/login">
-          Login
-        </Link>
-        {errorMsg && (
-          <div className={styles.errorMsg}>
-            {errorMsg}
-            <img
-              role="presentation"
-              onClick={this.handleCloseErrorMsg}
-              onKeyDown={() => null}
-              className={styles.closeIcon}
-              src={closeIcon}
-              alt="closeIcon"
-            />
+      <div className={s.wrap}>
+        {width >= 1280 && (
+          <div className={s.bgWrap}>
+            <div className={s.logoWrap}>
+              <img className={s.logo} src={logoWite} alt="app logo" />
+              <h1 className={s.formTitle}>Raschitalochka</h1>
+            </div>
+            {slogan}
           </div>
         )}
-        {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
-      </form>
+        <div className={s.formWrapper}>
+          <form className={s.form} onSubmit={this.handleSubmit}>
+            {width < 768 && (
+              <div className={s.logoWrap}>
+                <img className={s.logo} src={logo} alt="app logo" />
+              </div>
+            )}
+            <h3 className={s.formTitle}>{width < 768 ? 'Raschitalochka' : 'Registration'}</h3>
+            <div className={s.inputWithIcon}>
+              <input
+                className={s.inputEmail}
+                name="email"
+                placeholder="E-mail as Login"
+                type="email"
+                value={email}
+                required
+                autoComplete="username"
+                onChange={this.handleChange}
+              />
+              <i className={s.iconEmail} />
+            </div>
+            <div className={s.inputWithIcon}>
+              <input
+                className={s.inputPass}
+                name="password"
+                placeholder="Password"
+                type="password"
+                value={password}
+                required
+                autoComplete="current-password"
+                onChange={this.handleChange}
+              />
+              <i className={s.iconPass} />
+            </div>
+            <div className={s.inputWithIcon}>
+              <input
+                className={s.inputConfirmPass}
+                name="confirmPass"
+                placeholder="Password Confirmation"
+                type="password"
+                value={confirmPass}
+                required
+                autoComplete="current-password"
+                onChange={this.handleChange}
+              />
+              <i className={s.iconPass} />
+            </div>
+            {/* eslint-disable-next-line */}
+            <div className={getStyle(lineState)} />
+            <div className={s.inputWithIcon}>
+              <input
+                className={s.inputName}
+                name="name"
+                placeholder="Your Name"
+                type="text"
+                value={name}
+                required
+                onChange={this.handleChange}
+              />
+              <i className={s.iconName} />
+            </div>
+            <Button style={s.submitBtn} type="submit" value="Register" />
+            <Link className={s.loginLink} to="/login">
+              Login
+            </Link>
+            {errorMsg && (
+              <div className={s.errorMsg}>
+                {errorMsg}
+                <img
+                  role="presentation"
+                  onClick={this.handleCloseErrorMsg}
+                  onKeyDown={() => null}
+                  className={s.closeIcon}
+                  src={closeIcon}
+                  alt="closeIcon"
+                />
+              </div>
+            )}
+            {successMsg && <div className={s.successMsg}>{successMsg}</div>}
+          </form>
+        </div>
+      </div>
     );
   }
 }
-
-Registration.defaultProps = {
-  handSuccesRedirectyToLogin: () => null
-};
-
 Registration.propTypes = {
-  handSuccesRedirectyToLogin: PropTypes.func
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
-export default Registration;
+export default withAuth(Registration);
