@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import classes from './Navigation.module.css';
 
-const Navigation = () => (
+const Navigation = ({ totalBalance }) => (
   <div className={classes.container}>
     <ul className={classes.nav}>
       <li className={classes.listItem}>
@@ -20,12 +22,16 @@ const Navigation = () => (
         <div className={classes.link}>
           <span className={classes.linkText}>
             Total Balance:
-            <span className={classes.balanceAmount}> 24000 UAH</span>
+            <span className={classes.balanceAmount}>{` ${totalBalance} UAH`}</span>
           </span>
         </div>
       </li>
     </ul>
   </div>
 );
+
+Navigation.propTypes = {
+  totalBalance: PropTypes.number.isRequired
+};
 
 export default Navigation;
