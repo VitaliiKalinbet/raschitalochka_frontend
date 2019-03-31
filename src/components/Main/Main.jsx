@@ -8,14 +8,13 @@ import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
 import { options } from './config';
-import { getSortedData } from './functions';
 
 class Main extends Component {
   state = {};
 
   render() {
     const {
-      data,
+      sortedData,
       tableData,
       error,
       width,
@@ -30,13 +29,18 @@ class Main extends Component {
       onUpdate,
       years,
       onChangeYear,
-      months
+      months,
+      setTotalBalance,
+      addToData
     } = this.props;
     return (
       <>
         {error && <h1>{error.message}</h1>}
         <Switch>
-          <Route path="/dashboard/home" render={() => <Home data={getSortedData(data)} />} />
+          <Route
+            path="/dashboard/home"
+            render={() => <Home data={sortedData} addToData={addToData} setTotalBalance={setTotalBalance} />}
+          />
           <Route
             path="/dashboard/diagram"
             render={() => (
@@ -66,7 +70,7 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  sortedData: PropTypes.arrayOf(PropTypes.object).isRequired,
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
   totalCosts: PropTypes.number.isRequired,
   totalIncome: PropTypes.number.isRequired,
@@ -82,9 +86,11 @@ Main.propTypes = {
   currentYear: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
   onChangeYear: PropTypes.func.isRequired,
+  setTotalBalance: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   months: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  addToData: PropTypes.func.isRequired
 };
 
 const mstp = state => {

@@ -80,8 +80,6 @@ class Home extends Component {
     isModalCostOpen: false
   };
 
-  //   componentDidMount() {}
-
   handleOpenModalIncome = () => {
     this.setState({
       isModalIncomeOpen: true
@@ -113,7 +111,7 @@ class Home extends Component {
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data } = this.props;
-    // const data = [];
+
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>

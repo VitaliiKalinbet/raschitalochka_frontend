@@ -10,6 +10,7 @@ import * as API from '../../services/api';
 
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 import {
+  getSortedData,
   getChartData,
   getCategoriesArr,
   getTotalByType,
@@ -25,10 +26,12 @@ class DashboardPage extends Component {
   state = {
     allData: [],
     data: [],
+    sortedData: [],
     selectedMonth: '',
     currentMonth: '',
     currentYear: '',
-    selectedYear: '2018',
+    selectedYear: '',
+    totalBalance: 0,
     totalCosts: 0,
     totalIncome: 0,
     chartData: {},
@@ -45,26 +48,43 @@ class DashboardPage extends Component {
       selectedYear: getCurrentYear()
     });
     window.addEventListener('resize', this.updateDimensions.bind(this));
+    const { user, token } = this.props;
+
+    API.getFinanceById(user.id, token)
+      .then(({ data }) => {
+        this.setState({
+          allData: data.finance.data,
+          sortedData: getSortedData(getCategoriesArr(data.finance.data))
+        });
+        return getCategoriesArr(data.finance.data);
+      })
+      .then(data => {
+        const { sortedData } = this.state;
+        this.setState({ totalBalance: this.getTotalBalance(sortedData) });
+        this.setStateData(data);
+      })
+      .catch(error => this.setState({ error }));
   }
 
-  componentDidUpdate(prevProps) {
-    const { user, token } = this.props;
-    if (user !== null && prevProps !== this.props) {
-      API.getFinanceById(user.id, token)
-        .then(({ data }) => {
-          this.setState({ allData: data.finance.data });
-          return getCategoriesArr(data.finance.data);
-        })
-        .then(data => {
-          this.setStateData(data);
-        })
-        .catch(error => this.setState({ error }));
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    const { data } = this.state;
+    return data.length !== nextState.length;
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
+
+  addToData = obj => {
+    const { data } = this.state;
+    return data.unshift(obj);
+  };
+
+  getTotalBalance = arr => arr.pop().balanceAfter;
+
+  setTotalBalance = arr => {
+    getSortedData(arr);
+  };
 
   handleChange = e => {
     e.preventDefault();
@@ -93,6 +113,8 @@ class DashboardPage extends Component {
     });
   };
 
+  setTotalBalance = value => this.setState({ totalBalance: value });
+
   setStateData = data => {
     const { currentYear, currentMonth } = this.state;
     return this.setState({
@@ -112,9 +134,11 @@ class DashboardPage extends Component {
     const {
       allData,
       data,
+      sortedData,
       tableData,
       error,
       width,
+      totalBalance,
       totalCosts,
       totalIncome,
       selectedMonth,
@@ -126,14 +150,17 @@ class DashboardPage extends Component {
     return (
       <div>
         <Header />
-        <Sidebar />
+        <Sidebar totalBalance={totalBalance} />
         <Main
           {...this.props}
+          addToData={this.addToData}
           error={error}
-          data={data}
+          setTotalBalance={this.setTotalBalance}
+          sortedData={sortedData}
           allData={allData}
           tableData={tableData}
           chartData={chartData}
+          totalBalance={totalBalance}
           totalCosts={totalCosts}
           totalIncome={totalIncome}
           width={width}

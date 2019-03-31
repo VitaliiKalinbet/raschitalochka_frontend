@@ -1,20 +1,20 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import * as selectors from '../../redux/modules/User/selectors';
+import PropTypes from 'prop-types';
 
 import Navigation from '../Navigation/Navigation';
 import Balance from '../Balance/Balance';
 import Currency from '../Currency/Currency';
-// import Currency from '../Currency/Currency';
-// import s from './Sidebar.module.css';
 
-const Sidebar = () => (
+const Sidebar = ({ totalBalance }) => (
   <>
     <Navigation />
     <Balance />
     <Currency />
   </>
 );
+
+Sidebar.propTypes = {
+  totalBalance: PropTypes.number.isRequired
+};
 
 export default Sidebar;
