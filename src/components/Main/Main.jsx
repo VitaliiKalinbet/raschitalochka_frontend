@@ -7,102 +7,11 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
 
-import {
-  getChartData,
-  getCategoriesArr,
-  getTotalByType,
-  getCurrentMonth,
-  getCurrentYear,
-  getMonths,
-  getYears,
-  getFilteredDataBySelectedYear,
-  getFilteredDataByYearAndMonth
-} from './functions';
 import { options } from './config';
-import * as API from '../../services/api';
+import { getSortedData } from './functions';
 
 class Main extends Component {
-  state = {
-    data: [],
-    selectedMonth: '',
-    currentMonth: '',
-    currentYear: '',
-    selectedYear: '2018',
-    totalCosts: 0,
-    totalIncome: 0,
-    chartData: {},
-    tableData: [],
-    width: window.innerWidth,
-    error: ''
-  };
-
-  componentDidMount() {
-    this.setState({
-      currentMonth: getCurrentMonth(),
-      currentYear: getCurrentYear(),
-      selectedMonth: getCurrentMonth(),
-      selectedYear: getCurrentYear()
-    });
-    window.addEventListener('resize', this.updateDimensions.bind(this));
-  }
-
-  componentDidUpdate(prevProps) {
-    const { user, token } = this.props;
-    if (user !== null && prevProps !== this.props) {
-      API.getFinanceById(user.id, token)
-        .then(({ data }) => getCategoriesArr(data.finance.data))
-        .then(data => {
-          this.setStateData(data);
-        })
-        .catch(error => this.setState({ error }));
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
-  }
-
-  handleChange = e => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleChangeYear = e => {
-    e.preventDefault();
-    const { data } = this.state;
-    const { value } = e.target;
-    this.setState({
-      selectedYear: value,
-      selectedMonth: getMonths(getFilteredDataBySelectedYear(data, value))[0]
-    });
-  };
-
-  handleUpdate = e => {
-    e.preventDefault();
-    const { selectedYear, selectedMonth, data } = this.state;
-    this.setState({
-      chartData: getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)),
-      tableData: getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)
-    });
-  };
-
-  setStateData = data => {
-    const { currentYear, currentMonth } = this.state;
-    return this.setState({
-      data,
-      totalCosts: getTotalByType(data, '+'),
-      totalIncome: getTotalByType(data, '-'),
-      chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
-      tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
-    });
-  };
-
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
+  state = {};
 
   render() {
     const {
@@ -116,33 +25,37 @@ class Main extends Component {
       currentMonth,
       selectedYear,
       currentYear,
-      chartData
-    } = this.state;
+      chartData,
+      onChange,
+      onUpdate,
+      years,
+      onChangeYear,
+      months
+    } = this.props;
     return (
       <>
         {error && <h1>{error.message}</h1>}
         <Switch>
-          <Route path="/dashboard/home" render={() => <Home data={data} />} />
+          <Route path="/dashboard/home" render={() => <Home data={getSortedData(data)} />} />
           <Route
             path="/dashboard/diagram"
             render={() => (
               <Diagram
-                data={data}
                 tableData={tableData}
                 options={options}
                 chartData={chartData}
                 totalCosts={totalCosts}
                 totalIncome={totalIncome}
                 width={width}
-                onChange={this.handleChange}
-                months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
+                onChange={onChange}
+                months={months}
                 selectedMonth={selectedMonth}
                 currentMonth={currentMonth}
-                years={getYears(data)}
+                years={years}
                 currentYear={currentYear}
-                onChangeYear={this.handleChangeYear}
+                onChangeYear={onChangeYear}
                 selectedYear={selectedYear}
-                onUpdate={this.handleUpdate}
+                onUpdate={onUpdate}
               />
             )}
           />
@@ -152,24 +65,26 @@ class Main extends Component {
   }
 }
 
-Main.defaultProps = {
-  user: null,
-  token: null
-};
-
 Main.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.string,
-    email: PropTypes.string,
-    name: PropTypes.string
-  }),
-  token: PropTypes.string,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalCosts: PropTypes.number.isRequired,
+  totalIncome: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  chartData: PropTypes.shape({
+    datasets: PropTypes.array,
+    labels: PropTypes.array
   }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  onChange: PropTypes.func.isRequired,
+  selectedMonth: PropTypes.string.isRequired,
+  selectedYear: PropTypes.string.isRequired,
+  currentMonth: PropTypes.string.isRequired,
+  currentYear: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+  onChangeYear: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  months: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 const mstp = state => {

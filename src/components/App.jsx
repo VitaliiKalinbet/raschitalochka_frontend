@@ -33,13 +33,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mstp = state => ({
