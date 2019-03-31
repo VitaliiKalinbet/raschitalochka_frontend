@@ -6,22 +6,22 @@ const Navigation = () => (
   <div className={classes.container}>
     <ul className={classes.nav}>
       <li className={classes.listItem}>
-        <NavLink to="/dashboard/home" className={classes.link} activeClassName={classes.activeLink}>
+        <NavLink to="/dashboard/home" className={classes.linkHome} activeClassName={classes.activeLink}>
           <span className={classes.linkText}>Home</span>
         </NavLink>
       </li>
       <li className={classes.listItem}>
-        <NavLink to="/dashboard/diagram" className={classes.link} activeClassName={classes.activeLink}>
+        <NavLink to="/dashboard/diagram" className={classes.linkDiagram} activeClassName={classes.activeLink}>
           <span className={classes.linkText}>Diagram</span>
         </NavLink>
       </li>
 
       <li className={classes.listItem}>
-        <div className={classes.link}>
-          <span className={classes.linkText}>
-            Total Balance:
+        <div className={classes.linkCurrency}>
+          <div className={classes.linkText}>
+            <span>Total Balance:</span>
             <span className={classes.balanceAmount}> 24000 UAH</span>
-          </span>
+          </div>
         </div>
       </li>
     </ul>

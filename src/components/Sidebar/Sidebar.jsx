@@ -5,6 +5,7 @@ import React from 'react';
 
 import Navigation from '../Navigation/Navigation';
 import Balance from '../Balance/Balance';
+import Currency from '../Currency/Currency';
 // import Currency from '../Currency/Currency';
 // import s from './Sidebar.module.css';
 
@@ -12,6 +13,7 @@ const Sidebar = () => (
   <>
     <Navigation />
     <Balance />
+    <Currency />
   </>
 );
 

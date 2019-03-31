@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as selectors from '../../redux/modules/User/selectors';
-import operations from '../../redux/modules/User/operations';
+import * as selectors from '../../redux/reducers/session/sessionSelectors';
+// import operations from '../../redux/reducers/session/sessionOperations';
 
 import UserControl from '../UserControl/UserControl';
 import Logo from '../Logo/Logo';
@@ -14,30 +14,29 @@ const Header = ({ isAuthenticated, user, onSignOut }) => (
     <div className={s.content}>
       <Logo />
       {isAuthenticated ? <UserControl user={user} onSignOut={onSignOut} /> : null}
-      <h2>UserControl</h2>
     </div>
   </header>
 );
 
 const mapState = state => ({
-  isAuthenticated: selectors.isAuthenticated(state),
+  isAuthenticated: selectors.getIsAuthenticated(state),
   user: selectors.getUser(state)
 });
 
 const mapDispatch = {
-  onSignOut: operations.signOut
+  onSignOut: () => null
 };
 
 Header.propTypes = {
   isAuthenticated: PropTypes.bool,
-  user: PropTypes.objectOf(),
+  user: PropTypes.shape({ email: PropTypes.string }),
   onSignOut: PropTypes.func
 };
 
 Header.defaultProps = {
-  isAuthenticated: false,
-  user: () => {},
-  onSignOut: () => {}
+  isAuthenticated: null,
+  user: null,
+  onSignOut: () => null
 };
 
 export default connect(
