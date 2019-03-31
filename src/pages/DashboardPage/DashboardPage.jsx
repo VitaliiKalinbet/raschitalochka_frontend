@@ -123,7 +123,6 @@ class DashboardPage extends Component {
       currentYear,
       chartData
     } = this.state;
-    console.log(error, allData);
     return (
       <div>
         <Header />
@@ -132,6 +131,7 @@ class DashboardPage extends Component {
           {...this.props}
           error={error}
           data={data}
+          allData={allData}
           tableData={tableData}
           chartData={chartData}
           totalCosts={totalCosts}

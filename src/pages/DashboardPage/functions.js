@@ -34,7 +34,6 @@ export const getChartData = arr => {
 };
 
 export const getTotalByType = (arr, type) => {
-  console.log(arr);
   return arr.reduce((sum, item) => {
     return item.type !== type ? sum : sum + item.amount;
   }, 0);
