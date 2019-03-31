@@ -7,8 +7,8 @@ import Currency from '../Currency/Currency';
 
 const Sidebar = ({ totalBalance }) => (
   <>
-    <Navigation />
-    <Balance />
+    <Navigation totalBalance={totalBalance} />
+    <Balance totalBalance={totalBalance} />
     <Currency />
   </>
 );
