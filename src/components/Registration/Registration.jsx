@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
-import withAuth from '../../hoc/withAuth';
 
+import { getIsAuthenticated } from '../../redux/reducers/session/sessionSelectors';
 import logo from '../../assets/images/logo.svg';
 import logoWite from '../../assets/images/registration/logo_white.png';
 import closeIcon from '../../assets/images/registration/close.svg';
@@ -236,4 +237,8 @@ Registration.propTypes = {
   }).isRequired
 };
 
-export default withAuth(Registration);
+const mstp = state => ({
+  isAuthenticated: getIsAuthenticated(state)
+});
+
+export default connect(mstp)(Registration);
