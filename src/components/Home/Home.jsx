@@ -122,57 +122,63 @@ class Home extends Component {
         </div>
         <div>
           <table className={s.table}>
-            <tr className={s.mainRow}>
-              <th className={s.firstCol}>Date</th>
-              <th className={s.typeCol}>Type</th>
-              <th className={s.categoryCol}>Category</th>
-              <th className={s.commentCol}>Comments</th>
-              <th className={s.amountCol}>Amount, UAH</th>
-              <th className={s.lastCol}>Balance After</th>
-            </tr>
-            {data.length > 0 ? (
-              data.map((item, idx) => {
-                const date = createDate(item.date);
-                return (
-                  <tr
-                    key={item.dateEvent}
-                    className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
-                  >
-                    <td className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
-                      <div className={s.firstColContentForMobile}>
-                        <div className={s.mobileTh}>{item.category}</div>
-                        <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
-                      </div>
-                      <div className={s.mobileContent}>{date}</div>
-                    </td>
-                    <td className={`${s.typeColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Type</div>
-                      <div className={s.mobileContent}>{item.type}</div>
-                    </td>
-                    <td className={`${s.categoryColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Category</div>
-                      <div className={s.mobileContent}>{item.category}</div>
-                    </td>
-                    <td className={`${s.commentColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Comments</div>
-                      <div className={s.mobileContent}>{item.comments}</div>
-                    </td>
-                    <td className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Amount, UAH</div>
-                      <div className={s.mobileContent}>{item.amount}</div>
-                    </td>
-                    <td className={`${s.lastColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Balance After</div>
-                      <div className={s.mobileContent}>{item.balanceAfter}</div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <div className={s.loader}>
-                <Loader type="Oval" color="grey" height={80} width={80} />
-              </div>
-            )}
+            <tbody>
+              <tr className={s.mainRow}>
+                <th className={s.firstCol}>Date</th>
+                <th className={s.typeCol}>Type</th>
+                <th className={s.categoryCol}>Category</th>
+                <th className={s.commentCol}>Comments</th>
+                <th className={s.amountCol}>Amount, UAH</th>
+                <th className={s.lastCol}>Balance After</th>
+              </tr>
+              {data.length > 0 ? (
+                data.map((item, idx) => {
+                  const date = createDate(item.date);
+                  return (
+                    <tr
+                      key={item.date}
+                      className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
+                    >
+                      <td className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
+                        <div className={s.firstColContentForMobile}>
+                          <div className={s.mobileTh}>{item.category}</div>
+                          <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
+                        </div>
+                        <div className={s.mobileContent}>{date}</div>
+                      </td>
+                      <td className={`${s.typeColContent} ${s.noMobile}`}>
+                        <div className={s.mobileTh}>Type</div>
+                        <div className={s.mobileContent}>{item.type}</div>
+                      </td>
+                      <td className={`${s.categoryColContent} ${s.noMobile}`}>
+                        <div className={s.mobileTh}>Category</div>
+                        <div className={s.mobileContent}>{item.category}</div>
+                      </td>
+                      <td className={`${s.commentColContent} ${s.noMobile}`}>
+                        <div className={s.mobileTh}>Comments</div>
+                        <div className={s.mobileContent}>{item.comments}</div>
+                      </td>
+                      <td className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
+                        <div className={s.mobileTh}>Amount, UAH</div>
+                        <div className={s.mobileContent}>{item.amount}</div>
+                      </td>
+                      <td className={`${s.lastColContent} ${s.noMobile}`}>
+                        <div className={s.mobileTh}>Balance After</div>
+                        <div className={s.mobileContent}>{item.balanceAfter}</div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>
+                    <div className={s.loader}>
+                      <Loader type="Oval" color="grey" height={80} width={80} />
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
 
@@ -187,6 +193,10 @@ Home.defaultProps = {
   data: []
 };
 
+Home.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object)
+};
+
 const mapState = state => ({
   user: getUser(state),
   token: getToken(state)
@@ -195,7 +205,3 @@ const mapState = state => ({
 export default connect(mapState)(Home);
 
 // export default Home;
-
-Home.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object)
-};
