@@ -1,10 +1,13 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import DatePicker from '../DatePicker/DatePicker';
 
 import Arrow from '../../assets/images/arrow.svg';
 import Button from '../Button/Button';
+
+import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
+import * as API from '../../services/api';
 
 import s from './ModalIncome.module.css';
 
@@ -75,17 +78,34 @@ class Modal extends Component {
     handleCloseClick();
   };
 
+  // handleFormSubmit = e => {
+  //   e.preventDefault();
+  //   const { handleCloseClick } = this.props;
+  //   const { amount, date } = this.state;
+
+  //   const dateInMilliseconds = date.getTime();
+  //   console.log({
+  //     ...this.state,
+  //     ...typeAndBalanceOfModal(1000, amount),
+  //     ...{ date: dateInMilliseconds }
+  //   });
+  //   this.setState({ ...INITIAL_STATE });
+  //   handleCloseClick();
+  // };
+
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick } = this.props;
+    const { handleCloseClick, user, token } = this.props;
     const { amount, date } = this.state;
-
     const dateInMilliseconds = date.getTime();
-    console.log({
-      ...this.state,
-      ...typeAndBalanceOfModal(1000, amount),
-      ...{ date: dateInMilliseconds }
-    });
+
+    const finance = { ...this.state, ...typeAndBalanceOfModal(0, amount), ...{ date: dateInMilliseconds } };
+
+    API.postIncomeAndCosts(user.id, token, finance)
+      .then(res => console.log('res', res))
+      .catch(error => console.log('err', error));
+    // console.log(user, token);
+    console.log(finance);
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
   };
@@ -171,21 +191,31 @@ class Modal extends Component {
 }
 
 Modal.defaultProps = {
+  user: null,
+  token: null,
   handleSubmitForm: () => null,
   handleCloseClick: () => null
 };
 
 Modal.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    email: PropTypes.string,
+    name: PropTypes.string
+  }),
+  token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func
 };
 
-export default Modal;
+// export default Modal;
 
-// const mapState = state => ({
+const mapState = state => ({
+  user: getUser(state),
+  token: getToken(state)
+});
 
-// })
-
-// const mapDispatch = {};
-
-// export default connect(mapState,mapDispatch)(Modal);
+export default connect(
+  mapState,
+  null
+)(Modal);
