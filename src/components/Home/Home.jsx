@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import noScroll from 'no-scroll';
+import Loader from 'react-loader-spinner';
+import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 
 import Button from '../Button/Button';
 import ModalIncome from '../ModalIncome/ModalIncome';
@@ -22,9 +25,48 @@ const createDate = mill => {
   return `${day}.${month}.${year}`;
 };
 
-const colorsClasses = [s.colorFirst, s.colorSecond, s.colorThird, s.colorFourth, s.colorFifth];
+// const colorsClasses = [
+//   s.colorFirst,
+//   s.colorSecond,
+//   s.colorThird,
+//   s.colorFourth,
+//   s.colorFifth,
+//   s.colorSixth,
+//   s.colorSeventh,
+//   s.colorEighth,
+//   s.colorNinth
+// ];
 
-const randomClassOfColor = () => colorsClasses[Math.floor(Math.random() * colorsClasses.length)];
+// const randomClassOfColor = () => colorsClasses[Math.floor(Math.random() * colorsClasses.length)];
+
+const colorDependingOnTheCategory = category => {
+  switch (category) {
+    case 'regular income':
+      return s.colorRegularIncome;
+    case 'irregular income':
+      return s.colorIrregularIncome;
+    case 'food':
+      return s.colorFood;
+    case 'car':
+      return s.colorCar;
+    case 'main expenses':
+      return s.colorMainExpenses;
+    case 'entertainment':
+      return s.colorEntertainment;
+    case 'self care':
+      return s.colorSelfCare;
+    case 'child care':
+      return s.colorChildCare;
+    case 'household products':
+      return s.colorHouseholdProducts;
+    case 'education':
+      return s.colorEducation;
+    case 'other expenses':
+      return s.colorOtherExpenses;
+    default:
+      return '';
+  }
+};
 
 const checkType = type => {
   return type === '+' ? s.amountPlus : s.amountMinus;
@@ -37,6 +79,8 @@ class Home extends Component {
     isModalIncomeOpen: false,
     isModalCostOpen: false
   };
+
+  //   componentDidMount() {}
 
   handleOpenModalIncome = () => {
     this.setState({
@@ -68,8 +112,8 @@ class Home extends Component {
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    // const { data } = this.props;
-    const data = [];
+    const { data } = this.props;
+    // const data = [];
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -86,38 +130,49 @@ class Home extends Component {
               <th className={s.amountCol}>Amount, UAH</th>
               <th className={s.lastCol}>Balance After</th>
             </tr>
-            {data.length > 0 &&
+            {data.length > 0 ? (
               data.map((item, idx) => {
                 const date = createDate(item.date);
                 return (
-                  <tr key={item.dateEvent} className={`${checkIdx(idx)} ${randomClassOfColor()}`}>
-                    <td className={s.firstColContent}>
-                      <div className={s.mobileTh}>Date</div>
+                  <tr
+                    key={item.dateEvent}
+                    className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
+                  >
+                    <td className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
+                      <div className={s.firstColContentForMobile}>
+                        <div className={s.mobileTh}>{item.category}</div>
+                        <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
+                      </div>
                       <div className={s.mobileContent}>{date}</div>
                     </td>
-                    <td className={s.typeColContent}>
+                    <td className={`${s.typeColContent} ${s.noMobile}`}>
                       <div className={s.mobileTh}>Type</div>
                       <div className={s.mobileContent}>{item.type}</div>
                     </td>
-                    <td className={s.categoryColContent}>
+                    <td className={`${s.categoryColContent} ${s.noMobile}`}>
                       <div className={s.mobileTh}>Category</div>
                       <div className={s.mobileContent}>{item.category}</div>
                     </td>
-                    <td className={s.commentColContent}>
+                    <td className={`${s.commentColContent} ${s.noMobile}`}>
                       <div className={s.mobileTh}>Comments</div>
                       <div className={s.mobileContent}>{item.comments}</div>
                     </td>
-                    <td className={`${s.amountColContent} ${checkType(item.type)}`}>
+                    <td className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
                       <div className={s.mobileTh}>Amount, UAH</div>
                       <div className={s.mobileContent}>{item.amount}</div>
                     </td>
-                    <td className={s.lastColContent}>
+                    <td className={`${s.lastColContent} ${s.noMobile}`}>
                       <div className={s.mobileTh}>Balance After</div>
                       <div className={s.mobileContent}>{item.balanceAfter}</div>
                     </td>
                   </tr>
                 );
-              })}
+              })
+            ) : (
+              <div className={s.loader}>
+                <Loader type="Oval" color="grey" height={80} width={80} />
+              </div>
+            )}
           </table>
         </div>
 
@@ -128,12 +183,19 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.defaultProps = {
+  data: []
+};
 
-// Home.propTypes = {
-//   data: PropTypes.array
-// };
+const mapState = state => ({
+  user: getUser(state),
+  token: getToken(state)
+});
 
-// Home.defaultProps = {
-//   data: []
-// };
+export default connect(mapState)(Home);
+
+// export default Home;
+
+Home.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object)
+};

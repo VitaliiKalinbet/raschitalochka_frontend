@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
+// import DatePicker from 'react-date-picker';
+import './style.scss';
 
-const Picker = ({ style, selected, onChange }) => <DatePicker className={style} onChange={onChange} value={selected} />;
+const Picker = ({ selected, onChange }) => (
+  <DatePicker className="react-date-picker" onChange={onChange} value={selected} />
+);
 
 Picker.defaultProps = {
-  style: '',
+  //   style: '',
   selected: '',
   onChange: () => null
 };
 
 Picker.propTypes = {
-  style: PropTypes.string,
+  //   style: PropTypes.string,
   selected: PropTypes.string,
   onChange: PropTypes.func
 };
