@@ -8,12 +8,12 @@ const Navigation = ({ totalBalance }) => (
   <div className={classes.container}>
     <ul className={classes.nav}>
       <li className={classes.listItem}>
-        <NavLink to="/dashboard/home" className={classes.link} activeClassName={classes.activeLink}>
+        <NavLink to="/dashboard/home" className={classes.linkHome} activeClassName={classes.activeLink}>
           <span className={classes.linkText}>Home</span>
         </NavLink>
       </li>
       <li className={classes.listItem}>
-        <NavLink to="/dashboard/diagram" className={classes.link} activeClassName={classes.activeLink}>
+        <NavLink to="/dashboard/diagram" className={classes.linkDiagram} activeClassName={classes.activeLink}>
           <span className={classes.linkText}>Diagram</span>
         </NavLink>
       </li>
