@@ -1,6 +1,9 @@
 import { colors, months } from '../../components/Main/config';
 import 'chart.piecelabel.js';
 
+export const sortFunc = (a, b) => a.date - b.date;
+export const getSortedData = arr => arr.sort(sortFunc);
+
 export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
 const getIncome = arr => arr.filter(item => item.type === '-');
 
