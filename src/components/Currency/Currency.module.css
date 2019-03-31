@@ -1,0 +1,80 @@
+.container {
+    max-width: 320px;
+    margin: 0 auto;
+}
+.content {
+    margin-bottom: 74px;
+}
+.tableHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 38px;
+    color: #282828;
+    font-family: "Helvetica Neue Cyr";
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0.39px;
+    background-color: #f3f6f6;
+}
+.tableRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 38px;
+    border-bottom: 2px solid #f3f6f6;
+}
+.tableRowItem {
+    color: #2c353e;
+    font-family: "Helvetica Neue Cyr - Roman";
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.39px;
+    background-color: #ffffff;
+}
+.background {
+    /* border: 1px solid red; */
+    height: 200px;
+    background: no-repeat center url(../../assets/images/bg.psb.png);
+}
+
+@media(min-width: 768px) {
+    .container {
+        box-shadow: 10px 17px 40px rgba(1, 1, 0, 0.15);
+        max-width: 352px;
+    }
+    .content {
+        margin-bottom: 0;
+    }
+    .tableHeading {
+        padding: 25px 28px;
+        font-size: 11px;
+        letter-spacing: 0.33px;
+    }
+    .tableRow {
+        padding: 15px 27px;
+    }
+    .background {
+        display: none;
+    }
+}
+
+@media(min-width: 1920px) {
+    .content {
+        margin-bottom: 68px;
+    }
+    .tableHeading {
+        padding: 24px 30px;
+        font-size: 15px;
+        letter-spacing: 0.45px;
+    }
+    .tableRow {
+        padding: 16px 30px;
+    }
+    .background {
+        display: block;
+    }
+
+}
