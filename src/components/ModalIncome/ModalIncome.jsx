@@ -180,6 +180,7 @@ class Modal extends Component {
               value={comments}
               placeholder="Your comment"
               maxLength="56"
+              required
             />
 
             <Button style={s.btn} type="submit" value="Add" />
@@ -206,6 +207,8 @@ Modal.propTypes = {
   token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func
+  // addToData: PropTypes.func.isRequired,
+  // setTotalBalance: PropTypes.func.isRequired
 };
 
 // export default Modal;

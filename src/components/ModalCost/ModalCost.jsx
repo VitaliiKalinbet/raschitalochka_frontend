@@ -16,12 +16,13 @@ const INITIAL_STATE = {
   date: new Date(),
   category: '',
   amount: null,
-  comments: ''
+  comments: '',
+  balanceAfter: 0
 };
 
-const typeAndBalanceOfModal = (prevBalance, amount) => ({
+const typeAndBalanceOfModal = (totalBalance, amount) => ({
   type: '-',
-  balanceAfter: prevBalance - amount
+  balanceAfter: totalBalance - amount
 });
 
 class Modal extends Component {
@@ -81,17 +82,39 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token } = this.props;
+    const { handleCloseClick, user, token, setTotalBalance, addToData, totalBalance } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(0, amount), ...{ date: dateInMilliseconds } };
+    const type = {
+      type: '-'
+    };
 
-    API.postIncomeAndCosts(user.id, token, finance)
-      .then(res => console.log('res', res))
+    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+
+    const newBalance = totalBalance - amount;
+
+    const balanceOut = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    console.log(totalBalance, amount);
+
+    console.log(balanceOut);
+
+    const financeOut = { ...this.state, ...{ date: dateInMilliseconds }, ...type, balanceAfter: balanceOut };
+    // console.log(finance);
+    setTotalBalance(finance.type, newBalance);
+    addToData(finance);
+
+    API.postIncomeAndCosts(user.id, token, financeOut)
+      .then(() => {
+        // console.log('then', finance.type, finance.amount, data.finance.data);
+        // res.data.finance.data;
+        // console.log(data, 'dataaaaa');
+        // console.log(finance.balanceAfter, 'balance');
+        // const newBalance = type === '+' ? totalBalance + finance.balanceAfter : totalBalance - finance.balanceAfter;
+      })
+      // .then((res) =>  )
       .catch(error => console.log('err', error));
-    // console.log(user, token);
-    // console.log({});
+
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
   };
@@ -105,7 +128,7 @@ class Modal extends Component {
         <div className={s.wrapArrow}>
           <img src={Arrow} alt="arrow" className={s.arrow} />
         </div>
-        <h2 className={s.titleArrow}>Add Income</h2>
+        <h2 className={s.titleArrow}>Add Cost</h2>
       </>
     );
 
@@ -270,6 +293,7 @@ class Modal extends Component {
               value={comments}
               placeholder="Your comment"
               maxLength="56"
+              required
             />
 
             <Button style={s.btn} type="submit" value="Add" />
@@ -295,7 +319,10 @@ Modal.propTypes = {
   }),
   token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
-  handleCloseClick: PropTypes.func
+  handleCloseClick: PropTypes.func,
+  addToData: PropTypes.func.isRequired,
+  setTotalBalance: PropTypes.func.isRequired,
+  totalBalance: PropTypes.number.isRequired
 };
 
 // export default Modal;

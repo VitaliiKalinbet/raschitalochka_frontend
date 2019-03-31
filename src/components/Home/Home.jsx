@@ -75,10 +75,20 @@ const checkType = type => {
 const checkIdx = idx => (idx % 2 === 0 ? s.contentRows : s.contentRowsSilver);
 
 class Home extends Component {
-  state = {
-    isModalIncomeOpen: false,
-    isModalCostOpen: false
-  };
+  constructor(props) {
+    super(props);
+    const { data } = this.props;
+    this.state = {
+      sortedData: data,
+      isModalIncomeOpen: false,
+      isModalCostOpen: false
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const change = nextProps.data !== nextState.sortedData;
+    return change;
+  }
 
   handleOpenModalIncome = () => {
     this.setState({
@@ -109,9 +119,10 @@ class Home extends Component {
   };
 
   render() {
-    const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    const { data } = this.props;
-
+    const { isModalIncomeOpen, isModalCostOpen, sortedData } = this.state;
+    const { data, addToData, setTotalBalance, totalBalance } = this.props;
+    console.log(sortedData);
+    console.log(data);
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -162,7 +173,9 @@ class Home extends Component {
                       </td>
                       <td className={`${s.lastColContent} ${s.noMobile}`}>
                         <div className={s.mobileTh}>Balance After</div>
-                        <div className={s.mobileContent}>{item.balanceAfter}</div>
+                        <div className={s.mobileContent}>
+                          {item.balanceAfter.toString().includes('-') ? item.balanceAfter : `-${item.balanceAfter}`}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -180,8 +193,22 @@ class Home extends Component {
           </table>
         </div>
 
-        {isModalIncomeOpen && <ModalIncome handleCloseClick={this.handleCloseModalIncome} />}
-        {isModalCostOpen && <ModalCost handleCloseClick={this.handleCloseModalCost} />}
+        {isModalIncomeOpen && (
+          <ModalIncome
+            totalBalance={totalBalance}
+            addToData={addToData}
+            setTotalBalance={setTotalBalance}
+            handleCloseClick={this.handleCloseModalIncome}
+          />
+        )}
+        {isModalCostOpen && (
+          <ModalCost
+            totalBalance={totalBalance}
+            addToData={addToData}
+            setTotalBalance={setTotalBalance}
+            handleCloseClick={this.handleCloseModalCost}
+          />
+        )}
       </div>
     );
   }
@@ -192,7 +219,10 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object)
+  data: PropTypes.arrayOf(PropTypes.object),
+  addToData: PropTypes.func.isRequired,
+  setTotalBalance: PropTypes.func.isRequired,
+  totalBalance: PropTypes.number.isRequired
 };
 
 const mapState = state => ({

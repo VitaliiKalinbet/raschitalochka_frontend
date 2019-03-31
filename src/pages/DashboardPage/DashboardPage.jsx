@@ -53,37 +53,56 @@ class DashboardPage extends Component {
     API.getFinanceById(user.id, token)
       .then(({ data }) => {
         this.setState({
+          totalBalance: this.getTotalBalance(data.finance.data) ? this.getTotalBalance(data.finance.data) : 0,
           allData: data.finance.data,
           sortedData: getSortedData(getCategoriesArr(data.finance.data))
         });
+        console.log(data);
         return getCategoriesArr(data.finance.data);
       })
       .then(data => {
-        const { sortedData } = this.state;
-        this.setState({ totalBalance: this.getTotalBalance(sortedData) });
+        // const { sortedData } = this.state;
+        // this.setState({ totalBalance: this.getTotalBalance(sortedData) });
         this.setStateData(data);
       })
       .catch(error => this.setState({ error }));
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { data } = this.state;
-    return data.length !== nextState.length;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { data, totalBalance } = this.state;
+  //   if (totalBalance !== nextState.totalBalance) return true;
+  //   return data.length !== nextState.data.length;
+  // }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
 
   addToData = obj => {
-    const { data } = this.state;
-    return data.unshift(obj);
+    // console.log(obj);
+    const { data, sortedData } = this.state;
+    this.setState(
+      state => {
+        state.sortedData.push(obj);
+      },
+      () => {
+        console.log('setState: ', sortedData);
+        console.log('setState data: ', data);
+      }
+    );
   };
 
-  getTotalBalance = arr => arr.pop().balanceAfter;
+  getTotalBalance = arr => {
+    console.log(arr);
+    return arr.pop().balanceAfter;
+  };
 
-  setTotalBalance = arr => {
-    getSortedData(arr);
+  setTotalBalance = (type, value) => {
+    console.log(type, value, 'dash');
+    console.log(typeof value);
+    this.setState({
+      totalBalance: value
+    });
   };
 
   handleChange = e => {
@@ -113,7 +132,7 @@ class DashboardPage extends Component {
     });
   };
 
-  setTotalBalance = value => this.setState({ totalBalance: value });
+  // setTotalBalance = value => this.setState({ totalBalance: value });
 
   setStateData = data => {
     const { currentYear, currentMonth } = this.state;
@@ -147,6 +166,8 @@ class DashboardPage extends Component {
       currentYear,
       chartData
     } = this.state;
+    console.log(data);
+    console.log(totalBalance);
     return (
       <div>
         <Header />
