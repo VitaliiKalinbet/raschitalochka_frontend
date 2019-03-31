@@ -6,6 +6,14 @@
     background-color: #fff;
 }
 
+.loader{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:calc(60% - 50px);
+    left:calc(50% - 50px);
+  }
+
 .btnsBlock {
     background-color: #516d57;
     padding: 23px 0;
@@ -79,6 +87,10 @@
 
 .firstColContent {
     padding: 25px 0px 25px 37px;
+}
+
+.firstColContentForMobile {
+    display: none;
 }
 
 .typeColContent {
@@ -218,7 +230,6 @@
         box-shadow: none;
         background-color: inherit;
         position: relative;
-        background-color: #efefef;
         padding-bottom: 85px;
     } 
 
@@ -258,7 +269,7 @@
         display: flex;
         flex-direction: column;
         padding: 0px 0px 0px 0px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         border-left: 8px solid transparent;
         background-color: #fff;
         box-shadow: 9px 9px 9px 0px rgba(0,0,0,0.08);
@@ -271,7 +282,7 @@
         display: flex;
         flex-direction: column;
         padding: 0px 0px 0px 0px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         border-left: 8px solid transparent;
         background-color: #fff;
         box-shadow: 9px 9px 9px 0px rgba(0,0,0,0.08);
@@ -285,38 +296,58 @@
         margin: 0;
     }
 
-    .colorFirst {
-        border-left: 8px solid #75c16e;
+    .colorRegularIncome {
+        border-left: 8px solid rgb(236, 178, 42);
     }
 
-    .colorSecond {
-        border-left: 8px solid #e28b20;
+    .colorIrregularIncome {
+        border-left: 8px solid rgb(226, 139, 32);
     }
 
-    .colorThird {
-        border-left: 8px solid #d25925;
+    .colorFood {
+        border-left: 8px solid rgb(210, 89, 37);
     }
 
-    .colorFourth {
-        border-left: 8px solid #75c16e;
+    .colorCar {
+        border-left: 8px solid rgb(103, 183, 208);
     }
 
-    .colorFifth {
-        border-left: 8px solid #507c3a;
+    .colorMainExpenses  {
+        border-left: 8px solid rgb(85, 147, 215);
     }
 
-    .firstColContent, .typeColContent, .categoryColContent, .commentColContent, .amountColContent, .lastColContent {
+    .colorEntertainment  {
+        border-left: 8px solid rgb(255, 171, 0);
+    }
+
+    .colorSelfCare  {
+        border-left: 8px solid rgb(156, 194, 84);
+    }
+
+    .colorChildCare  {
+        border-left: 8px solid rgb(115, 173, 87);
+    }
+
+    .colorHouseholdProducts {
+        border-left: 8px solid rgb(185, 199, 177);
+    } 
+
+    .colorEducation {
+        border-left: 8px solid rgb(217, 165, 170);
+    } 
+
+    .colorOtherExpenses {
+        border-left: 8px solid rgb(100, 84, 40);
+    } 
+
+    .firstColContent {
         width: 100%;
-        padding: 15px 0px 15px 15px;
-        padding: 0;
+        padding: 5px 10px;
         text-align: left;
         display: flex;
         flex-wrap: wrap;
     }
 
-    .firstColContent, .categoryColContent, .amountColContent {
-        background-color: #f3f6f6;
-    }
 
     .amountPlus {
         color: #75c16e;
@@ -328,13 +359,30 @@
 
     .mobileTh {
         display: block;
-        padding: 15px 0px 15px 15px;
+        padding: 0;
         width: 50%;
         color: #000;
     }
 
     .mobileContent {
-        padding: 15px 0px;
+        padding: 0px;
         width: 50%;
+        font-size: 11px;
+        line-height: 13px;
+        font-weight: 400; 
+    }
+
+    .noMobile {
+        display: none;
+    }
+
+    .firstColContentForMobile {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 13px;
+        line-height: 15px;
+        font-weight: 400; 
     }
 }

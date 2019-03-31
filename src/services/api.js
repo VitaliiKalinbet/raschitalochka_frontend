@@ -14,3 +14,10 @@ export const getFinanceById = async (userId, token) => {
   const response = await axios.get(`/api/finance/${userId}`);
   return response;
 };
+
+export const postIncomeAndCosts = async (userId, token, finance) => {
+  setBaseURL();
+  setAuthHeader(token);
+  const response = await axios.post(`/api/finance/${userId}`, finance);
+  return response;
+};
