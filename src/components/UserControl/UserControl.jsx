@@ -6,7 +6,7 @@ import * as s from './UserControl.module.css';
 //   localStorage.clear();
 //   history.push('/login');
 // };
-const UserControl = ({ user: { name } }) => (
+const UserControl = ({ user: { name, onSignOut } }) => (
   <div className={s.container}>
     <h5 className={s.text}>{name}</h5>
     <button className={s.button} type="button" onClick={onSignOut}>

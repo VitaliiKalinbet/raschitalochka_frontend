@@ -119,10 +119,10 @@ class Home extends Component {
   };
 
   render() {
-    const { isModalIncomeOpen, isModalCostOpen, sortedData } = this.state;
+    const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, setTotalBalance, totalBalance } = this.props;
-    console.log(sortedData);
-    console.log(data);
+    // console.log(sortedData);
+    // console.log(data);
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>

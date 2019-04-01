@@ -31,6 +31,7 @@ const Main = ({
   totalBalance
 }) => (
   <>
+    {console.log(error)}
     {error && <h1>{error.message}</h1>}
     <Switch>
       <Route
