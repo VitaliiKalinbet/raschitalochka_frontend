@@ -25,7 +25,7 @@ class App extends Component {
           />
           <Route path="/login" component={LoginPage} />
           <Route path="/registration" component={RegistrationPage} />
-          <Route path="/dashboard" component={DashboardPage} />
+          <Route path="/dashboard" component={props => <DashboardPage {...props} />} />
         </Router>
       </div>
     );

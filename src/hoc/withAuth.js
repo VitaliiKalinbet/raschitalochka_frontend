@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import login from '../redux/reducers/session/sessionOperations';
-import { getIsAuthenticated } from '../redux/reducers/session/sessionSelectors';
+import * as operotions from '../redux/reducers/session/sessionOperations';
+import { getIsAuthenticated, getUser } from '../redux/reducers/session/sessionSelectors';
 
 const withAuth = WrappedComponent => {
   class WithAuth extends Component {
     componentDidUpdate() {
+      console.log('WrappedComponent: ', WrappedComponent.props);
       const { isAuthenticated, location, history } = this.props;
 
       const { from } = location.state || { from: { pathname: '/dashboard/home' } };
@@ -21,6 +22,7 @@ const withAuth = WrappedComponent => {
     }
 
     render() {
+      console.log(WrappedComponent.props);
       return <WrappedComponent {...this.props} />;
     }
   }
@@ -36,16 +38,18 @@ const withAuth = WrappedComponent => {
   };
 
   const mstp = state => ({
-    isAuthenticated: getIsAuthenticated(state)
+    isAuthenticated: getIsAuthenticated(state),
+    user: getUser(state)
   });
 
   const mdtp = {
-    login
+    login: operotions.login,
+    logout: operotions.logout
   };
   return connect(
     mstp,
     mdtp
-  )(WithAuth);
+  )(props => <WithAuth {...props} />);
 };
 
 export default withAuth;

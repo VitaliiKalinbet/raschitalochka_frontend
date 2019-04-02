@@ -12,7 +12,6 @@ import { options } from './config';
 const Main = ({
   sortedData,
   tableData,
-  error,
   width,
   totalCosts,
   totalIncome,
@@ -31,8 +30,6 @@ const Main = ({
   totalBalance
 }) => (
   <>
-    {console.log(error)}
-    {error && <h1>{error.message}</h1>}
     <Switch>
       <Route
         path="/dashboard/home"
@@ -81,7 +78,6 @@ Main.propTypes = {
   selectedYear: PropTypes.string.isRequired,
   currentMonth: PropTypes.string.isRequired,
   currentYear: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
   onChangeYear: PropTypes.func.isRequired,
   setTotalBalance: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

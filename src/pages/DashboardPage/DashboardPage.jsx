@@ -130,7 +130,6 @@ class DashboardPage extends Component {
       sortedData,
       tableData,
       error,
-      width,
       totalBalance,
       totalCosts,
       totalIncome,
@@ -140,11 +139,11 @@ class DashboardPage extends Component {
       currentYear,
       chartData
     } = this.state;
-    // console.log('sortedData: ', sortedData);
+    const { width } = this.props;
     return (
       <div>
         <Header />
-        <Sidebar totalBalance={totalBalance} />
+        <Sidebar totalBalance={totalBalance} {...this.props} />
         <Main
           {...this.props}
           addToData={this.addToData}
