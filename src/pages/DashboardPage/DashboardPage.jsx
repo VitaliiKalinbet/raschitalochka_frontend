@@ -7,7 +7,7 @@ import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
 import * as API from '../../services/api';
-
+import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 import {
   getSortedData,
@@ -36,7 +36,6 @@ class DashboardPage extends Component {
     totalIncome: 0,
     chartData: {},
     tableData: [],
-    width: window.innerWidth,
     error: ''
   };
 
@@ -47,7 +46,7 @@ class DashboardPage extends Component {
       selectedMonth: getCurrentMonth(),
       selectedYear: getCurrentYear()
     });
-    window.addEventListener('resize', this.updateDimensions.bind(this));
+
     const { user, token } = this.props;
 
     API.getFinanceById(user.id, token)
@@ -65,10 +64,6 @@ class DashboardPage extends Component {
         this.setStateData(data);
       })
       .catch(error => this.setState({ error }));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
 
   getTotalBalance = obj => {
@@ -127,10 +122,6 @@ class DashboardPage extends Component {
       state.sortedData.push(obj);
     });
   };
-
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
 
   render() {
     const {
@@ -199,7 +190,8 @@ DashboardPage.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  width: PropTypes.number.isRequired
 };
 
 const mstp = state => {
@@ -209,4 +201,4 @@ const mstp = state => {
   };
 };
 
-export default connect(mstp)(DashboardPage);
+export default connect(mstp)(withWidth(DashboardPage));

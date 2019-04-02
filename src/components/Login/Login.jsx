@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
+import withWidth from '../../hoc/withWidth';
 import logo from '../../assets/images/logo.svg';
 
 import s from './Login.module.css';
@@ -12,13 +13,10 @@ const slogan = <p className={s.slogan}>Manage your budget with finance app</p>;
 class Login extends Component {
   state = {
     email: '',
-    password: '',
-    width: 800
+    password: ''
   };
 
   componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
@@ -36,7 +34,6 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
@@ -65,12 +62,9 @@ class Login extends Component {
     if (e.code === 'Enter') this.handleSubmit(e);
   };
 
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { email, password, width } = this.state;
+    const { email, password } = this.state;
+    const { width } = this.props;
     return (
       <div className={s.wrap}>
         {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
@@ -125,7 +119,8 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired
 };
 
-export default withAuth(Login);
+export default withAuth(withWidth(Login));
