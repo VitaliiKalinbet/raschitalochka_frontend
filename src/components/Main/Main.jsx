@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,65 +9,61 @@ import Diagram from '../Diagram/Diagram';
 
 import { options } from './config';
 
-class Main extends Component {
-  state = {};
-
-  render() {
-    const {
-      sortedData,
-      tableData,
-      error,
-      width,
-      totalCosts,
-      totalIncome,
-      selectedMonth,
-      currentMonth,
-      selectedYear,
-      currentYear,
-      chartData,
-      onChange,
-      onUpdate,
-      years,
-      onChangeYear,
-      months,
-      setTotalBalance,
-      addToData
-    } = this.props;
-    return (
-      <>
-        {error && <h1>{error.message}</h1>}
-        <Switch>
-          <Route
-            path="/dashboard/home"
-            render={() => <Home data={sortedData} addToData={addToData} setTotalBalance={setTotalBalance} />}
+const Main = ({
+  sortedData,
+  tableData,
+  error,
+  width,
+  totalCosts,
+  totalIncome,
+  selectedMonth,
+  currentMonth,
+  selectedYear,
+  currentYear,
+  chartData,
+  onChange,
+  onUpdate,
+  years,
+  onChangeYear,
+  months,
+  setTotalBalance,
+  addToData,
+  totalBalance
+}) => (
+  <>
+    {error && <h1>{error.message}</h1>}
+    <Switch>
+      <Route
+        path="/dashboard/home"
+        render={() => (
+          <Home data={sortedData} totalBalance={totalBalance} addToData={addToData} setTotalBalance={setTotalBalance} />
+        )}
+      />
+      <Route
+        path="/dashboard/diagram"
+        render={() => (
+          <Diagram
+            tableData={tableData}
+            options={options}
+            chartData={chartData}
+            totalCosts={totalCosts}
+            totalIncome={totalIncome}
+            width={width}
+            onChange={onChange}
+            months={months}
+            selectedMonth={selectedMonth}
+            currentMonth={currentMonth}
+            years={years}
+            currentYear={currentYear}
+            onChangeYear={onChangeYear}
+            selectedYear={selectedYear}
+            onUpdate={onUpdate}
           />
-          <Route
-            path="/dashboard/diagram"
-            render={() => (
-              <Diagram
-                tableData={tableData}
-                options={options}
-                chartData={chartData}
-                totalCosts={totalCosts}
-                totalIncome={totalIncome}
-                width={width}
-                onChange={onChange}
-                months={months}
-                selectedMonth={selectedMonth}
-                currentMonth={currentMonth}
-                years={years}
-                currentYear={currentYear}
-                onChangeYear={onChangeYear}
-                selectedYear={selectedYear}
-                onUpdate={onUpdate}
-              />
-            )}
-          />
-        </Switch>
-      </>
-    );
-  }
-}
+        )}
+      />
+    </Switch>
+  </>
+);
 
 Main.propTypes = {
   sortedData: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -90,7 +86,8 @@ Main.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   months: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  addToData: PropTypes.func.isRequired
+  addToData: PropTypes.func.isRequired,
+  totalBalance: PropTypes.number.isRequired
 };
 
 const mstp = state => {

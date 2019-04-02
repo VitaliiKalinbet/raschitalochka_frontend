@@ -2,7 +2,11 @@
 import React from 'react';
 import * as s from './UserControl.module.css';
 
-const UserControl = ({ user: { name }, onSignOut = () => null }) => (
+// const signOut = history => {
+//   localStorage.clear();
+//   history.push('/login');
+// };
+const UserControl = ({ user: { name } }) => (
   <div className={s.container}>
     <h5 className={s.text}>{name}</h5>
     <button className={s.button} type="button" onClick={onSignOut}>
