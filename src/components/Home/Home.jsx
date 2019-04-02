@@ -11,6 +11,9 @@ import ModalCost from '../ModalCost/ModalCost';
 
 import s from './Home.module.css';
 
+const checkMinus = item =>
+  String(item.balanceAfter).includes('-') && item.type === '-' ? item.balanceAfter : `-${item.balanceAfter}`;
+
 const createDate = mill => {
   const date = new Date(mill);
   const day = date.getDate();
@@ -173,9 +176,7 @@ class Home extends Component {
                       </td>
                       <td className={`${s.lastColContent} ${s.noMobile}`}>
                         <div className={s.mobileTh}>Balance After</div>
-                        <div className={s.mobileContent}>
-                          {item.type === '+' ? item.balanceAfter : `-${item.balanceAfter}`}
-                        </div>
+                        <div className={s.mobileContent}>{checkMinus(item)}</div>
                       </td>
                     </tr>
                   );

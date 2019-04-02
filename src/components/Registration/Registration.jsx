@@ -34,7 +34,6 @@ class Registration extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount() {
-    this.updateDimensions();
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
