@@ -54,7 +54,7 @@ class DashboardPage extends Component {
     if (user) {
       API.getFinanceById(user.id, token)
         .then(({ data }) => {
-          // console.log('data from first api', data);
+          console.log('data from first api', data);
           this.setState({
             totalBalance: this.getTotalBalance(data.finance),
             allData: data.finance.data,

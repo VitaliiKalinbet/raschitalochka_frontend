@@ -97,12 +97,18 @@ class Modal extends Component {
 
     const newBalance = totalBalance - amount;
 
-    const balanceOut = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
     // // console.log(totalBalance, amount);
 
     // // console.log(balanceOut);
-
-    const financeOut = { ...this.state, ...{ date: dateInMilliseconds }, ...type, balanceAfter: balanceOut };
+    const typeTotalBalance = newBalance > 0 ? '+' : '-';
+    const financeOut = {
+      ...this.state,
+      ...{ date: dateInMilliseconds },
+      ...type,
+      balanceAfter,
+      typeTotalBalance
+    };
     console.log(financeOut);
     setTotalBalance(finance.type, newBalance);
     addToData(finance);
