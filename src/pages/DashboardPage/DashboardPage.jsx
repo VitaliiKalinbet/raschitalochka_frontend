@@ -40,6 +40,10 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
+    const { user, token, history } = this.props;
+
+    if (!user) history.push('/login');
+
     this.setState({
       currentMonth: getCurrentMonth(),
       currentYear: getCurrentYear(),
@@ -47,23 +51,23 @@ class DashboardPage extends Component {
       selectedYear: getCurrentYear()
     });
 
-    const { user, token } = this.props;
-
-    API.getFinanceById(user.id, token)
-      .then(({ data }) => {
-        // console.log('data from first api', data);
-        this.setState({
-          totalBalance: this.getTotalBalance(data.finance),
-          allData: data.finance.data,
-          sortedData: getSortedData(getCategoriesArr(data.finance.data))
-        });
-        // console.log(data);
-        return getCategoriesArr(data.finance.data);
-      })
-      .then(data => {
-        this.setStateData(data);
-      })
-      .catch(error => this.setState({ error }));
+    if (user) {
+      API.getFinanceById(user.id, token)
+        .then(({ data }) => {
+          // console.log('data from first api', data);
+          this.setState({
+            totalBalance: this.getTotalBalance(data.finance),
+            allData: data.finance.data,
+            sortedData: getSortedData(getCategoriesArr(data.finance.data))
+          });
+          // console.log(data);
+          return getCategoriesArr(data.finance.data);
+        })
+        .then(data => {
+          this.setStateData(data);
+        })
+        .catch(error => this.setState({ error }));
+    }
   }
 
   getTotalBalance = obj => {
