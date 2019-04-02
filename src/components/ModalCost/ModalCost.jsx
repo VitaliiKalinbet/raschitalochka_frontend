@@ -8,7 +8,7 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 import Arrow from '../../assets/images/arrow.svg';
 import Button from '../Button/Button';
 
-// import * as API from '../../services/api';
+import * as API from '../../services/api';
 
 import s from './ModalCost.module.css';
 
@@ -82,43 +82,43 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    // const { handleCloseClick, user, token, setTotalBalance, addToData, totalBalance } = this.props;
-    const { handleCloseClick, setTotalBalance, addToData, totalBalance } = this.props;
+    const { handleCloseClick, user, token, setTotalBalance, addToData, totalBalance } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
 
-    // const type = {
-    //   type: '-'
-    // };
+    const type = {
+      type: '-'
+    };
 
     const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
     console.log('totalBalance: ', totalBalance);
     console.log('amount: ', amount);
+    // console.log('finance: ', finance);
 
     const newBalance = totalBalance - amount;
 
-    // const balanceOut = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    const balanceOut = newBalance > 0 ? newBalance : Math.abs(newBalance);
     // // console.log(totalBalance, amount);
 
     // // console.log(balanceOut);
 
-    // const financeOut = { ...this.state, ...{ date: dateInMilliseconds }, ...type, balanceAfter: balanceOut };
-    // // console.log(finance);
+    const financeOut = { ...this.state, ...{ date: dateInMilliseconds }, ...type, balanceAfter: balanceOut };
+    console.log(financeOut);
     setTotalBalance(finance.type, newBalance);
     addToData(finance);
     // console.log('finance: ', finance);
     // console.log('financeOut: ', financeOut);
 
-    // API.postIncomeAndCosts(user.id, token, financeOut)
-    //   .then(() => {
-    //     // console.log('then', finance.type, finance.amount, data.finance.data);
-    //     // res.data.finance.data;
-    //     // console.log(data, 'dataaaaa');
-    //     // console.log(finance.balanceAfter, 'balance');
-    //     // const newBalance = type === '+' ? totalBalance + finance.balanceAfter : totalBalance - finance.balanceAfter;
-    //   })
-    //   // .then((res) =>  )
-    //   .catch(error => console.log('err', error));
+    API.postIncomeAndCosts(user.id, token, financeOut)
+      .then(() => {
+        // console.log('then', finance.type, finance.amount, data.finance.data);
+        // res.data.finance.data;
+        // console.log(data, 'dataaaaa');
+        // console.log(finance.balanceAfter, 'balance');
+        // const newBalance = type === '+' ? totalBalance + finance.balanceAfter : totalBalance - finance.balanceAfter;
+      })
+      // .then((res) =>  )
+      .catch(error => console.log('err', error));
 
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
@@ -310,19 +310,19 @@ class Modal extends Component {
 }
 
 Modal.defaultProps = {
-  // user: null,
-  // token: null,
+  user: null,
+  token: null,
   handleSubmitForm: () => null,
   handleCloseClick: () => null
 };
 
 Modal.propTypes = {
-  // user: PropTypes.shape({
-  //   id: PropTypes.string,
-  //   email: PropTypes.string,
-  //   name: PropTypes.string
-  // }),
-  // token: PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    email: PropTypes.string,
+    name: PropTypes.string
+  }),
+  token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func,
   addToData: PropTypes.func.isRequired,

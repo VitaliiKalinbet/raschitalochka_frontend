@@ -54,30 +54,29 @@ class DashboardPage extends Component {
       .then(({ data }) => {
         // console.log('data from first api', data);
         this.setState({
-          totalBalance: this.getTotalBalance(getSortedData(data.finance.data)),
+          totalBalance: this.getTotalBalance(data.finance),
           allData: data.finance.data,
           sortedData: getSortedData(getCategoriesArr(data.finance.data))
         });
-        console.log(data);
+        // console.log(data);
         return getCategoriesArr(data.finance.data);
       })
       .then(data => {
-        // const { sortedData } = this.state;
-        // this.setState({ totalBalance: this.getTotalBalance(sortedData) });
         this.setStateData(data);
       })
       .catch(error => this.setState({ error }));
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { data, totalBalance } = this.state;
-  //   if (totalBalance !== nextState.totalBalance) return true;
-  //   return data.length !== nextState.data.length;
-  // }
-
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
+
+  getTotalBalance = obj => {
+    const { type = '-', totalBalance = 0 } = obj;
+    return this.returnValueByType(type, totalBalance);
+  };
+
+  returnValueByType = (type, value) => (type === '-' ? -Math.abs(value) : value);
 
   setStateData = data => {
     const { currentYear, currentMonth } = this.state;
@@ -90,14 +89,6 @@ class DashboardPage extends Component {
     });
   };
 
-  getTotalBalance = arr => {
-    console.log('getTotalBalance arr: ', arr);
-    if (arr.length === 0) return 0;
-    const lastTransaction = arr.pop();
-    const { balanceAfter, type } = lastTransaction;
-    return type === '-' ? -Math.abs(balanceAfter) : balanceAfter;
-  };
-
   handleUpdate = e => {
     e.preventDefault();
     const { selectedYear, selectedMonth, data } = this.state;
@@ -108,10 +99,8 @@ class DashboardPage extends Component {
   };
 
   setTotalBalance = (type, value) => {
-    console.log('dashboard', type, value);
-    // console.log(typeof value);
     this.setState({
-      totalBalance: value
+      totalBalance: type === '-' ? -Math.abs(value) : value
     });
   };
 
@@ -134,20 +123,10 @@ class DashboardPage extends Component {
   };
 
   addToData = obj => {
-    // console.log(obj);
-    // const { data, sortedData } = this.state;
-    this.setState(
-      state => {
-        state.sortedData.push(obj);
-      },
-      () => {
-        // console.log('setState: ', sortedData);
-        // console.log('setState data: ', data);
-      }
-    );
+    this.setState(state => {
+      state.sortedData.push(obj);
+    });
   };
-
-  // setTotalBalance = value => this.setState({ totalBalance: value });
 
   updateDimensions() {
     this.setState({ width: window.innerWidth });
@@ -170,9 +149,7 @@ class DashboardPage extends Component {
       currentYear,
       chartData
     } = this.state;
-    // console.log(data);
-    // console.log(totalBalance);
-    console.log('sortedData: ', sortedData);
+    // console.log('sortedData: ', sortedData);
     return (
       <div>
         <Header />

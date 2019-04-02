@@ -174,7 +174,7 @@ class Home extends Component {
                       <td className={`${s.lastColContent} ${s.noMobile}`}>
                         <div className={s.mobileTh}>Balance After</div>
                         <div className={s.mobileContent}>
-                          {item.balanceAfter.toString().includes('-') ? item.balanceAfter : `-${item.balanceAfter}`}
+                          {item.type === '+' ? item.balanceAfter : `-${item.balanceAfter}`}
                         </div>
                       </td>
                     </tr>
