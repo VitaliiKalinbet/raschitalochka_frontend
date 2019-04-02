@@ -8,7 +8,7 @@ const Navigation = ({ totalBalance }) => (
   <div className={classes.container}>
     <ul className={classes.nav}>
       <li className={classes.listItem}>
-        <NavLink to="/dashboard/home" className={classes.linkHome} activeClassName={classes.activeLink}>
+        <NavLink to="/dashboard" className={classes.linkHome} activeClassName={classes.activeLink}>
           <span className={classes.linkText}>Home</span>
         </NavLink>
       </li>

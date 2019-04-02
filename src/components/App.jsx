@@ -21,7 +21,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => (isAuthenticated ? <Redirect to="/dashboard/home" /> : <Redirect to="/login" />)}
+            render={() => (isAuthenticated ? <Redirect to="/dashboard" /> : <Redirect to="/login" />)}
           />
           <Route path="/login" component={LoginPage} />
           <Route path="/registration" component={RegistrationPage} />

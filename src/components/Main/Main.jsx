@@ -32,12 +32,6 @@ const Main = ({
   <>
     <Switch>
       <Route
-        path="/dashboard/home"
-        render={() => (
-          <Home data={sortedData} totalBalance={totalBalance} addToData={addToData} setTotalBalance={setTotalBalance} />
-        )}
-      />
-      <Route
         path="/dashboard/diagram"
         render={() => (
           <Diagram
@@ -57,6 +51,12 @@ const Main = ({
             selectedYear={selectedYear}
             onUpdate={onUpdate}
           />
+        )}
+      />
+      <Route
+        path="/dashboard"
+        render={() => (
+          <Home data={sortedData} totalBalance={totalBalance} addToData={addToData} setTotalBalance={setTotalBalance} />
         )}
       />
     </Switch>
