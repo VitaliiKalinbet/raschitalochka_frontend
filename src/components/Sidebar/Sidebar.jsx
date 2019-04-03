@@ -5,15 +5,16 @@ import Navigation from '../Navigation/Navigation';
 import Balance from '../Balance/Balance';
 import Currency from '../Currency/Currency';
 
-const Sidebar = ({ totalBalance }) => (
+const Sidebar = ({ totalBalance, width }) => (
   <>
     <Navigation totalBalance={totalBalance} />
     <Balance totalBalance={totalBalance} />
-    <Currency />
+    {width > 1024 ? <Currency /> : null}
   </>
 );
 
 Sidebar.propTypes = {
+  width: PropTypes.number.isRequired,
   totalBalance: PropTypes.number.isRequired
 };
 

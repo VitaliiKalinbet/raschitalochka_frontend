@@ -150,7 +150,7 @@ class DashboardPage extends Component {
       <>
         <Header />
         <div className={s.mainWrapper}>
-          <Sidebar totalBalance={totalBalance} {...this.props} />
+          <Sidebar totalBalance={totalBalance} width={width} {...this.props} />
           <Main
             {...this.props}
             addToData={this.addToData}
