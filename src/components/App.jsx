@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     const { isAuthenticated } = this.props;
     return (
-      <div>
+      <>
         <Router>
           <Route
             exact
@@ -27,7 +27,7 @@ class App extends Component {
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/dashboard" component={props => <DashboardPage {...props} />} />
         </Router>
-      </div>
+      </>
     );
   }
 }

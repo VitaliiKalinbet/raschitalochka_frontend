@@ -5,16 +5,18 @@ import s from './Table.module.css';
 
 import { colors } from '../Main/config';
 
+const tableTitle = (
+  <li className={s.rowHeader}>
+    <p className={s.tableHeader}>Categories</p>
+    <p className={s.tableHeader}>Amount</p>
+  </li>
+);
+
 const Table = ({ data, totalCosts, totalIncome, width }) => {
   return (
     <div className={s.tableWrap}>
       <ul className={s.table}>
-        {width < 768 && (
-          <li className={s.rowHeader}>
-            <p className={s.tableHeader}>Categories</p>
-            <p className={s.tableHeader}>Amount</p>
-          </li>
-        )}
+        {(width < 768 || width >= 1024) && tableTitle}
         {data.map((item, index) => {
           const color = { backgroundColor: colors[index] };
           return (

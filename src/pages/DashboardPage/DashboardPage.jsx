@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
+import s from './DashboardPage.module.css';
 import * as API from '../../services/api';
 import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
@@ -81,8 +82,8 @@ class DashboardPage extends Component {
     const { currentYear, currentMonth } = this.state;
     return this.setState({
       data,
-      totalCosts: getTotalByType(data, '+'),
-      totalIncome: getTotalByType(data, '-'),
+      totalCosts: getTotalByType(data, '-'),
+      totalIncome: getTotalByType(data, '+'),
       chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
       tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
     });
@@ -144,34 +145,37 @@ class DashboardPage extends Component {
       chartData
     } = this.state;
     const { width } = this.props;
+    console.log(width);
     return (
-      <div>
+      <>
         <Header />
-        <Sidebar totalBalance={totalBalance} {...this.props} />
-        <Main
-          {...this.props}
-          addToData={this.addToData}
-          error={error}
-          setTotalBalance={this.setTotalBalance}
-          sortedData={sortedData}
-          allData={allData}
-          tableData={tableData}
-          chartData={chartData}
-          totalBalance={totalBalance}
-          totalCosts={totalCosts}
-          totalIncome={totalIncome}
-          width={width}
-          onChange={this.handleChange}
-          months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
-          selectedMonth={selectedMonth}
-          currentMonth={currentMonth}
-          years={getYears(data)}
-          currentYear={currentYear}
-          onChangeYear={this.handleChangeYear}
-          selectedYear={selectedYear}
-          onUpdate={this.handleUpdate}
-        />
-      </div>
+        <div className={s.mainWrapper}>
+          <Sidebar totalBalance={totalBalance} {...this.props} />
+          <Main
+            {...this.props}
+            addToData={this.addToData}
+            error={error}
+            setTotalBalance={this.setTotalBalance}
+            sortedData={sortedData}
+            allData={allData}
+            tableData={tableData}
+            chartData={chartData}
+            totalBalance={totalBalance}
+            totalCosts={totalCosts}
+            totalIncome={totalIncome}
+            width={width}
+            onChange={this.handleChange}
+            months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
+            selectedMonth={selectedMonth}
+            currentMonth={currentMonth}
+            years={getYears(data)}
+            currentYear={currentYear}
+            onChangeYear={this.handleChangeYear}
+            selectedYear={selectedYear}
+            onUpdate={this.handleUpdate}
+          />
+        </div>
+      </>
     );
   }
 }

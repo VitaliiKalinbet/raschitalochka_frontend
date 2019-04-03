@@ -3,9 +3,10 @@
 	flex-direction: column;
   align-items: center;
 }
- .wrap{
-   width: 100%;
- } 
+
+.wrap{
+  width: 100%;
+}
 
 
 .chartWrap{
@@ -96,7 +97,11 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  /* .container{
+    width: 68%;
+  } */
+
   .wrap{
     display: flex;
     min-height: 700px;
@@ -115,7 +120,7 @@
     width: 50%;
         display: flex;
     flex-direction: column;
-     justify-content: center;
+    justify-content: center;
     align-items: center;
   }
   .submitBtn{
