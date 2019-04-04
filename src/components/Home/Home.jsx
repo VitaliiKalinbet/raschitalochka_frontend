@@ -94,6 +94,7 @@ class Home extends Component {
   };
 
   handleOpenModalCost = () => {
+    console.log('click Modal Cost');
     this.setState({
       isModalCostOpen: true
     });
@@ -110,7 +111,7 @@ class Home extends Component {
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, setTotalBalance, totalBalance } = this.props;
-    console.log(this.state);
+    console.log('home state: ', this.state);
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>

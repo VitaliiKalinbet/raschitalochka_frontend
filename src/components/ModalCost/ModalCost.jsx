@@ -134,20 +134,26 @@ class Modal extends Component {
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
 
-    const btnMobile = () => (
-      <>
-        <div className={s.wrapArrow}>
-          <img src={Arrow} alt="arrow" className={s.arrow} />
-        </div>
-        <h2 className={s.titleArrow}>Add Cost</h2>
-      </>
-    );
+    // const btnMobile = () => (
+    //   <>
+    //     <div className={s.wrapArrow}>
+    //       <img src={Arrow} alt="arrow" className={s.arrow} />
+    //     </div>
+    //     <h2 className={s.titleArrow}>Add Cost</h2>
+    //   </>
+    // );
 
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
           <div className={s.wrapBtn}>
-            <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} />
+            <button type="button" className={s.arrowBtn} onClick={this.handleBtnClick}>
+              <div className={s.wrapArrow}>
+                <img src={Arrow} alt="arrow" className={s.arrow} />
+              </div>
+              <h2 className={s.titleArrow}>Add Cost</h2>
+            </button>
+            {/* <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} /> */}
           </div>
 
           <h2 className={s.title}>Add Cost</h2>
@@ -165,7 +171,7 @@ class Modal extends Component {
               required
             />
 
-            <DatePicker style={s.dateInp} selected={date} onChange={this.handleChangeDate} clearIcon={null} />
+            <DatePicker style={s.dateInp} selected={String(date)} onChange={this.handleChangeDate} clearIcon={null} />
 
             <h3 className={s.subtitle}>Category</h3>
 

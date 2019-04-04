@@ -145,7 +145,7 @@ class DashboardPage extends Component {
       chartData
     } = this.state;
     const { width } = this.props;
-    console.log(this.state);
+    console.log('dashboard state: ', this.state);
     return (
       <>
         <Header />

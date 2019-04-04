@@ -27,7 +27,7 @@ const Diagram = ({
     <div className={s.wrap}>
       <div className={s.chartWrap}>
         {width >= 768 && width < 1024 && <p className={s.title}>Cost Diagram</p>}
-        <Chart data={chartData} options={options} />
+        <Chart data={chartData} width={width} options={options} />
         <Button style={s.submitBtn} onClick={onUpdate} type="button" value="Update" />
       </div>
       <div className={s.tableContaiter}>

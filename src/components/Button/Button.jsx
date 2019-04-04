@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 /* eslint-disable react/button-has-type */
-const Button = ({ type, style, value, onClick }) => {
-  console.log(value);
-  return (
-    <button className={style} type={type} onClick={onClick}>
-      {value}
-    </button>
-  );
-};
+const Button = ({ type, style, value, onClick }) => (
+  <button className={style} type={type} onClick={onClick}>
+    {value}
+  </button>
+);
 
 Button.defaultProps = {
   type: 'button',

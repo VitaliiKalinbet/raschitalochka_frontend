@@ -14,7 +14,7 @@ import s from './ModalIncome.module.css';
 const INITIAL_STATE = {
   date: new Date(),
   category: '',
-  amount: null,
+  amount: '',
   comments: ''
 };
 
@@ -131,14 +131,14 @@ class Modal extends Component {
   };
 
   render() {
-    const btnMobile = () => (
-      <>
-        <div className={s.wrapArrow}>
-          <img src={Arrow} alt="arrow" className={s.arrow} />
-        </div>
-        <h2 className={s.titleArrow}>Add Income</h2>
-      </>
-    );
+    // const btnMobile = () => (
+    //   <>
+    //     <div className={s.wrapArrow}>
+    //       <img src={Arrow} alt="arrow" className={s.arrow} />
+    //     </div>
+    //     <h2 className={s.titleArrow}>Add Income</h2>
+    //   </>
+    // );
 
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
@@ -146,7 +146,12 @@ class Modal extends Component {
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
           <div className={s.wrapBtn}>
-            <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} />
+            <button type="button" className={s.arrowBtn} onClick={this.handleBtnClick}>
+              <div className={s.wrapArrow}>
+                <img src={Arrow} alt="arrow" className={s.arrow} />
+              </div>
+              <h2 className={s.titleArrow}>Add Income</h2>
+            </button>
           </div>
           <h2 className={s.title}>Add Income</h2>
 
@@ -160,7 +165,7 @@ class Modal extends Component {
               onChange={this.handleAmountAndCommentChange}
               required
             />
-            <DatePicker style={s.dateInp} selected={date} onChange={this.handleChangeDate} />
+            <DatePicker style={s.dateInp} selected={String(date)} onChange={this.handleChangeDate} />
 
             <h3 className={s.subtitle}>Category</h3>
 
