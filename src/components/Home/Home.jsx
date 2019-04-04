@@ -133,7 +133,8 @@ class Home extends Component {
                   const date = createDate(item.date);
                   return (
                     <div
-                      key={item.date}
+                      // eslint-disable-next-line no-underscore-dangle
+                      key={item._id || item.date}
                       className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
                     >
                       <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
