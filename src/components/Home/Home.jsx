@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import noScroll from 'no-scroll';
+// import noScroll from 'no-scroll';
 import Loader from 'react-loader-spinner';
+import newId from 'uuid/v4';
+
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 
 import Button from '../Button/Button';
@@ -66,52 +68,66 @@ const checkIdx = idx => (idx % 2 === 0 ? s.contentRows : s.contentRowsSilver);
 class Home extends Component {
   constructor(props) {
     super(props);
-    const { data } = this.props;
+    // const { data } = this.props;
     this.state = {
-      sortedData: data,
+      // sortedData: data,
       isModalIncomeOpen: false,
       isModalCostOpen: false
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const change = nextProps.data !== nextState.sortedData;
-    return change;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const change = nextProps.data !== nextState.sortedData;
+  //   const { isModalCostOpen } = this.state
+  //   if (nextState.isModalCostOpen !== isModalCostOpen) return true
+  //   // console.log('should: ', nextProps, nextState);
+  //   return change;
+  // }
 
   handleOpenModalIncome = () => {
-    this.setState({
-      isModalIncomeOpen: true
-    });
-    noScroll.on();
+    this.setState(
+      {
+        isModalIncomeOpen: true
+      }
+      // () => noScroll.off()
+    );
+    // noScroll.on();
   };
 
   handleCloseModalIncome = () => {
-    this.setState({
-      isModalIncomeOpen: false
-    });
-    noScroll.off();
+    this.setState(
+      {
+        isModalIncomeOpen: false
+      }
+      // () => noScroll.off()
+    );
   };
 
   handleOpenModalCost = () => {
     console.log('click Modal Cost');
-    this.setState({
-      isModalCostOpen: true
-    });
-    noScroll.on();
+    this.setState(
+      {
+        isModalCostOpen: true
+      }
+      // () => noScroll.on()
+    );
+
+    console.log('click2 Modal Cost');
   };
 
   handleCloseModalCost = () => {
-    this.setState({
-      isModalCostOpen: false
-    });
-    noScroll.off();
+    this.setState(
+      {
+        isModalCostOpen: false
+      }
+      // () => noScroll.off()
+    );
   };
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, setTotalBalance, totalBalance } = this.props;
-    // console.log('home state: ', this.state);
+    console.log('home render');
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -135,7 +151,7 @@ class Home extends Component {
                   return (
                     <div
                       // eslint-disable-next-line no-underscore-dangle
-                      key={item._id || Date.now()}
+                      key={item._id || newId()}
                       className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
                     >
                       <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>

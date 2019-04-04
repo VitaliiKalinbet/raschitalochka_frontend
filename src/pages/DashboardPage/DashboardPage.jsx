@@ -11,9 +11,9 @@ import * as API from '../../services/api';
 import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 import {
-  getSortedData,
+  // getSortedData,
   getChartData,
-  getCategoriesArr,
+  // getCategoriesArr,
   getTotalByType,
   getCurrentMonth,
   getCurrentYear,
@@ -25,9 +25,8 @@ import {
 
 class DashboardPage extends Component {
   state = {
-    allData: [],
     data: [],
-    sortedData: [],
+    // sortedData: [],
     selectedMonth: '',
     currentMonth: '',
     currentYear: '',
@@ -57,17 +56,12 @@ class DashboardPage extends Component {
       API.getFinanceById(user.id, token)
         .then(({ data }) => {
           console.log('data from first api', data);
-          this.setState({
-            totalBalance: this.getTotalBalance(data.finance),
-            allData: data.finance.data,
-            sortedData: getSortedData(getCategoriesArr(data.finance.data))
-          });
-          // console.log(data);
-          return getCategoriesArr(data.finance.data);
+          this.setState({ totalBalance: this.getTotalBalance(data.finance) }, () =>
+            this.setStateData(data.finance.data)
+          );
         })
-        .then(data => {
-          this.setStateData(data);
-        })
+        // .then(data => {
+        // })
         .catch(error => this.setState({ error }));
     }
   }
@@ -132,15 +126,14 @@ class DashboardPage extends Component {
 
   addToData = obj => {
     this.setState(state => {
-      state.sortedData.push(obj);
+      state.data.push(obj);
     });
   };
 
   render() {
     const {
-      allData,
       data,
-      sortedData,
+      // sortedData,
       tableData,
       error,
       totalBalance,
@@ -154,7 +147,7 @@ class DashboardPage extends Component {
       chartData
     } = this.state;
     const { width } = this.props;
-    // console.log('dashboard state: ', this.state);
+    console.log('dashboard state: ', this.state);
 
     // console.log('dashboard totalBalance: ', totalBalance);
     // console.log('dashboard totalBalance: ', -Math.abs(totalBalance));
@@ -169,8 +162,7 @@ class DashboardPage extends Component {
             addToData={this.addToData}
             error={error}
             setTotalBalance={this.setTotalBalance}
-            sortedData={sortedData}
-            allData={allData}
+            sortedData={data}
             tableData={tableData}
             chartData={chartData}
             totalBalance={totalBalance}

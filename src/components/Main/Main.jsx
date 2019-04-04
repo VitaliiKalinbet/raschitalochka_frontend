@@ -38,8 +38,9 @@ const Main = ({
       <Route path="/dashboard/currency" component={Currency} />
       <Route
         path="/dashboard/diagram"
-        render={() => (
+        render={props => (
           <Diagram
+            {...props}
             tableData={tableData}
             options={options}
             chartData={chartData}
@@ -60,8 +61,9 @@ const Main = ({
       />
       <Route
         path="/dashboard"
-        render={() => (
+        render={props => (
           <Home
+            {...props}
             data={sortedData.reverse()}
             totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
