@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
@@ -10,27 +10,20 @@ import DashboardPage from '../pages/DashboardPage/DashboardPage';
 
 import { getIsAuthenticated } from '../redux/reducers/session/sessionSelectors';
 
-class App extends Component {
-  state = {};
-
-  render() {
-    const { isAuthenticated } = this.props;
-    return (
-      <>
-        <Router>
-          <Route
-            exact
-            path="/"
-            render={() => (isAuthenticated ? <Redirect to="/dashboard" /> : <Redirect to="/login" />)}
-          />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/registration" component={RegistrationPage} />
-          <Route path="/dashboard" component={props => <DashboardPage {...props} />} />
-        </Router>
-      </>
-    );
-  }
-}
+const App = ({ isAuthenticated }) => (
+  <>
+    <Router>
+      <Route
+        exact
+        path="/"
+        render={() => (isAuthenticated ? <Redirect to="/dashboard" /> : <Redirect to="/login" />)}
+      />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/registration" component={RegistrationPage} />
+      <Route path="/dashboard" component={props => <DashboardPage {...props} />} />
+    </Router>
+  </>
+);
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired

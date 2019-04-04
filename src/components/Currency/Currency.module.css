@@ -36,8 +36,8 @@
 }
 .background {
     /* border: 1px solid red; */
-    height: 200px;
-    background: no-repeat center url(../../assets/images/bg.psb.png);
+    /* height: 200px;
+    background: no-repeat center url(../../assets/images/bg.psb.png); */
 }
 
 @media(min-width: 768px) {
@@ -47,7 +47,9 @@
     }
     .content {
         margin-bottom: 0;
+        background: no-repeat center url(../../assets/images/bg.psb.png);
     }
+
     .tableHeading {
         padding: 25px 28px;
         font-size: 11px;
@@ -55,15 +57,17 @@
     }
     .tableRow {
         padding: 15px 27px;
+        background-color: transparent;
     }
     .background {
         display: none;
     }
 }
 
-@media(min-width: 1920px) {
+@media(min-width: 1024px) {
     .content {
-        margin-bottom: 68px;
+        padding-bottom: 180px;
+        background-position: 60% 120%;
     }
     .tableHeading {
         padding: 24px 30px;
@@ -71,7 +75,11 @@
         letter-spacing: 0.45px;
     }
     .tableRow {
-        padding: 16px 30px;
+        padding: 8px 28px;
+    }
+
+    .tableRowItem {
+      background-color: transparent;
     }
     .background {
         display: block;

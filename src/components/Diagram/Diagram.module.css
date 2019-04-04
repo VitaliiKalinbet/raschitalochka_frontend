@@ -98,14 +98,17 @@
 }
 
 @media (min-width: 1024px) {
-  /* .container{
-    width: 68%;
-  } */
+  .container{
+    width: 100%;
+  }
+
+  .title {
+    align-self: stretch;
+  }
 
   .wrap{
     display: flex;
-    min-height: 700px;
-    
+    min-height: 600px;
   }
 
   .chartWrap{
@@ -116,9 +119,12 @@
     box-shadow: none;
     margin: 0;
   }
+
   .tableContaiter{
+    padding-top: 60px;
+    align-self: flex-start;
     width: 50%;
-        display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;

@@ -23,7 +23,7 @@ class Login extends Component {
   componentDidUpdate() {
     const { isAuthenticated, location, history } = this.props;
 
-    const { from } = location.state || { from: { pathname: '/dashboard/home' } };
+    const { from } = location.state || { from: { pathname: '/dashboard' } };
 
     if (isAuthenticated) {
       history.push({

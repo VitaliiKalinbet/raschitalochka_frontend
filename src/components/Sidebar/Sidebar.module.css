@@ -1,0 +1,9 @@
+.sidebar {
+  margin-right: 0;
+}
+@media(min-width: 1024px) {
+  .sidebar {
+    margin-right: 20px;
+    min-width: 280px;
+  }
+}

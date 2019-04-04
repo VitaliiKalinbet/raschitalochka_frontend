@@ -6,6 +6,9 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 
 import Home from '../Home/Home';
 import Diagram from '../Diagram/Diagram';
+import Currency from '../Currency/Currency';
+
+import s from './Main.module.css';
 
 import { options } from './config';
 
@@ -29,8 +32,9 @@ const Main = ({
   addToData,
   totalBalance
 }) => (
-  <>
+  <div className={s.mainContainer}>
     <Switch>
+      <Route path="/dashboard/currency" component={Currency} />
       <Route
         path="/dashboard/diagram"
         render={() => (
@@ -56,11 +60,16 @@ const Main = ({
       <Route
         path="/dashboard"
         render={() => (
-          <Home data={sortedData} totalBalance={totalBalance} addToData={addToData} setTotalBalance={setTotalBalance} />
+          <Home
+            data={sortedData.reverse()}
+            totalBalance={totalBalance}
+            addToData={addToData}
+            setTotalBalance={setTotalBalance}
+          />
         )}
       />
     </Switch>
-  </>
+  </div>
 );
 
 Main.propTypes = {

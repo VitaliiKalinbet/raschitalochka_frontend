@@ -1,0 +1,8 @@
+@media(min-width: 1024px) {
+  .mainContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+  }
+}

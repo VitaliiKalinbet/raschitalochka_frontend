@@ -4,12 +4,11 @@
   background-color: #3f5544;
 }
 .content {
-  max-width: 306px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 7px;
+  padding: 10px 20px;
 }
 
 @media(min-width: 768px) {
@@ -19,15 +18,19 @@
     margin-bottom: 3px;
   }
   .content {
-    max-width: 748px;
-    padding: 26px 32px;
-    
+    padding: 26px 40px;
+
   }
 }
 
-@media(min-width: 1920px) {
+@media(min-width: 1024px) {
   .content {
-    max-width: 1658px;
-    padding: 26px 0px;
+    padding: 26px 26px;
+  }
+}
+
+@media(min-width: 1280px) {
+  .content {
+    max-width: 1280px;
   }
 }

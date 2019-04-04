@@ -72,7 +72,7 @@ class DashboardPage extends Component {
   }
 
   getTotalBalance = obj => {
-    const { type = '-', totalBalance = 0 } = obj;
+    const { type, totalBalance = 0 } = obj;
     return this.returnValueByType(type, totalBalance);
   };
 
@@ -145,7 +145,7 @@ class DashboardPage extends Component {
       chartData
     } = this.state;
     const { width } = this.props;
-    console.log(width);
+    console.log(this.state);
     return (
       <>
         <Header />

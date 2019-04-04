@@ -95,13 +95,33 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token } = this.props;
+    const { handleCloseClick, user, token, totalBalance, addToData, setTotalBalance } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
+    const type = {
+      type: '+'
+    };
+    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+    const newBalance = totalBalance + amount;
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(0, amount), ...{ date: dateInMilliseconds } };
+    const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    // // console.log(totalBalance, amount);
 
-    API.postIncomeAndCosts(user.id, token, finance)
+    // // console.log(balanceOut);
+    const typeBalanceAfter = newBalance > 0 ? '+' : '-';
+    const financeOut = {
+      ...this.state,
+      ...{ date: dateInMilliseconds },
+      ...type,
+      balanceAfter,
+      typeBalanceAfter
+    };
+    console.log(financeOut);
+
+    setTotalBalance(finance.type, newBalance);
+    addToData(finance);
+
+    API.postIncomeAndCosts(user.id, token, financeOut)
       .then(res => console.log('res', res))
       .catch(error => console.log('err', error));
     // console.log(user, token);
@@ -194,11 +214,16 @@ class Modal extends Component {
 Modal.defaultProps = {
   user: null,
   token: null,
+  totalBalance: 0,
+  setTotalBalance: () => null,
+  addToData: () => null,
   handleSubmitForm: () => null,
   handleCloseClick: () => null
 };
 
 Modal.propTypes = {
+  setTotalBalance: PropTypes.func,
+  addToData: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
@@ -206,7 +231,8 @@ Modal.propTypes = {
   }),
   token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
-  handleCloseClick: PropTypes.func
+  handleCloseClick: PropTypes.func,
+  totalBalance: PropTypes.number
   // addToData: PropTypes.func.isRequired,
   // setTotalBalance: PropTypes.func.isRequired
 };
