@@ -1,4 +1,4 @@
-.wrap {
+.container {
   font-family: 'HelveticaNeueCyr';
 }
 
@@ -125,7 +125,7 @@
 }
 
 @media (min-width: 768px) {
-  .wrap {
+  .container {
     display: flex;
   }
 
@@ -167,9 +167,19 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  .container{
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
   .formWrapper {
     width: 50%;
+  }
+
+  .form{
+    width: 80%;
+    max-width: 550px;
   }
 
   .bgWrap {

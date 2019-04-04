@@ -66,8 +66,8 @@ class Login extends Component {
     const { email, password } = this.state;
     const { width } = this.props;
     return (
-      <div className={s.wrap}>
-        {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
+      <div className={s.container}>
+        {width >= 1024 && <div className={s.bgWrap}>{slogan}</div>}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
             <div className={s.logoWrap}>
@@ -105,7 +105,7 @@ class Login extends Component {
               Register
             </Link>
           </form>
-          {width >= 768 && width < 1280 && slogan}
+          {width >= 768 && width < 1024 && slogan}
         </div>
       </div>
     );

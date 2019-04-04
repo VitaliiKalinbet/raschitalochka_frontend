@@ -1,4 +1,4 @@
-.wrap {
+.container {
   font-family: 'HelveticaNeueCyr';
 }
 
@@ -154,7 +154,7 @@
 }
 
 @media (min-width: 768px) {
-  .wrap {
+  .container {
     display: flex;
   }
 
@@ -178,18 +178,27 @@
     color: rgb(40, 40, 40);
     line-height: 2.5;
     text-align: center;
-    margin-left: 8%;
+    margin-left: 4%;
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  .container{
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
   .formWrapper {
     width: 50%;
-   background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px
+    background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px
         right -372px,
       url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px left -726px,
       url('../../assets/images/background.jpg');
     background-size: auto 541px, auto 541px, auto;
+  }
+  .form{
+    width: 80%;
+    max-width: 550px;
   }
   .formTitle{
     color: rgb(255, 255, 255);
@@ -228,14 +237,7 @@
 
   .logoWrap{
     margin-bottom: 40px;
-    margin-left: 8%;
+    margin-left: 4%;
     justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1800px) {
-  .slogan,
-  .logoWrap{
-    width: 42%;
   }
 }

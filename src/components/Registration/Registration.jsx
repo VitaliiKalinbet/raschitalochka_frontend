@@ -126,8 +126,8 @@ class Registration extends Component {
     const { email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
     const { width } = this.props;
     return (
-      <div className={s.wrap}>
-        {width >= 1280 && (
+      <div className={s.container}>
+        {width >= 1024 && (
           <div className={s.bgWrap}>
             <div className={s.logoWrap}>
               <img className={s.logo} src={logoWite} alt="app logo" />
