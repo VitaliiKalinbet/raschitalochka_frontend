@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import withAuth from '../../hoc/withAuth';
 import UserControl from '../UserControl/UserControl';
@@ -11,7 +12,7 @@ const Header = ({ isAuthenticated, user, logout }) => (
   <header className={s.container}>
     <div className={s.content}>
       <Logo />
-      {isAuthenticated ? <UserControl user={user} logout={logout} /> : null}
+      {isAuthenticated ? <UserControl user={user} logout={logout} /> : <Redirect to="/login" />}
     </div>
   </header>
 );

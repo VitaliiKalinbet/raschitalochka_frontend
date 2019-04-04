@@ -11,8 +11,8 @@ import ModalCost from '../ModalCost/ModalCost';
 
 import s from './Home.module.css';
 
-const checkMinus = item =>
-  String(item.balanceAfter).includes('-') && item.type === '-' ? item.balanceAfter : `-${item.balanceAfter}`;
+// const checkMinus = item => (String().includes('-') && item.type === '-' ? item.balanceAfter : `-${item.balanceAfter}`);
+const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
 
 const createDate = mill => {
   const date = new Date(mill);
@@ -111,7 +111,7 @@ class Home extends Component {
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, setTotalBalance, totalBalance } = this.props;
-    console.log('home state: ', this.state);
+    // console.log('home state: ', this.state);
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -135,7 +135,7 @@ class Home extends Component {
                   return (
                     <div
                       // eslint-disable-next-line no-underscore-dangle
-                      key={item._id || item.date}
+                      key={item._id || Date.now()}
                       className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
                     >
                       <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>

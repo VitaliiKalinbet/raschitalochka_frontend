@@ -31,6 +31,7 @@ class Modal extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount() {
+    console.log('cost is open');
     window.addEventListener('click', this.handleBackdropClick);
     window.addEventListener('keydown', this.handleEscapeDown);
   }
@@ -91,8 +92,8 @@ class Modal extends Component {
     };
 
     const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
-    console.log('totalBalance: ', totalBalance);
-    console.log('amount: ', amount);
+    // console.log('totalBalance: ', totalBalance);
+    // console.log('amount: ', amount);
     // console.log('finance: ', finance);
 
     const newBalance = totalBalance - amount;
@@ -110,20 +111,11 @@ class Modal extends Component {
       typeBalanceAfter
     };
     console.log(financeOut);
-    setTotalBalance(finance.type, newBalance);
+    setTotalBalance(typeBalanceAfter, newBalance);
     addToData(finance);
-    // console.log('finance: ', finance);
-    // console.log('financeOut: ', financeOut);
 
     API.postIncomeAndCosts(user.id, token, financeOut)
-      .then(() => {
-        // console.log('then', finance.type, finance.amount, data.finance.data);
-        // res.data.finance.data;
-        // console.log(data, 'dataaaaa');
-        // console.log(finance.balanceAfter, 'balance');
-        // const newBalance = type === '+' ? totalBalance + finance.balanceAfter : totalBalance - finance.balanceAfter;
-      })
-      // .then((res) =>  )
+      .then(() => {})
       .catch(error => console.log('err', error));
 
     this.setState({ ...INITIAL_STATE });
@@ -133,15 +125,6 @@ class Modal extends Component {
   render() {
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
-
-    // const btnMobile = () => (
-    //   <>
-    //     <div className={s.wrapArrow}>
-    //       <img src={Arrow} alt="arrow" className={s.arrow} />
-    //     </div>
-    //     <h2 className={s.titleArrow}>Add Cost</h2>
-    //   </>
-    // );
 
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
@@ -153,7 +136,6 @@ class Modal extends Component {
               </div>
               <h2 className={s.titleArrow}>Add Cost</h2>
             </button>
-            {/* <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} /> */}
           </div>
 
           <h2 className={s.title}>Add Cost</h2>

@@ -101,8 +101,13 @@ class Modal extends Component {
     const type = {
       type: '+'
     };
-    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+
+    console.log('totalBalance: ', totalBalance);
+    console.log('amount: ', amount);
     const newBalance = totalBalance + amount;
+
+    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+    console.log('finance: ', finance);
 
     const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
     // // console.log(totalBalance, amount);

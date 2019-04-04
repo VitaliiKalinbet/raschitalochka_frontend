@@ -30,7 +30,8 @@ const Main = ({
   months,
   setTotalBalance,
   addToData,
-  totalBalance
+  totalBalance,
+  typeOftotalBalance
 }) => (
   <div className={s.mainContainer}>
     <Switch>
@@ -63,6 +64,7 @@ const Main = ({
           <Home
             data={sortedData.reverse()}
             totalBalance={totalBalance}
+            typeOftotalBalance={typeOftotalBalance}
             addToData={addToData}
             setTotalBalance={setTotalBalance}
           />
@@ -93,7 +95,8 @@ Main.propTypes = {
   months: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   addToData: PropTypes.func.isRequired,
-  totalBalance: PropTypes.number.isRequired
+  totalBalance: PropTypes.number.isRequired,
+  typeOftotalBalance: PropTypes.string.isRequired
 };
 
 const mstp = state => {

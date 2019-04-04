@@ -33,6 +33,7 @@ class DashboardPage extends Component {
     currentYear: '',
     selectedYear: '',
     totalBalance: 0,
+    typeOftotalBalance: '+',
     totalCosts: 0,
     totalIncome: 0,
     chartData: {},
@@ -72,11 +73,15 @@ class DashboardPage extends Component {
   }
 
   getTotalBalance = obj => {
-    const { type, totalBalance = 0 } = obj;
-    return this.returnValueByType(type, totalBalance);
+    // console.log(obj);
+    const { typeTotalBalance, totalBalance = 0 } = obj;
+    return this.returnValueByType(typeTotalBalance, totalBalance);
   };
 
-  returnValueByType = (type, value) => (type === '-' ? -Math.abs(value) : value);
+  returnValueByType = (type, value) => {
+    console.log(type, value);
+    return type === '-' ? -Math.abs(value) : value; // && !value.includes('-')
+  };
 
   setStateData = data => {
     const { currentYear, currentMonth } = this.state;
@@ -99,8 +104,11 @@ class DashboardPage extends Component {
   };
 
   setTotalBalance = (type, value) => {
+    console.log(Number.isInteger(value));
+    console.log(this.returnValueByType(type, value));
     this.setState({
-      totalBalance: type === '-' ? -Math.abs(value) : value
+      totalBalance: this.returnValueByType(type, value),
+      typeOftotalBalance: type
     });
   };
 
@@ -136,6 +144,7 @@ class DashboardPage extends Component {
       tableData,
       error,
       totalBalance,
+      typeOftotalBalance,
       totalCosts,
       totalIncome,
       selectedMonth,
@@ -145,14 +154,18 @@ class DashboardPage extends Component {
       chartData
     } = this.state;
     const { width } = this.props;
-    console.log('dashboard state: ', this.state);
+    // console.log('dashboard state: ', this.state);
+
+    // console.log('dashboard totalBalance: ', totalBalance);
+    // console.log('dashboard totalBalance: ', -Math.abs(totalBalance));
+    // console.log('dashboard totalBalance: ', `-${totalBalance}`);
     return (
       <>
         <Header />
         <div className={s.mainWrapper}>
           <Sidebar totalBalance={totalBalance} width={width} {...this.props} />
           <Main
-            {...this.props}
+            // {...this.props}
             addToData={this.addToData}
             error={error}
             setTotalBalance={this.setTotalBalance}
@@ -161,6 +174,7 @@ class DashboardPage extends Component {
             tableData={tableData}
             chartData={chartData}
             totalBalance={totalBalance}
+            typeOftotalBalance={typeOftotalBalance}
             totalCosts={totalCosts}
             totalIncome={totalIncome}
             width={width}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import * as s from './Currency.module.css';
 
@@ -9,13 +9,13 @@ export default class Currency extends Component {
   };
 
   componentDidMount = () => {
-    const apiUrl = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
-    axios.get(apiUrl).then(resp => {
-      this.setState(state => {
-        const data = state.data.concat(resp.data);
-        return { data };
-      });
-    });
+    // const apiUrl = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+    // axios.get(apiUrl).then(resp => {
+    //   this.setState(state => {
+    //     const data = state.data.concat(resp.data);
+    //     return { data };
+    //   });
+    // });
   };
 
   render() {

@@ -20,7 +20,8 @@ const App = ({ isAuthenticated }) => (
       />
       <Route path="/login" component={LoginPage} />
       <Route path="/registration" component={RegistrationPage} />
-      <Route path="/dashboard" component={props => <DashboardPage {...props} />} />
+      <Route path="/dashboard" render={props => <DashboardPage {...props} />} />
+      {/* <Route path="/dashboard" component={props => <DashboardPage {...props} />} /> */}
     </Router>
   </>
 );
