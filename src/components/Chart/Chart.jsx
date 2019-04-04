@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 
 import s from './Chart.module.css';
 
-const getChartSize = num => (num < 768 ? 265 : 410);
+const getChartSize = num => (num < 768 ? 320 : 320);
 
 const Chart = ({ data, options, width }) => {
   const size = getChartSize(width);
   return (
-    <div className={s.wrap}>
-      <div className={s.diagramWrap}>
-        <Pie options={options} data={data} width={size} height={size} />
-      </div>
+    <div className={s.diagramWrap}>
+      <Pie options={options} data={data} width={size} height={size} />
     </div>
   );
 };
