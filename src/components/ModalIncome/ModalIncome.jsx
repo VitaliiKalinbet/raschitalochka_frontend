@@ -210,7 +210,6 @@ class Modal extends Component {
               value={comments}
               placeholder="Your comment"
               maxLength="56"
-              required
             />
 
             <Button style={s.btn} type="submit" value="Add" />
