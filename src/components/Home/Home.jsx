@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import noScroll from 'no-scroll';
-import Loader from 'react-loader-spinner';
+// import Loader from 'react-loader-spinner';
 import newId from 'uuid/v4';
 
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
@@ -29,7 +29,6 @@ const createDate = mill => {
 
   return `${day}.${month}.20${year}`;
 };
-
 const colorDependingOnTheCategory = category => {
   switch (category) {
     case 'regular income':
@@ -76,13 +75,11 @@ class Home extends Component {
     };
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const change = nextProps.data !== nextState.sortedData;
-  //   const { isModalCostOpen } = this.state
-  //   if (nextState.isModalCostOpen !== isModalCostOpen) return true
-  //   // console.log('should: ', nextProps, nextState);
-  //   return change;
-  // }
+  componentDidMount() {
+    const { data } = this.props;
+
+    if (data.length === 0) this.setState({ isModalIncomeOpen: true });
+  }
 
   handleOpenModalIncome = () => {
     this.setState(
@@ -144,7 +141,7 @@ class Home extends Component {
                 <div className={s.amountCol}>Amount, UAH</div>
                 <div className={s.lastCol}>Balance After</div>
               </div>
-              {data.length > 0 ? (
+              {data.length > 0 &&
                 data.map((item, idx) => {
                   const date = createDate(item.date);
                   return (
@@ -180,16 +177,7 @@ class Home extends Component {
                       </div>
                     </div>
                   );
-                })
-              ) : (
-                <div>
-                  <div>
-                    <div className={s.loader}>
-                      <Loader type="Oval" color="grey" height={80} width={80} />
-                    </div>
-                  </div>
-                </div>
-              )}
+                })}
             </div>
           </div>
         </div>
