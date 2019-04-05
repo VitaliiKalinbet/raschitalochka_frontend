@@ -35,8 +35,8 @@ class DashboardPage extends Component {
     typeOftotalBalance: '+',
     totalCosts: 0,
     totalIncome: 0,
-    chartData: {},
-    tableData: [],
+    // chartData: {},
+    // tableData: [],
     error: ''
   };
 
@@ -78,24 +78,33 @@ class DashboardPage extends Component {
   };
 
   setStateData = data => {
-    const { currentYear, currentMonth } = this.state;
+    // const { currentYear, currentMonth } = this.state;
     return this.setState({
       data,
       totalCosts: getTotalByType(data, '-'),
-      totalIncome: getTotalByType(data, '+'),
-      chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
-      tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
+      totalIncome: getTotalByType(data, '+')
+      // chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
+      // tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
     });
   };
 
   handleUpdate = e => {
     e.preventDefault();
-    const { selectedYear, selectedMonth, data } = this.state;
-    this.setState({
-      chartData: getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)),
-      tableData: getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)
-    });
+    this.render();
+    // const { data, selectedYear, selectedMonth } = this.state;
+    // this.setDataToCartAndTable(data, selectedYear, selectedMonth);
+    // this.setState({
+    //   chartData: getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)),
+    //   tableData: getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)
+    // });
   };
+
+  // setDataToCartAndTable = (year, month, data) => {
+  //   this.setState({
+  //     chartData: getChartData(getFilteredDataByYearAndMonth(data, year, month)),
+  //     tableData: getFilteredDataByYearAndMonth(data, year, month)
+  //   });
+  // };
 
   setTotalBalance = (type, value) => {
     console.log(Number.isInteger(value));
@@ -125,16 +134,20 @@ class DashboardPage extends Component {
   };
 
   addToData = obj => {
+    Promise.resolve();
+
     this.setState(state => {
       state.data.push(obj);
     });
+    // this.setDataToCartAndTable(data, selectedYear, selectedMonth);
+    // const { data, selectedYear, selectedMonth } = this.state;
   };
 
   render() {
     const {
       data,
       // sortedData,
-      tableData,
+      // tableData,
       error,
       totalBalance,
       typeOftotalBalance,
@@ -143,15 +156,11 @@ class DashboardPage extends Component {
       selectedMonth,
       currentMonth,
       selectedYear,
-      currentYear,
-      chartData
+      currentYear
+      // chartData
     } = this.state;
     const { width } = this.props;
-    console.log('dashboard state: ', this.state);
-
-    // console.log('dashboard totalBalance: ', totalBalance);
-    // console.log('dashboard totalBalance: ', -Math.abs(totalBalance));
-    // console.log('dashboard totalBalance: ', `-${totalBalance}`);
+    console.log(this.state);
     return (
       <>
         <Header />
@@ -163,8 +172,8 @@ class DashboardPage extends Component {
             error={error}
             setTotalBalance={this.setTotalBalance}
             sortedData={data}
-            tableData={tableData}
-            chartData={chartData}
+            tableData={getFilteredDataByYearAndMonth(data, currentYear, currentMonth)}
+            chartData={getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth))}
             totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
             totalCosts={totalCosts}

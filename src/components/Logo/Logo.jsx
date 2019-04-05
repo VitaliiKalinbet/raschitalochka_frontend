@@ -1,15 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 
 import * as s from './Logo.module.css';
 
 const Logo = () => (
-  <div className={s.container}>
-    <div className={s.imgContainer}>
-      <img className={s.logo} src={logo} alt="app logo" />
-    </div>
+  <Link to="/dashboard" className={s.container}>
+    <img className={s.logo} src={logo} alt="app logo" />
     <h1 className={s.heading}>Raschitalochka</h1>
-  </div>
+  </Link>
 );
 
 export default Logo;
