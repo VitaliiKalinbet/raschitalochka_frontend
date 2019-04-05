@@ -20,15 +20,18 @@ export const getFilteredDataBySelectedYear = (arr, selectedYear) => {
 export const getFilteredDataByYearAndMonth = (data, year, month) =>
   getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, year), month);
 
+const getAmountSum = arr => arr.reduce((acc, current) => acc + current.amount, 0);
+
 export const getChartData = arr => {
   const income = getIncome(arr);
-  const labelsArr = arr.map(item => item.category);
-  const amountArr = income.map(item => item.amount);
+  const labels = [...new Set(income.map(i => i.category))];
+  const dataListByCategory = labels.map(category => income.filter(item => item.category === category));
+  const data = dataListByCategory.map(categoryArr => getAmountSum(categoryArr));
   return {
-    labels: labelsArr,
+    labels,
     datasets: [
       {
-        data: amountArr,
+        data,
         backgroundColor: colors,
         hoverBackgroundColor: colors
       }

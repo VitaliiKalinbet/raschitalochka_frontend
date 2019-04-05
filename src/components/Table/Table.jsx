@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import newId from 'uuid/v4';
 
 import s from './Table.module.css';
 
@@ -21,7 +22,7 @@ const Table = ({ data, totalCosts, totalIncome, width }) => {
           const color = { backgroundColor: colors[index] };
           return (
             // eslint-disable-next-line no-underscore-dangle
-            <li className={s.row} key={item._id}>
+            <li className={s.row} key={item._id || newId()}>
               <div className={s.categoryWrap}>
                 <div className={s.square} style={color} />
                 <p className={s.cellCategory}>{item.category}</p>
