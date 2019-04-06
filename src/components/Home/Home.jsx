@@ -142,7 +142,7 @@ class Home extends Component {
                 <div className={s.lastCol}>Balance After</div>
               </div>
               {data.length > 0 &&
-                data.map((item, idx) => {
+                data.reverse().map((item, idx) => {
                   const date = createDate(item.date);
                   return (
                     <div
