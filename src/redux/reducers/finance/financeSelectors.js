@@ -4,12 +4,7 @@ export const getTotalByType = (arr, type) => {
   }, 0);
 };
 
-const getFinanceData = state => state.finance.data;
-const getTotalIncome = state => getTotalByType(state.finance.data, '+');
-const getTotalCost = state => getTotalByType(state.finance.data, '-');
-
-export default {
-  getFinanceData,
-  getTotalIncome,
-  getTotalCost
-};
+export const getFinanceData = state => state.finance.data;
+export const getTotalBalance = state => state.finance.totalBalance;
+export const getTotalIncome = state => getTotalByType(state.finance.data, '+');
+export const getTotalCost = state => getTotalByType(state.finance.data, '-');

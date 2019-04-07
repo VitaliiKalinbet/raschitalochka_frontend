@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { getTotalBalance } from '../../redux/reducers/finance/financeSelectors';
 import classes from './Navigation.module.css';
 
 const Navigation = ({ totalBalance, width }) => (
@@ -44,4 +46,6 @@ Navigation.propTypes = {
   width: PropTypes.number.isRequired
 };
 
-export default Navigation;
+const mstp = state => ({ totalBalance: getTotalBalance(state) });
+
+export default connect(mstp)(Navigation);

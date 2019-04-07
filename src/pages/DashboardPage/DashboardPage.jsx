@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
-import financeSelectors from '../../redux/reducers/finance/financeSelectors';
+import { getFinanceData, getTotalCost, getTotalIncome } from '../../redux/reducers/finance/financeSelectors';
 import * as financeOperations from '../../redux/reducers/finance/financeOperations';
 // import * as sessionOperation from '../../redux/reducers/session/sessionOperations';
 import s from './DashboardPage.module.css';
@@ -32,7 +32,7 @@ class DashboardPage extends Component {
     currentMonth: '',
     currentYear: '',
     selectedYear: '',
-    totalBalance: 0,
+    // totalBalance: 0,
     typeOftotalBalance: '+',
     tableData: [],
     error: ''
@@ -81,9 +81,10 @@ class DashboardPage extends Component {
   };
 
   setTotalBalance = (type, value) => {
+    console.log(type, value);
     this.setState({
-      totalBalance: this.returnValueByType(type, value),
-      typeOftotalBalance: type
+      // totalBalance: this.returnValueByType(type, value),
+      // typeOftotalBalance: type
     });
   };
 
@@ -117,7 +118,7 @@ class DashboardPage extends Component {
       // data,
       tableData,
       error,
-      totalBalance,
+      // totalBalance,
       typeOftotalBalance,
       selectedMonth,
       currentMonth,
@@ -132,7 +133,11 @@ class DashboardPage extends Component {
       <>
         <Header />
         <div className={s.mainWrapper}>
-          <Sidebar totalBalance={totalBalance} width={width} {...this.props} />
+          <Sidebar
+          // totalBalance={totalBalance}
+          // width={width}
+          // {...this.props}
+          />
           <Main
             addToData={this.addToData}
             error={error}
@@ -140,7 +145,7 @@ class DashboardPage extends Component {
             sortedData={getSortedData(data)}
             tableData={tableData}
             chartData={chartData}
-            totalBalance={totalBalance}
+            // totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
             totalCosts={totalCosts}
             totalIncome={totalIncome}
@@ -190,9 +195,9 @@ const mstp = state => {
   return {
     user: getUser(state),
     token: getToken(state),
-    data: financeSelectors.getFinanceData(state),
-    totalCosts: financeSelectors.getTotalCost(state),
-    totalIncome: financeSelectors.getTotalIncome(state)
+    data: getFinanceData(state),
+    totalCosts: getTotalCost(state),
+    totalIncome: getTotalIncome(state)
   };
 };
 

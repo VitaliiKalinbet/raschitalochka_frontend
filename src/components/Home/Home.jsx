@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import noScroll from 'no-scroll';
 // import Loader from 'react-loader-spinner';
 import newId from 'uuid/v4';
-
+import { getTotalBalance } from '../../redux/reducers/finance/financeSelectors';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 
 import Button from '../Button/Button';
@@ -216,7 +216,8 @@ Home.propTypes = {
 
 const mapState = state => ({
   user: getUser(state),
-  token: getToken(state)
+  token: getToken(state),
+  totalBalance: getTotalBalance(state)
 });
 
 export default connect(mapState)(Home);

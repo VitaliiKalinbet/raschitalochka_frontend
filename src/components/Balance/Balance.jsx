@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { getTotalBalance } from '../../redux/reducers/finance/financeSelectors';
 
 import * as s from './Balance.module.css';
 
@@ -16,4 +19,6 @@ Balance.propTypes = {
   totalBalance: PropTypes.number.isRequired
 };
 
-export default Balance;
+const mstp = state => ({ totalBalance: getTotalBalance(state) });
+
+export default connect(mstp)(Balance);

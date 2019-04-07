@@ -8,15 +8,20 @@ import financeReducer from './finance/financeReducer';
 // loadingReducer,
 
 const sessionPersistConfig = {
-  key: ['session', 'finance'],
+  key: 'session',
   storage,
   whitelist: ['token']
+};
+
+const financePersistConfig = {
+  key: 'finance',
+  storage
 };
 
 const rootReducer = combineReducers({
   // тут используем подключенные редюсеры
   session: persistReducer(sessionPersistConfig, sessionReducer),
-  finance: persistReducer(sessionPersistConfig, financeReducer)
+  finance: persistReducer(financePersistConfig, financeReducer)
   // error: errorReducer,
   // loading: loadingReducer
 });
