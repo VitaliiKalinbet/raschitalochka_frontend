@@ -1,3 +1,3 @@
-const getUser = state => state.session.user;
+const getFinanceData = state => state.finance.data;
 
-export default { getUser };
+export default { getFinanceData };

@@ -6,7 +6,9 @@ import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
-import * as operation from '../../redux/reducers/finance/financeOperations';
+import financeSelectors from '../../redux/reducers/finance/financeSelectors';
+import * as financeOperations from '../../redux/reducers/finance/financeOperations';
+// import * as sessionOperation from '../../redux/reducers/session/sessionOperations';
 import s from './DashboardPage.module.css';
 import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
@@ -37,7 +39,7 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
-    const { user, token, history, getData: getFinance } = this.props;
+    const { user, token, history, gerUserFinance } = this.props;
 
     if (!user) history.push('/login');
 
@@ -49,7 +51,7 @@ class DashboardPage extends Component {
     });
 
     if (user) {
-      getFinance(user.id, token);
+      gerUserFinance(user.id, token);
     }
   }
 
@@ -112,7 +114,7 @@ class DashboardPage extends Component {
 
   render() {
     const {
-      data,
+      // data,
       tableData,
       error,
       totalBalance,
@@ -122,8 +124,9 @@ class DashboardPage extends Component {
       selectedYear,
       currentYear
     } = this.state;
-    const { width } = this.props;
+    const { width, data } = this.props;
     const chartData = getChartData(tableData);
+    // console.log(this.props);
 
     return (
       <>
@@ -164,6 +167,7 @@ DashboardPage.defaultProps = {
 };
 
 DashboardPage.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
@@ -177,18 +181,19 @@ DashboardPage.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   width: PropTypes.number.isRequired,
-  getData: PropTypes.func.isRequired
+  gerUserFinance: PropTypes.func.isRequired
 };
 
 const mstp = state => {
   return {
     user: getUser(state),
-    token: getToken(state)
+    token: getToken(state),
+    data: financeSelectors.getFinanceData(state)
   };
 };
 
 const mdtp = {
-  getData: operation.getData
+  gerUserFinance: financeOperations.gerUserFinance
 };
 
 export default connect(
