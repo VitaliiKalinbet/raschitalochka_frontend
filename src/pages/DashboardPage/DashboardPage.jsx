@@ -20,7 +20,8 @@ import {
   getMonths,
   getYears,
   getFilteredDataBySelectedYear,
-  getFilteredDataByYearAndMonth
+  getFilteredDataByYearAndMonth,
+  getTableData
 } from './functions';
 
 class DashboardPage extends Component {
@@ -33,10 +34,10 @@ class DashboardPage extends Component {
     selectedYear: '',
     totalBalance: 0,
     typeOftotalBalance: '+',
-    totalCosts: 0,
-    totalIncome: 0,
+    // totalCosts: 0,
+    // totalIncome: 0,
     // chartData: {},
-    // tableData: [],
+    tableData: [],
     error: ''
   };
 
@@ -56,12 +57,13 @@ class DashboardPage extends Component {
       API.getFinanceById(user.id, token)
         .then(({ data }) => {
           console.log('data from first api', data);
-          this.setState({ totalBalance: this.getTotalBalance(data.finance) }, () =>
-            this.setStateData(data.finance.data)
+          this.setState(
+            {
+              totalBalance: this.getTotalBalance(data.finance)
+            },
+            () => this.setStateData(data.finance.data)
           );
         })
-        // .then(data => {
-        // })
         .catch(error => this.setState({ error }));
     }
   }
@@ -73,42 +75,28 @@ class DashboardPage extends Component {
   };
 
   returnValueByType = (type, value) => {
-    console.log(type, value);
     return type === '-' ? -Math.abs(value) : value; // && !value.includes('-')
   };
 
   setStateData = data => {
-    // const { currentYear, currentMonth } = this.state;
+    const { currentYear, currentMonth } = this.state;
     return this.setState({
       data,
-      totalCosts: getTotalByType(data, '-'),
-      totalIncome: getTotalByType(data, '+')
-      // chartData: getChartData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth)),
-      // tableData: getFilteredDataByYearAndMonth(data, currentYear, currentMonth)
+      // totalCosts: getTotalByType(data, '-'),
+      // totalIncome: getTotalByType(data, '+'),
+      tableData: getTableData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth))
     });
   };
 
   handleUpdate = e => {
     e.preventDefault();
-    this.render();
-    // const { data, selectedYear, selectedMonth } = this.state;
-    // this.setDataToCartAndTable(data, selectedYear, selectedMonth);
-    // this.setState({
-    //   chartData: getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)),
-    //   tableData: getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth)
-    // });
+    const { data, selectedYear, selectedMonth } = this.state;
+    this.setState({
+      tableData: getTableData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth))
+    });
   };
 
-  // setDataToCartAndTable = (year, month, data) => {
-  //   this.setState({
-  //     chartData: getChartData(getFilteredDataByYearAndMonth(data, year, month)),
-  //     tableData: getFilteredDataByYearAndMonth(data, year, month)
-  //   });
-  // };
-
   setTotalBalance = (type, value) => {
-    console.log(Number.isInteger(value));
-    console.log(this.returnValueByType(type, value));
     this.setState({
       totalBalance: this.returnValueByType(type, value),
       typeOftotalBalance: type
@@ -134,8 +122,7 @@ class DashboardPage extends Component {
   };
 
   addToData = obj => {
-    Promise.resolve();
-
+    console.log(obj);
     this.setState(state => {
       state.data.push(obj);
     });
@@ -147,12 +134,12 @@ class DashboardPage extends Component {
     const {
       data,
       // sortedData,
-      // tableData,
+      tableData,
       error,
       totalBalance,
       typeOftotalBalance,
-      totalCosts,
-      totalIncome,
+      // totalCosts,
+      // totalIncome,
       selectedMonth,
       currentMonth,
       selectedYear,
@@ -160,24 +147,25 @@ class DashboardPage extends Component {
       // chartData
     } = this.state;
     const { width } = this.props;
-    console.log(this.state);
+    // const tableData = getTableData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth));
+    const chartData = getChartData(tableData);
+
     return (
       <>
         <Header />
         <div className={s.mainWrapper}>
           <Sidebar totalBalance={totalBalance} width={width} {...this.props} />
           <Main
-            // {...this.props}
             addToData={this.addToData}
             error={error}
             setTotalBalance={this.setTotalBalance}
             sortedData={data}
-            tableData={getFilteredDataByYearAndMonth(data, currentYear, currentMonth)}
-            chartData={getChartData(getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth))}
+            tableData={tableData}
+            chartData={chartData}
             totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
-            totalCosts={totalCosts}
-            totalIncome={totalIncome}
+            totalCosts={getTotalByType(data, '-') || 0}
+            totalIncome={getTotalByType(data, '+') || 0}
             width={width}
             onChange={this.handleChange}
             months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
