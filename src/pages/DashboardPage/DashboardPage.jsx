@@ -11,7 +11,7 @@ import * as API from '../../services/api';
 import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 import {
-  // getSortedData,
+  getSortedData,
   getChartData,
   // getCategoriesArr,
   getTotalByType,
@@ -159,7 +159,7 @@ class DashboardPage extends Component {
             addToData={this.addToData}
             error={error}
             setTotalBalance={this.setTotalBalance}
-            sortedData={data}
+            sortedData={getSortedData(data)}
             tableData={tableData}
             chartData={chartData}
             totalBalance={totalBalance}

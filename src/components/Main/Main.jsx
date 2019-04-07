@@ -64,7 +64,7 @@ const Main = ({
         render={props => (
           <Home
             {...props}
-            data={sortedData.reverse()}
+            sortedData={sortedData}
             totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
             addToData={addToData}

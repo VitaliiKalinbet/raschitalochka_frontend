@@ -75,11 +75,11 @@ class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    const { data } = this.props;
+  // componentDidMount() {
+  //   const { data } = this.props;
 
-    if (data.length === 0) this.setState({ isModalIncomeOpen: true });
-  }
+  //   if (data.length === 0) this.setState({ isModalIncomeOpen: true });
+  // }
 
   handleOpenModalIncome = () => {
     this.setState(
@@ -101,7 +101,7 @@ class Home extends Component {
   };
 
   handleOpenModalCost = () => {
-    console.log('click Modal Cost');
+    // console.log('click Modal Cost');
     this.setState(
       {
         isModalCostOpen: true
@@ -109,7 +109,7 @@ class Home extends Component {
       // () => noScroll.on()
     );
 
-    console.log('click2 Modal Cost');
+    // console.log('click2 Modal Cost');
   };
 
   handleCloseModalCost = () => {
@@ -123,7 +123,7 @@ class Home extends Component {
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    const { data, addToData, setTotalBalance, totalBalance } = this.props;
+    const { sortedData, addToData, setTotalBalance, totalBalance } = this.props;
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -141,8 +141,8 @@ class Home extends Component {
                 <div className={s.amountCol}>Amount, UAH</div>
                 <div className={s.lastCol}>Balance After</div>
               </div>
-              {data.length > 0 &&
-                data.reverse().map((item, idx) => {
+              {sortedData.length > 0 &&
+                sortedData.map((item, idx) => {
                   const date = createDate(item.date);
                   return (
                     <div
@@ -204,11 +204,11 @@ class Home extends Component {
 }
 
 Home.defaultProps = {
-  data: []
+  sortedData: []
 };
 
 Home.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  sortedData: PropTypes.arrayOf(PropTypes.object),
   addToData: PropTypes.func.isRequired,
   setTotalBalance: PropTypes.func.isRequired,
   totalBalance: PropTypes.number.isRequired

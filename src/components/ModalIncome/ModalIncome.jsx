@@ -89,7 +89,12 @@ class Modal extends Component {
 
     const newBalance = totalBalance + amount;
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+    const finance = {
+      ...this.state,
+      ...typeAndBalanceOfModal(totalBalance, amount),
+      ...{ date: dateInMilliseconds },
+      ...{ createdAt: new Date().getTime() }
+    };
 
     const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
     const typeBalanceAfter = newBalance > 0 ? '+' : '-';
@@ -104,9 +109,7 @@ class Modal extends Component {
     setTotalBalance(finance.type, newBalance);
     addToData(finance);
 
-    API.postIncomeAndCosts(user.id, token, financeOut)
-      .then(res => console.log('res', res))
-      .catch(error => console.log('err', error));
+    API.postIncomeAndCosts(user.id, token, financeOut).catch(error => console.log('err', error));
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
   };

@@ -90,7 +90,12 @@ class Modal extends Component {
       type: '-'
     };
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+    const finance = {
+      ...this.state,
+      ...typeAndBalanceOfModal(totalBalance, amount),
+      ...{ date: dateInMilliseconds },
+      ...{ createdAt: new Date().getTime() }
+    };
 
     const newBalance = totalBalance - amount;
 

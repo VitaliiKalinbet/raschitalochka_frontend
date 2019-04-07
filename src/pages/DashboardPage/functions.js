@@ -1,7 +1,10 @@
 import { colors, months } from '../../components/Main/config';
 import 'chart.piecelabel.js';
 
-export const sortFunc = (a, b) => a.date - b.date;
+const sortFunc = (a, b) => {
+  if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
+  return b.date - a.date;
+};
 export const getSortedData = arr => arr.sort(sortFunc);
 
 export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
