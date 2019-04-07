@@ -6,14 +6,13 @@ import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
+import * as operation from '../../redux/reducers/finance/financeOperations';
 import s from './DashboardPage.module.css';
-import * as API from '../../services/api';
 import withWidth from '../../hoc/withWidth';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 import {
   getSortedData,
   getChartData,
-  // getCategoriesArr,
   getTotalByType,
   getCurrentMonth,
   getCurrentYear,
@@ -27,22 +26,18 @@ import {
 class DashboardPage extends Component {
   state = {
     data: [],
-    // sortedData: [],
     selectedMonth: '',
     currentMonth: '',
     currentYear: '',
     selectedYear: '',
     totalBalance: 0,
     typeOftotalBalance: '+',
-    // totalCosts: 0,
-    // totalIncome: 0,
-    // chartData: {},
     tableData: [],
     error: ''
   };
 
   componentDidMount() {
-    const { user, token, history } = this.props;
+    const { user, token, history, getData: getFinance } = this.props;
 
     if (!user) history.push('/login');
 
@@ -54,36 +49,23 @@ class DashboardPage extends Component {
     });
 
     if (user) {
-      API.getFinanceById(user.id, token)
-        .then(({ data }) => {
-          console.log('data from first api', data);
-          this.setState(
-            {
-              totalBalance: this.getTotalBalance(data.finance)
-            },
-            () => this.setStateData(data.finance.data)
-          );
-        })
-        .catch(error => this.setState({ error }));
+      getFinance(user.id, token);
     }
   }
 
   getTotalBalance = obj => {
-    // console.log(obj);
     const { typeTotalBalance, totalBalance = 0 } = obj;
     return this.returnValueByType(typeTotalBalance, totalBalance);
   };
 
   returnValueByType = (type, value) => {
-    return type === '-' ? -Math.abs(value) : value; // && !value.includes('-')
+    return type === '-' ? -Math.abs(value) : value;
   };
 
   setStateData = data => {
     const { currentYear, currentMonth } = this.state;
     return this.setState({
       data,
-      // totalCosts: getTotalByType(data, '-'),
-      // totalIncome: getTotalByType(data, '+'),
       tableData: getTableData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth))
     });
   };
@@ -126,28 +108,21 @@ class DashboardPage extends Component {
     this.setState(state => {
       state.data.push(obj);
     });
-    // this.setDataToCartAndTable(data, selectedYear, selectedMonth);
-    // const { data, selectedYear, selectedMonth } = this.state;
   };
 
   render() {
     const {
       data,
-      // sortedData,
       tableData,
       error,
       totalBalance,
       typeOftotalBalance,
-      // totalCosts,
-      // totalIncome,
       selectedMonth,
       currentMonth,
       selectedYear,
       currentYear
-      // chartData
     } = this.state;
     const { width } = this.props;
-    // const tableData = getTableData(getFilteredDataByYearAndMonth(data, currentYear, currentMonth));
     const chartData = getChartData(tableData);
 
     return (
@@ -201,7 +176,8 @@ DashboardPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  getData: PropTypes.func.isRequired
 };
 
 const mstp = state => {
@@ -211,4 +187,11 @@ const mstp = state => {
   };
 };
 
-export default connect(mstp)(withWidth(DashboardPage));
+const mdtp = {
+  getData: operation.getData
+};
+
+export default connect(
+  mstp,
+  mdtp
+)(withWidth(DashboardPage));

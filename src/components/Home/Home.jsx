@@ -75,11 +75,11 @@ class Home extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { data } = this.props;
-
-  //   if (data.length === 0) this.setState({ isModalIncomeOpen: true });
-  // }
+  componentDidMount() {
+    const { totalBalance } = this.props;
+    // console.log(this.props);
+    if (totalBalance === 0) this.setState({ isModalIncomeOpen: true });
+  }
 
   handleOpenModalIncome = () => {
     this.setState(
