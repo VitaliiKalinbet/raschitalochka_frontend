@@ -18,6 +18,7 @@
       "react/no-array-index-key": "off",
       "no-console": "off",
       "camelcase": "off",
+      "jsx-a11y/no-autofocus": 0,
       "prettier/prettier": "error"
     },
     "parserOptions": {

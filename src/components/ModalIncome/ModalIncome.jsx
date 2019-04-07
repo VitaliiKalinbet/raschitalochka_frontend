@@ -78,21 +78,6 @@ class Modal extends Component {
     handleCloseClick();
   };
 
-  // handleFormSubmit = e => {
-  //   e.preventDefault();
-  //   const { handleCloseClick } = this.props;
-  //   const { amount, date } = this.state;
-
-  //   const dateInMilliseconds = date.getTime();
-  //   console.log({
-  //     ...this.state,
-  //     ...typeAndBalanceOfModal(1000, amount),
-  //     ...{ date: dateInMilliseconds }
-  //   });
-  //   this.setState({ ...INITIAL_STATE });
-  //   handleCloseClick();
-  // };
-
   handleFormSubmit = e => {
     e.preventDefault();
     const { handleCloseClick, user, token, totalBalance, addToData, setTotalBalance } = this.props;
@@ -102,17 +87,11 @@ class Modal extends Component {
       type: '+'
     };
 
-    console.log('totalBalance: ', totalBalance);
-    console.log('amount: ', amount);
     const newBalance = totalBalance + amount;
 
     const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
-    console.log('finance: ', finance);
 
     const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
-    // // console.log(totalBalance, amount);
-
-    // // console.log(balanceOut);
     const typeBalanceAfter = newBalance > 0 ? '+' : '-';
     const financeOut = {
       ...this.state,
@@ -121,7 +100,6 @@ class Modal extends Component {
       balanceAfter,
       typeBalanceAfter
     };
-    console.log(financeOut);
 
     setTotalBalance(finance.type, newBalance);
     addToData(finance);
@@ -129,22 +107,11 @@ class Modal extends Component {
     API.postIncomeAndCosts(user.id, token, financeOut)
       .then(res => console.log('res', res))
       .catch(error => console.log('err', error));
-    // console.log(user, token);
-    console.log(finance);
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
   };
 
   render() {
-    // const btnMobile = () => (
-    //   <>
-    //     <div className={s.wrapArrow}>
-    //       <img src={Arrow} alt="arrow" className={s.arrow} />
-    //     </div>
-    //     <h2 className={s.titleArrow}>Add Income</h2>
-    //   </>
-    // );
-
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
     return (
@@ -170,7 +137,7 @@ class Modal extends Component {
               onChange={this.handleAmountAndCommentChange}
               required
             />
-            <DatePicker style={s.dateInp} selected={String(date)} onChange={this.handleChangeDate} />
+            <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} />
 
             <h3 className={s.subtitle}>Category</h3>
 

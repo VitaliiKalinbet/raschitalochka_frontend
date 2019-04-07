@@ -31,7 +31,6 @@ class Modal extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount() {
-    console.log('cost is open');
     window.addEventListener('click', this.handleBackdropClick);
     window.addEventListener('keydown', this.handleEscapeDown);
   }
@@ -92,16 +91,10 @@ class Modal extends Component {
     };
 
     const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
-    // console.log('totalBalance: ', totalBalance);
-    // console.log('amount: ', amount);
-    // console.log('finance: ', finance);
 
     const newBalance = totalBalance - amount;
 
     const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
-    // // console.log(totalBalance, amount);
-
-    // // console.log(balanceOut);
     const typeBalanceAfter = newBalance > 0 ? '+' : '-';
     const financeOut = {
       ...this.state,
@@ -110,7 +103,6 @@ class Modal extends Component {
       balanceAfter,
       typeBalanceAfter
     };
-    console.log(financeOut);
     setTotalBalance(typeBalanceAfter, newBalance);
     addToData(finance);
 
@@ -153,7 +145,7 @@ class Modal extends Component {
               required
             />
 
-            <DatePicker style={s.dateInp} selected={String(date)} onChange={this.handleChangeDate} clearIcon={null} />
+            <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} />
 
             <h3 className={s.subtitle}>Category</h3>
 
