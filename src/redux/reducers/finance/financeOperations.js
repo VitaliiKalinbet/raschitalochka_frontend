@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-import { financeRequest, financeSuccess, financeError, totalBalanceSuccess, totalBalanceError } from './financeActions';
+import {
+  financeRequest,
+  financeSuccess,
+  financeError,
+  totalBalanceSuccess,
+  typeTotalBalanceSuccess
+  // totalBalanceError,
+  // typeTotalBalanceError
+} from './financeActions';
 
 import { setBaseURL, setAuthHeader } from '../session/sessionOperations';
 
@@ -15,7 +23,7 @@ import { setBaseURL, setAuthHeader } from '../session/sessionOperations';
 //   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 // };
 
-export const gerUserFinance = (id, token) => dispatch => {
+export const getUserFinance = (id, token) => dispatch => {
   dispatch(financeRequest());
   setBaseURL();
   setAuthHeader(token);
@@ -24,11 +32,14 @@ export const gerUserFinance = (id, token) => dispatch => {
     .get(`/api/finance/${id}`)
     .then(({ data }) => {
       console.log(data);
+
+      dispatch(typeTotalBalanceSuccess(data.finance.typeTotalBalance));
       dispatch(totalBalanceSuccess(data.finance.totalBalance));
       return dispatch(financeSuccess(data.finance.data));
     })
     .catch(error => {
-      dispatch(totalBalanceError(error));
+      // dispatch(typeTotalBalanceError(error));
+      // dispatch(totalBalanceError(error));
       return dispatch(financeError(error));
     });
 };

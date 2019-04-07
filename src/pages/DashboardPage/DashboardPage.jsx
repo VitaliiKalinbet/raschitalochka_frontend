@@ -15,7 +15,7 @@ import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors
 import {
   getSortedData,
   getChartData,
-  getTotalByType,
+  // getTotalByType,
   getCurrentMonth,
   getCurrentYear,
   getMonths,
@@ -39,7 +39,7 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
-    const { user, token, history, gerUserFinance } = this.props;
+    const { user, token, history, getUserFinance } = this.props;
 
     if (!user) history.push('/login');
 
@@ -51,7 +51,7 @@ class DashboardPage extends Component {
     });
 
     if (user) {
-      gerUserFinance(user.id, token);
+      getUserFinance(user.id, token);
     }
   }
 
@@ -124,7 +124,7 @@ class DashboardPage extends Component {
       selectedYear,
       currentYear
     } = this.state;
-    const { width, data } = this.props;
+    const { width, data, totalCosts, totalIncome } = this.props;
     const chartData = getChartData(tableData);
     // console.log(this.props);
 
@@ -142,8 +142,8 @@ class DashboardPage extends Component {
             chartData={chartData}
             totalBalance={totalBalance}
             typeOftotalBalance={typeOftotalBalance}
-            totalCosts={getTotalByType(data, '-') || 0}
-            totalIncome={getTotalByType(data, '+') || 0}
+            totalCosts={totalCosts}
+            totalIncome={totalIncome}
             width={width}
             onChange={this.handleChange}
             months={getMonths(getFilteredDataBySelectedYear(data, selectedYear))}
@@ -181,19 +181,23 @@ DashboardPage.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   width: PropTypes.number.isRequired,
-  gerUserFinance: PropTypes.func.isRequired
+  totalCosts: PropTypes.number.isRequired,
+  totalIncome: PropTypes.number.isRequired,
+  getUserFinance: PropTypes.func.isRequired
 };
 
 const mstp = state => {
   return {
     user: getUser(state),
     token: getToken(state),
-    data: financeSelectors.getFinanceData(state)
+    data: financeSelectors.getFinanceData(state),
+    totalCosts: financeSelectors.getTotalCost(state),
+    totalIncome: financeSelectors.getTotalIncome(state)
   };
 };
 
 const mdtp = {
-  gerUserFinance: financeOperations.gerUserFinance
+  getUserFinance: financeOperations.getUserFinance
 };
 
 export default connect(
