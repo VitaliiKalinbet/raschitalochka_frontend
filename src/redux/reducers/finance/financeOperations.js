@@ -5,7 +5,8 @@ import {
   financeSuccess,
   financeError,
   totalBalanceSuccess,
-  typeTotalBalanceSuccess
+  typeTotalBalanceSuccess,
+  addToFinance
   // totalBalanceError,
   // typeTotalBalanceError
 } from './financeActions';
@@ -31,8 +32,6 @@ export const getUserFinance = (id, token) => dispatch => {
   axios
     .get(`/api/finance/${id}`)
     .then(({ data }) => {
-      console.log(data);
-
       dispatch(typeTotalBalanceSuccess(data.finance.typeTotalBalance));
       dispatch(totalBalanceSuccess(data.finance.totalBalance));
       return dispatch(financeSuccess(data.finance.data));
@@ -44,4 +43,27 @@ export const getUserFinance = (id, token) => dispatch => {
     });
 };
 
-export const qwe = {};
+// setTotalBalance = (type, value) => {
+//   console.log(type, value);
+//   this.setState({
+//     // totalBalance: this.returnValueByType(type, value),
+//     // typeOftotalBalance: type
+//   });
+// };
+
+// export const setTotalBalance = (type, value) => dispatch => {
+//   Promise.resolve(() => {
+//     dispatch(typeTotalBalanceSuccess(type));
+//     dispatch(totalBalanceSuccess(value));
+//   });
+// };
+
+export const addToData = (obj, type, value) => dispatch => {
+  // console.log(data);
+
+  dispatch(addToFinance(obj));
+  dispatch(typeTotalBalanceSuccess(type));
+  dispatch(totalBalanceSuccess(value));
+  // console.log(financeSuccess(data.push(obj)));
+  // Promise.resolve(() => dispatch(financeSuccess(data.push(obj))));
+};

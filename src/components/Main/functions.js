@@ -1,63 +1,83 @@
-// import { colors, months } from './config';
-// import 'chart.piecelabel.js';
-export const sortFunc = (a, b) => a.date - b.date;
-export const getSortedData = arr => arr.sort(sortFunc);
+import { colors, months } from './config';
+import 'chart.piecelabel.js';
 
-// export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
-// const getIncome = arr => arr.filter(item => item.type === '-');
+const sortFunc = (a, b) => {
+  if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
+  return b.date - a.date;
+};
+export const getSortedData = (arr = []) => arr.sort(sortFunc);
 
-// export const getFilteredDataBySelectedMonth = (arr, selctedMonth) => {
-//   const income = getIncome(arr);
-//   return income.filter(el => months[new Date(el.date).getMonth()] === selctedMonth);
-// };
+export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
+export const getCost = arr => arr.filter(item => item.type === '-');
 
-// export const getFilteredDataBySelectedYear = (arr, selectedYear) => {
-//   const income = getIncome(arr);
-//   return income.filter(el => String(new Date(el.date).getFullYear()) === selectedYear);
-// };
+export const getFilteredDataBySelectedMonth = (arr, selctedMonth) => {
+  const cost = getCost(arr);
+  return cost.filter(el => months[new Date(el.date).getMonth()] === selctedMonth);
+};
 
-// export const getFilteredDataByYearAndMonth = (data, year, month) =>
-//   getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, year), month);
+export const getFilteredDataBySelectedYear = (arr, selectedYear) => {
+  const cost = getCost(arr);
+  return cost.filter(el => String(new Date(el.date).getFullYear()) === selectedYear);
+};
 
-// export const getChartData = arr => {
-//   const income = getIncome(arr);
-//   const labelsArr = arr.map(item => item.category);
-//   const amountArr = income.map(item => item.amount);
-//   return {
-//     labels: labelsArr,
-//     datasets: [
-//       {
-//         data: amountArr,
-//         backgroundColor: colors,
-//         hoverBackgroundColor: colors
-//       }
-//     ]
-//   };
-// };
+export const getFilteredDataByYearAndMonth = (data = [], year, month) =>
+  getFilteredDataBySelectedMonth(getFilteredDataBySelectedYear(data, year), month);
 
-// export const getTotalByType = (arr, type) => {
-//   return arr.reduce((sum, item) => {
-//     return item.type !== type ? sum : sum + item.amount;
-//   }, 0);
-// };
+const getAmountSum = arr => arr.reduce((acc, current) => acc + current.amount, 0);
+const getDataListByCategory = (arr, costArr) => {
+  return arr.map(category => costArr.filter(item => item.category === category));
+};
 
-// export const getCurrentMonth = () => months[new Date().getMonth()];
-// export const getCurrentYear = () => String(new Date().getFullYear());
+const getLabels = arr => [...new Set(arr.map(i => i.category))];
 
-// export const getMonths = arr => {
-//   const uniqMonth = [];
-//   arr.forEach(({ date }) => {
-//     const month = months[new Date(date).getMonth()];
-//     if (!uniqMonth.includes(month)) uniqMonth.push(month);
-//   });
-//   return uniqMonth;
-// };
+export const getChartData = arr => {
+  const labels = arr.map(item => item.category);
+  const data = arr.map(item => item.amount);
+  return {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: colors,
+        hoverBackgroundColor: colors
+      }
+    ]
+  };
+};
 
-// export const getYears = arr => {
-//   const uniqYear = [];
-//   arr.forEach(({ date }) => {
-//     const year = String(new Date(date).getFullYear());
-//     if (!uniqYear.includes(year)) uniqYear.push(year);
-//   });
-//   return uniqYear;
-// };
+export const getTableData = arr => {
+  const cost = getCost(arr);
+  const labels = getLabels(cost);
+  const dataListByCategory = getDataListByCategory(labels, cost);
+  const data = dataListByCategory.map(categories => getAmountSum(categories));
+  return labels.map((category, idx) => {
+    return { category, amount: data[idx] };
+  });
+};
+
+export const getTotalByType = (arr, type) => {
+  return arr.reduce((sum, item) => {
+    return item.type !== type ? sum : sum + item.amount;
+  }, 0);
+};
+
+export const getCurrentMonth = () => months[new Date().getMonth()];
+export const getCurrentYear = () => String(new Date().getFullYear());
+
+export const getMonths = arr => {
+  const uniqMonth = [];
+  arr.forEach(({ date }) => {
+    const month = months[new Date(date).getMonth()];
+    if (!uniqMonth.includes(month)) uniqMonth.push(month);
+  });
+  return uniqMonth;
+};
+
+export const getYears = arr => {
+  const uniqYear = [];
+  arr.forEach(({ date }) => {
+    const year = String(new Date(date).getFullYear());
+    if (!uniqYear.includes(year)) uniqYear.push(year);
+  });
+  return uniqYear;
+};

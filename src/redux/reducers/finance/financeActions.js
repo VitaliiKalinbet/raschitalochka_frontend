@@ -21,6 +21,11 @@ export const totalBalanceSuccess = data => ({
   payload: data
 });
 
+export const addToFinance = data => ({
+  type: actionTypes.ADD_TO_FINANCE,
+  payload: data
+});
+
 export const totalBalanceError = error => ({
   type: actionTypes.TOTAL_BALANCE_FETCH_ERROR,
   payload: {

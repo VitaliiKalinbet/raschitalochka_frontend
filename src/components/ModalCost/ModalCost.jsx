@@ -82,7 +82,7 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token, setTotalBalance, addToData, totalBalance } = this.props;
+    const { handleCloseClick, user, token, addToData, totalBalance } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
 
@@ -108,8 +108,7 @@ class Modal extends Component {
       balanceAfter,
       typeBalanceAfter
     };
-    setTotalBalance(typeBalanceAfter, newBalance);
-    addToData(finance);
+    addToData(finance, typeBalanceAfter, newBalance);
 
     API.postIncomeAndCosts(user.id, token, financeOut)
       .then(() => {})
@@ -122,7 +121,7 @@ class Modal extends Component {
   render() {
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
-
+    console.log(date);
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
@@ -316,11 +315,8 @@ Modal.propTypes = {
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func,
   addToData: PropTypes.func.isRequired,
-  setTotalBalance: PropTypes.func.isRequired,
   totalBalance: PropTypes.number.isRequired
 };
-
-// export default Modal;
 
 const mapState = state => ({
   user: getUser(state),

@@ -7,6 +7,9 @@ const data = (state = [], { type, payload }) => {
     case actionTypes.FINANCE_FETCH_SUCCESS:
       return payload;
 
+    case actionTypes.ADD_TO_FINANCE:
+      return [...state, payload];
+
     case actionTypes.FINANCE_FETCH_ERROR:
       return [];
 

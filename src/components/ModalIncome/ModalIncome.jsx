@@ -80,7 +80,7 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token, totalBalance, addToData, setTotalBalance } = this.props;
+    const { handleCloseClick, user, token, totalBalance, addToData } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
     const type = {
@@ -106,8 +106,7 @@ class Modal extends Component {
       typeBalanceAfter
     };
 
-    setTotalBalance(finance.type, newBalance);
-    addToData(finance);
+    addToData(finance, finance.type, newBalance);
 
     API.postIncomeAndCosts(user.id, token, financeOut).catch(error => console.log('err', error));
     this.setState({ ...INITIAL_STATE });
@@ -194,14 +193,12 @@ Modal.defaultProps = {
   user: null,
   token: null,
   totalBalance: 0,
-  setTotalBalance: () => null,
   addToData: () => null,
   handleSubmitForm: () => null,
   handleCloseClick: () => null
 };
 
 Modal.propTypes = {
-  setTotalBalance: PropTypes.func,
   addToData: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string,
@@ -212,11 +209,7 @@ Modal.propTypes = {
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func,
   totalBalance: PropTypes.number
-  // addToData: PropTypes.func.isRequired,
-  // setTotalBalance: PropTypes.func.isRequired
 };
-
-// export default Modal;
 
 const mapState = state => ({
   user: getUser(state),

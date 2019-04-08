@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 // import noScroll from 'no-scroll';
 // import Loader from 'react-loader-spinner';
 import newId from 'uuid/v4';
+
 import { getTotalBalance } from '../../redux/reducers/finance/financeSelectors';
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
+import * as financeOperations from '../../redux/reducers/finance/financeOperations';
 
 import Button from '../Button/Button';
 import ModalIncome from '../ModalIncome/ModalIncome';
@@ -123,7 +125,12 @@ class Home extends Component {
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    const { sortedData, addToData, setTotalBalance, totalBalance } = this.props;
+    const {
+      sortedData,
+      addToData,
+      //  setTotalBalance,
+      totalBalance
+    } = this.props;
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -186,7 +193,7 @@ class Home extends Component {
           <ModalIncome
             totalBalance={totalBalance}
             addToData={addToData}
-            setTotalBalance={setTotalBalance}
+            // setTotalBalance={setTotalBalance}
             handleCloseClick={this.handleCloseModalIncome}
           />
         )}
@@ -194,7 +201,7 @@ class Home extends Component {
           <ModalCost
             totalBalance={totalBalance}
             addToData={addToData}
-            setTotalBalance={setTotalBalance}
+            // setTotalBalance={setTotalBalance}
             handleCloseClick={this.handleCloseModalCost}
           />
         )}
@@ -210,7 +217,7 @@ Home.defaultProps = {
 Home.propTypes = {
   sortedData: PropTypes.arrayOf(PropTypes.object),
   addToData: PropTypes.func.isRequired,
-  setTotalBalance: PropTypes.func.isRequired,
+  // setTotalBalance: PropTypes.func.isRequired,
   totalBalance: PropTypes.number.isRequired
 };
 
@@ -220,6 +227,15 @@ const mapState = state => ({
   totalBalance: getTotalBalance(state)
 });
 
-export default connect(mapState)(Home);
+const mapDispatch = {
+  // getUserFinance: financeOperations.getUserFinance,
+  addToData: financeOperations.addToData
+  // addToData: financeOperations.addToData
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Home);
 
 // export default Home;
