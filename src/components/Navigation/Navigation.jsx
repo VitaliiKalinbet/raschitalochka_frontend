@@ -41,9 +41,14 @@ const Navigation = ({ totalBalance, width }) => (
   </div>
 );
 
+Navigation.defaultProps = {
+  totalBalance: 0,
+  width: 0
+};
+
 Navigation.propTypes = {
-  totalBalance: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired
+  totalBalance: PropTypes.number,
+  width: PropTypes.number
 };
 
 const mstp = state => ({ totalBalance: getTotalBalance(state) });

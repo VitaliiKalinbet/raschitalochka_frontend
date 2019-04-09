@@ -121,7 +121,6 @@ class Modal extends Component {
   render() {
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
-    console.log(date);
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>

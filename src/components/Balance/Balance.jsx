@@ -15,8 +15,12 @@ const Balance = ({ totalBalance }) => (
   </div>
 );
 
+Balance.defaultProps = {
+  totalBalance: null
+};
+
 Balance.propTypes = {
-  totalBalance: PropTypes.number.isRequired
+  totalBalance: PropTypes.number
 };
 
 const mstp = state => ({ totalBalance: getTotalBalance(state) });

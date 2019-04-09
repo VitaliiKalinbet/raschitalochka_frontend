@@ -4,7 +4,7 @@ import newId from 'uuid/v4';
 
 import s from './Table.module.css';
 
-import { colors } from '../Main/config';
+import { colors } from '../Diagram/config';
 
 const tableTitle = (
   <li className={s.rowHeader}>

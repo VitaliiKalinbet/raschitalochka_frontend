@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 // import Loader from 'react-loader-spinner';
 import newId from 'uuid/v4';
 
-import { getTotalBalance } from '../../redux/reducers/finance/financeSelectors';
-import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
+import { getTotalBalance, getFinanceData } from '../../redux/reducers/finance/financeSelectors';
 import * as financeOperations from '../../redux/reducers/finance/financeOperations';
 
 import Button from '../Button/Button';
@@ -14,14 +13,22 @@ import ModalIncome from '../ModalIncome/ModalIncome';
 import ModalCost from '../ModalCost/ModalCost';
 
 import s from './Home.module.css';
+// import { getChartData } from '../Diagram/functions';
 
-// const checkMinus = item => (String().includes('-') && item.type === '-' ? item.balanceAfter : `-${item.balanceAfter}`);
+const getSortedData = (arr = []) =>
+  arr.sort((a, b) => {
+    if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
+    return b.date - a.date;
+  });
+
 const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
 
 const createDate = mill => {
   const date = new Date(mill);
   const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth()}` : date.getMonth();
+
+  const currentMonth = date.getMonth() + 1;
+  const month = currentMonth < 10 ? `0${currentMonth}` : currentMonth;
   const year = date
     .getYear()
     .toString()
@@ -69,9 +76,7 @@ const checkIdx = idx => (idx % 2 === 0 ? s.contentRows : s.contentRowsSilver);
 class Home extends Component {
   constructor(props) {
     super(props);
-    // const { data } = this.props;
     this.state = {
-      // sortedData: data,
       isModalIncomeOpen: false,
       isModalCostOpen: false
     };
@@ -79,7 +84,6 @@ class Home extends Component {
 
   componentDidMount() {
     const { totalBalance } = this.props;
-    // console.log(this.props);
     if (totalBalance === 0) this.setState({ isModalIncomeOpen: true });
   }
 
@@ -125,12 +129,9 @@ class Home extends Component {
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    const {
-      sortedData,
-      addToData,
-      //  setTotalBalance,
-      totalBalance
-    } = this.props;
+    const { data, addToData, totalBalance } = this.props;
+
+    const sortedData = getSortedData(data);
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -193,44 +194,30 @@ class Home extends Component {
           <ModalIncome
             totalBalance={totalBalance}
             addToData={addToData}
-            // setTotalBalance={setTotalBalance}
             handleCloseClick={this.handleCloseModalIncome}
           />
         )}
         {isModalCostOpen && (
-          <ModalCost
-            totalBalance={totalBalance}
-            addToData={addToData}
-            // setTotalBalance={setTotalBalance}
-            handleCloseClick={this.handleCloseModalCost}
-          />
+          <ModalCost totalBalance={totalBalance} addToData={addToData} handleCloseClick={this.handleCloseModalCost} />
         )}
       </div>
     );
   }
 }
 
-Home.defaultProps = {
-  sortedData: []
-};
-
 Home.propTypes = {
-  sortedData: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   addToData: PropTypes.func.isRequired,
-  // setTotalBalance: PropTypes.func.isRequired,
   totalBalance: PropTypes.number.isRequired
 };
 
 const mapState = state => ({
-  user: getUser(state),
-  token: getToken(state),
-  totalBalance: getTotalBalance(state)
+  totalBalance: getTotalBalance(state),
+  data: getFinanceData(state)
 });
 
 const mapDispatch = {
-  // getUserFinance: financeOperations.getUserFinance,
   addToData: financeOperations.addToData
-  // addToData: financeOperations.addToData
 };
 
 export default connect(
