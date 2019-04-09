@@ -83,8 +83,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { totalBalance } = this.props;
-    if (totalBalance === 0) this.setState({ isModalIncomeOpen: true });
+    const { data } = this.props;
+    if (data.length === 0) this.setState({ isModalIncomeOpen: true });
   }
 
   handleOpenModalIncome = () => {
