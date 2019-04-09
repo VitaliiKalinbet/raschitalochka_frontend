@@ -82,18 +82,21 @@ class Registration extends Component {
     return this.setState({ errorMsg: '' });
   };
 
-  handSuccesRedirectyToLogin = () => {
+  handSuccesRedirectToLogin = () => {
     const { history } = this.props;
     return history.push('/login');
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password, name, lineState } = this.state;
+    const { email, password, confirmPass, name, lineState } = this.state;
     if (!email || !password || !name) {
       return this.setState({ errorMsg: 'Please fill all fields' });
     }
 
+    if (password.length <= 5 || confirmPass.length <= 5) {
+      return this.setState({ errorMsg: 'Passwords are too short, please check it and try again' });
+    }
     if (lineState !== 1) {
       return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
     }
@@ -110,7 +113,7 @@ class Registration extends Component {
         }
 
         setTimeout(() => {
-          return this.handSuccesRedirectyToLogin();
+          return this.handSuccesRedirectToLogin();
         }, 2000);
       })
       .catch(() => this.setState({ errorMsg: 'Failed to login' }));
