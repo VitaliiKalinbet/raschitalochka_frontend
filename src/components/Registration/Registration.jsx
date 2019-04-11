@@ -116,6 +116,7 @@ class Registration extends Component {
           return this.handSuccesRedirectToLogin();
         }, 2000);
       })
+      .then(this.setState({ ...INITIAL_STATE }))
       .catch(() => this.setState({ errorMsg: 'Failed to login' }));
   };
 

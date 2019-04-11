@@ -67,17 +67,18 @@ export const getCurrentYear = () => String(new Date().getFullYear());
 export const getMonths = arr => {
   const uniqMonth = [];
   arr.forEach(({ date }) => {
-    const month = months[new Date(date).getMonth()];
+    const index = new Date(date).getMonth();
+    const month = months[index];
     if (!uniqMonth.includes(month)) uniqMonth.push(month);
   });
-  return uniqMonth;
+  return months.filter(month => uniqMonth.includes(month));
 };
 
 export const getYears = arr => {
   const uniqYear = [];
   arr.forEach(({ date }) => {
-    const year = String(new Date(date).getFullYear());
+    const year = new Date(date).getFullYear();
     if (!uniqYear.includes(year)) uniqYear.push(year);
   });
-  return uniqYear;
+  return uniqYear.sort((prev, next) => prev - next);
 };
