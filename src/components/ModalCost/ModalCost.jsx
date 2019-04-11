@@ -148,7 +148,8 @@ class Modal extends Component {
               required
             />
 
-            <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} />
+            {/* <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} /> */}
+            <DatePicker date={date} onChange={this.handleChangeDate} clearIcon={null} />
 
             <h3 className={s.subtitle}>Category</h3>
 
