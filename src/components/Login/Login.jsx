@@ -64,7 +64,7 @@ class Login extends Component {
 
   render() {
     const { email, password } = this.state;
-    const { width } = this.props;
+    const { width, user } = this.props;
     return (
       <div className={s.container}>
         {width >= 1024 && <div className={s.bgWrap}>{slogan}</div>}
@@ -104,6 +104,7 @@ class Login extends Component {
             <Link className={s.registerLink} to="/registration">
               Register
             </Link>
+            {user.error ? <p className={s.errorMsg}>{user.error}</p> : ''}
           </form>
           {width >= 768 && width < 1024 && slogan}
         </div>
@@ -120,7 +121,10 @@ Login.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   login: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    error: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default withAuth(withWidth(Login));

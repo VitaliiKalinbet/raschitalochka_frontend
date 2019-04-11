@@ -121,6 +121,14 @@
   line-height: 2.5;
 }
 
+.errorMsg {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(202, 73, 21);
+  margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
   .container {
     display: flex;
