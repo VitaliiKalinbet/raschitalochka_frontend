@@ -137,6 +137,7 @@ class Modal extends Component {
               value={amount}
               name="amount"
               onChange={this.handleAmountAndCommentChange}
+              autoFocus
               required
             />
             <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} />
