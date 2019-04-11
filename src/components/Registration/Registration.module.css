@@ -1,4 +1,4 @@
-.wrap {
+.container {
   font-family: 'HelveticaNeueCyr';
 }
 
@@ -8,7 +8,6 @@
   align-items: center;
   height: 100vh;
   margin: 0 auto;
-
 }
 
 .titleWrapper {
@@ -24,16 +23,16 @@
   background-color: rgb(255, 255, 255);
 }
 
-.logoWrap{
+.logoWrap {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-.logo{
-  width:34px;  
-  height:26px;
+.logo {
+  width: 34px;
+  height: 26px;
 }
 
 .inputWithIcon {
@@ -81,7 +80,7 @@
   content: url('../../assets/images/email.svg');
 }
 
-.iconPass::before{
+.iconPass::before {
   content: url('../../assets/images/lock.svg');
 }
 
@@ -103,11 +102,9 @@
 .submitBtn {
   margin-bottom: 1.25rem;
   border-radius: 6px;
-  background-image: linear-gradient(
-    0deg,
+  background-image: linear-gradient(0deg,
     rgb(117, 193, 110) 0%,
-    rgba(81, 109, 87, 0.70196) 100%
-  );
+    rgba(81, 109, 87, 0.70196) 100%);
   box-shadow: 0px 3px 3px 0px rgba(92, 135, 94, 0.2);
   min-width: 275px;
   min-height: 48px;
@@ -122,27 +119,28 @@
 
 .lineStatus,
 .halfLine,
-.fullLine{
+.fullLine {
   height: 4px;
   border-radius: 2px;
   box-shadow: 0px 3px 3px 0px rgba(97, 147, 97, 0.2);
   margin-bottom: 0.875rem;
 }
+
 .lineStatus {
   background-color: #dfe9df;
 }
+
 .halfLine {
   background: linear-gradient(to right, #619361 50%, #dfe9df 50%);
 }
+
 .fullLine {
   background: linear-gradient(to right, #619361 50%, #619361 50%);
   border: 1px solid grey;
-  
+
 }
 
-
-
-.submitBtn:focus{
+.submitBtn:focus {
   outline: none
 }
 
@@ -153,8 +151,24 @@
   line-height: 2.5;
 }
 
+.successMsg {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(67, 196, 78);
+  margin-top: 1rem;
+}
+
+.errorMsg {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(202, 73, 21);
+  margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
-  .wrap {
+  .container {
     display: flex;
   }
 
@@ -178,20 +192,30 @@
     color: rgb(40, 40, 40);
     line-height: 2.5;
     text-align: center;
-    margin-left: 8%;
+    margin-left: 4%;
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  .container {
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .formWrapper {
     width: 50%;
-   background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px
-        right -372px,
+    background: url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px right -372px,
       url('../../assets/images/waves-chart-bg.svg') no-repeat bottom -169px left -726px,
       url('../../assets/images/background.jpg');
     background-size: auto 541px, auto 541px, auto;
   }
-  .formTitle{
+
+  .form {
+    width: 80%;
+    max-width: 550px;
+  }
+
+  .formTitle {
     color: rgb(255, 255, 255);
     margin: 0;
     text-align: left;
@@ -204,15 +228,15 @@
     justify-content: center;
     width: 50%;
     background: url('../../assets/images/registration/iPhone6.png') no-repeat 86% center,
-    url('../../assets/images/registration/BackgroundRegister.jpg') no-repeat center;
+      url('../../assets/images/registration/BackgroundRegister.jpg') no-repeat center;
     background-size: 41%, cover;
   }
-  
-  .submitBtn{
-    background-image: linear-gradient( 90deg, rgb(236,178,42) 0%, rgba(255,108,0,1) 100%);
+
+  .submitBtn {
+    background-image: linear-gradient(90deg, rgb(236, 178, 42) 0%, rgba(255, 108, 0, 1) 100%);
     box-shadow: 0px 3px 3px 0px rgba(255, 108, 0, 0.2);
   }
-  
+
   .slogan {
     text-align: left;
     font-size: 2.18rem;
@@ -222,20 +246,14 @@
     color: rgb(255, 255, 255);
     padding: 0.3125rem;
   }
-  .logo{
+
+  .logo {
     margin-right: 10px;
   }
 
-  .logoWrap{
+  .logoWrap {
     margin-bottom: 40px;
-    margin-left: 8%;
+    margin-left: 4%;
     justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1800px) {
-  .slogan,
-  .logoWrap{
-    width: 42%;
   }
 }

@@ -1,234 +1,9 @@
-.wrap {
-    width: 1260px;
-    min-height: 810px;
-    border-radius: 5px;
-    box-shadow: 20px 20px 60px 0px rgba(0,0,0,0.16);
-    background-color: #fff;
-}
-
-.loader{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top:calc(60% - 50px);
-    left:calc(50% - 50px);
-  }
-
-.btnsBlock {
-    background-color: #516d57;
-    padding: 23px 0;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    display: flex;
-    justify-content: center;
-}
-
-.btn {
-    width: 150px;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    background: #619361;
-    font-size: 15px;
-    line-height: 40px;
-    color: #fff;
-    font-weight: bold;
-}
-
-.btnLeft {
-    margin-right: 28px;    
-}
-
-.btn:hover {
-    background: linear-gradient(to right, #fdc830, #feb21c, #fd9c09, #fc8402, #f96b07);
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.mainRow {
-    width: 100%;
-    font-size: 15px;
-    line-height: 17px;
-    font-weight: bold;
-    background-color: #f3f6f6;
-}
-
-.contentRows {
-    font-size: 13px;
-    line-height: 15px;
-    font-weight: 400;
-    padding: 23px 0px 20px 39px;    
-}
-
-.contentRowsSilver {
-    font-size: 13px;
-    line-height: 15px;
-    font-weight: 400;
-    background-color: #f3f6f6;
-}
-
-.firstCol {
-    display: block;
-    width: 85px;
-    padding: 27px 0px 25px 39px;
-    text-align: left;
-}
-
-.typeCol, .commentCol, .categoryCol {
-    text-align: left;
-}
-
-.mobileTh {
-    display: none;
-}
-
-.firstColContent {
-    padding: 25px 0px 25px 37px;
-}
-
-.firstColContentForMobile {
-    display: none;
-}
-
-.typeColContent {
-    width: 200px;
-} 
-
-.categoryColContent {
-    width: 225px;
-}
-
-.commentColContent {
-    width: 160px;
-}
-
-.amountPlus {
-    color: #75c16e;
-}
-
-.amountMinus {
-    color: #ff6c00;
-}
-
-
-.amountCol , .amountColContent {
-    width: 220px;
-    text-align: center;
-}
-
-.lastCol , .lastColContent {
-    text-align: center;
-}
-
-/* s.scrollWidth {
-    margin-right: 17px;
-} */
-
-
-@media screen and (min-width: 768px) and (max-width: 1919px) {
+@media screen and (max-width: 767px) {
     .wrap {
-        width: 700px;
-        min-height: 470px;
-        margin: 0 auto;        
-    } 
-
-    .mainRow {
-        font-size: 11px;
-        line-height: 13px;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .contentRows {
-        font-size: 11px;
-        line-height: 13px;
-    }
-    
-    .contentRowsSilver {
-        font-size: 11px;
-        line-height: 13px;
-        background-color: #f3f6f6;
-    }
-
-    .firstCol {
-        display: block;
-        width: 105px;
-        padding: 30px 0px 25px 15px;
-    }
-
-    .typeCol {
-        width: 110px;
-        padding: 30px 0px 25px 0px;
-    } 
-
-    .categoryCol {
-        width: 150px;
-        padding: 30px 0px 25px 0px;
-        
-    }
-    
-    .commentCol {
-        width: 130px;
-        padding: 30px 0px 25px 0px;
-        
-    }
-
-    .amountCol {
-        width: 130px;
-        text-align: center;
-        padding: 30px 0px 25px 0px;
-    }
-    
-    .lastCol {
-        width: 160px;
-        text-align: center;
-        padding: 30px 0px 25px 0px;            
-    }
-
-    .firstColContent {
-        padding: 20px 0px 20px 15px;
-    }
-
-    .typeColContent {
-        width: 120px;
-        padding: 20px 0px 20px 0px;
-    } 
-
-    .categoryColContent {
-        width: 150px;
-        padding: 20px 0px 20px 0px;
-
-    }
-    
-    .commentColContent {
-        width: 150px;
-        padding: 20px 0px 20px 0px;
-    }
-
-    .amountColContent {
-        width: 130px;
-        text-align: center;
-        padding: 20px 0px 20px 0px;
-    }
-    
-    .lastColContent {
-        width: 160px;
-        text-align: center;
-        padding: 20px 0px 20px 15px;        
-    }
-} 
-
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-    .wrap {
-        width: 306px;
+        width: 100%;
         margin: 0 auto;
-        min-height: 470px;
+        border-radius: 5px;
         box-shadow: none;
-        background-color: inherit;
         position: relative;
         padding-bottom: 85px;
     } 
@@ -241,7 +16,10 @@
         width: 100%;
         padding: 15px 0;
         border-radius: 0;
+        display: flex;
+        justify-content: center;
     }
+    
 
     .btn {
         width: 150px;
@@ -259,34 +37,41 @@
         margin-right: 6px;    
     }
 
+
+
+    .btn:hover {
+        background: linear-gradient(to right, #fdc830, #feb21c, #fd9c09, #fc8402, #f96b07);
+    }
+
+    .table {
+        width: 100%;
+    }
+
     .mainRow {
         display: none;
     }
 
     .contentRows {
-        font-size: 13px;
-        line-height: 15px;
+        font-size: 11px;
+        line-height: 13px;
         display: flex;
         flex-direction: column;
         padding: 0px 0px 0px 0px;
-        margin-bottom: 5px;
         border-left: 8px solid transparent;
         background-color: #fff;
-        box-shadow: 9px 9px 9px 0px rgba(0,0,0,0.08);
     }
     
     .contentRowsSilver {
-        font-size: 13px;
-        line-height: 15px;
+        font-size: 11px;
+        line-height: 13px;
         font-weight: 300; 
         display: flex;
         flex-direction: column;
         padding: 0px 0px 0px 0px;
-        margin-bottom: 5px;
         border-left: 8px solid transparent;
-        background-color: #fff;
-        box-shadow: 9px 9px 9px 0px rgba(0,0,0,0.08);
+        background-color: #f3f6f6;
     }
+
 
     .contentRows:last-of-type {
         margin: 0;
@@ -342,12 +127,16 @@
 
     .firstColContent {
         width: 100%;
-        padding: 5px 10px;
+        padding: 10px 10px;
         text-align: left;
         display: flex;
         flex-wrap: wrap;
-    }
+    } 
 
+    .mobileContent {
+        color: #6b7d83;
+        font-size: 10px;
+    }
 
     .amountPlus {
         color: #75c16e;
@@ -360,8 +149,13 @@
     .mobileTh {
         display: block;
         padding: 0;
-        width: 50%;
         color: #000;
+    }
+
+    .mobileThRight {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
     }
 
     .mobileContent {
@@ -377,12 +171,172 @@
     }
 
     .firstColContentForMobile {
+        padding: 0 0 2px 0;
         display: flex;
         width: 100%;
         justify-content: space-between;
-        margin-bottom: 5px;
         font-size: 13px;
         line-height: 15px;
         font-weight: 400; 
+    }
+
+}
+@media screen and (min-width: 768px) {
+    .wrap {
+        width: 100%;
+        box-shadow: 20px 20px 60px 0px rgba(0,0,0,0.16);
+        background-color: #fff;
+        padding: 0 33px;
+    }
+    
+    .btnsBlock {
+        background-color: #516d57;
+        padding: 23px 0;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .btn {
+        width: 150px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        background: #619361;
+        font-size: 15px;
+        line-height: 40px;
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    .btnLeft {
+        margin-right: 28px;    
+    }
+    
+    .btn:hover {
+        background: linear-gradient(to right, #fdc830, #feb21c, #fd9c09, #fc8402, #f96b07);
+    }
+    
+    .table {
+        width: 100%;
+    }
+
+    .firstColContentForMobile {
+        display: none;
+    }
+    
+    
+    .mainRow {
+        width: 100%;
+        font-size: 15px;
+        line-height: 17px;
+        font-weight: bold;
+        background-color: #f3f6f6;
+        display: flex;
+        padding: 0px 20px;    
+    }
+    
+    .contentRows {
+        font-size: 13px;
+        line-height: 15px;
+        font-weight: 400;
+        display: flex;
+        padding: 0px 20px;    
+    }
+    
+    .contentRowsSilver {
+        font-size: 13px;
+        line-height: 15px;
+        font-weight: 400;
+        display: flex;
+        background-color: #f3f6f6;
+        padding: 0px 20px;    
+    }
+
+
+    
+    .firstCol, .firstColContent {
+        padding: 27px 0 25px 0;
+        width: 14%;
+    }
+
+    .typeCol, .categoryCol, .commentCol, .amountCol, .lastCol, .typeColContent, .categoryColContent, .commentColContent, .amountColContent, .lastColContent {
+        padding: 27px 0 25px 0;
+    }
+
+    .typeCol, .typeColContent {
+        width: 12%;
+    }    
+    
+    .categoryCol, .categoryColContent  {
+        width: 21%;
+    }
+
+    .commentCol, .commentColContent {
+        width: 24%;
+        padding-left: 20px;
+    }
+
+    .amountCol, .amountColContent {
+        width: 17%;
+    }
+
+    .lastCol, .lastColContent {
+        width: 17%;
+    }
+
+    .mobileTh {
+        display: none;
+    }
+    
+    .amountPlus {
+        color: #75c16e;
+    }
+    
+    .amountMinus {
+        color: #ff6c00;
+    }
+    
+    
+    .amountCol , .amountColContent {
+        text-align: center;
+    }
+    
+    .lastCol , .lastColContent {
+        text-align: center;
+    }
+} 
+
+@media screen and (min-width: 1024px) {
+    .wrap {
+        padding: 0;
+        max-width: 1280px;
+    }
+
+    .firstCol, .firstColContent {
+        padding: 27px 0 25px 0;
+        width: 15%;
+    }
+
+    .typeCol, .typeColContent {
+        width: 13%;
+    }    
+    
+    .categoryCol, .categoryColContent  {
+        width: 21%;
+    }
+
+    .commentCol, .commentColContent {
+        width: 22%;
+        padding-left: 20px;
+    }
+
+    .amountCol, .amountColContent {
+        width: 17%;
+    }
+
+    .lastCol, .lastColContent {
+        width: 17%;
     }
 }

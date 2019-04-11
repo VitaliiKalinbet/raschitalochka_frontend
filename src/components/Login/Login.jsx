@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import withAuth from '../../hoc/withAuth';
+import withWidth from '../../hoc/withWidth';
 import logo from '../../assets/images/logo.svg';
 
 import s from './Login.module.css';
@@ -12,20 +13,17 @@ const slogan = <p className={s.slogan}>Manage your budget with finance app</p>;
 class Login extends Component {
   state = {
     email: '',
-    password: '',
-    width: 800
+    password: ''
   };
 
   componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
   componentDidUpdate() {
     const { isAuthenticated, location, history } = this.props;
 
-    const { from } = location.state || { from: { pathname: '/dashboard/home' } };
+    const { from } = location.state || { from: { pathname: '/dashboard' } };
 
     if (isAuthenticated) {
       history.push({
@@ -36,7 +34,6 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
@@ -65,15 +62,12 @@ class Login extends Component {
     if (e.code === 'Enter') this.handleSubmit(e);
   };
 
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { email, password, width } = this.state;
+    const { email, password } = this.state;
+    const { width } = this.props;
     return (
-      <div className={s.wrap}>
-        {width >= 1280 && <div className={s.bgWrap}>{slogan}</div>}
+      <div className={s.container}>
+        {width >= 1024 && <div className={s.bgWrap}>{slogan}</div>}
         <div className={s.formWrapper}>
           <form className={s.form} onSubmit={this.handleSubmit}>
             <div className={s.logoWrap}>
@@ -111,7 +105,7 @@ class Login extends Component {
               Register
             </Link>
           </form>
-          {width >= 768 && width < 1280 && slogan}
+          {width >= 768 && width < 1024 && slogan}
         </div>
       </div>
     );
@@ -125,7 +119,8 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired
 };
 
-export default withAuth(Login);
+export default withAuth(withWidth(Login));

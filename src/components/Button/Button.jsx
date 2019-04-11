@@ -10,12 +10,15 @@ const Button = ({ type, style, value, onClick }) => (
 Button.defaultProps = {
   type: 'button',
   onClick: () => null,
-  style: ''
+  style: '',
+  value: {}
 };
 
 Button.propTypes = {
   type: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value:
+    PropTypes.string.isRequired ||
+    PropTypes.shape({ props: shape({ children: PropTypes.arrayOf(object) }) }).isRequired,
   onClick: PropTypes.func,
   style: PropTypes.string
 };

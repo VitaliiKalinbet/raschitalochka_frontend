@@ -14,7 +14,7 @@ import s from './ModalIncome.module.css';
 const INITIAL_STATE = {
   date: new Date(),
   category: '',
-  amount: null,
+  amount: '',
   comments: ''
 };
 
@@ -78,55 +78,54 @@ class Modal extends Component {
     handleCloseClick();
   };
 
-  // handleFormSubmit = e => {
-  //   e.preventDefault();
-  //   const { handleCloseClick } = this.props;
-  //   const { amount, date } = this.state;
-
-  //   const dateInMilliseconds = date.getTime();
-  //   console.log({
-  //     ...this.state,
-  //     ...typeAndBalanceOfModal(1000, amount),
-  //     ...{ date: dateInMilliseconds }
-  //   });
-  //   this.setState({ ...INITIAL_STATE });
-  //   handleCloseClick();
-  // };
-
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token } = this.props;
+    const { handleCloseClick, user, token, totalBalance, addToData } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
+    const type = {
+      type: '+'
+    };
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(0, amount), ...{ date: dateInMilliseconds } };
+    const newBalance = totalBalance + amount;
 
-    API.postIncomeAndCosts(user.id, token, finance)
-      .then(res => console.log('res', res))
-      .catch(error => console.log('err', error));
-    // console.log(user, token);
-    console.log(finance);
+    const finance = {
+      ...this.state,
+      ...typeAndBalanceOfModal(totalBalance, amount),
+      ...{ date: dateInMilliseconds },
+      ...{ createdAt: new Date().getTime() }
+    };
+
+    const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    const typeBalanceAfter = newBalance > 0 ? '+' : '-';
+    const financeOut = {
+      ...this.state,
+      ...{ date: dateInMilliseconds },
+      ...type,
+      balanceAfter,
+      typeBalanceAfter
+    };
+
+    addToData(finance, finance.type, newBalance);
+
+    API.postIncomeAndCosts(user.id, token, financeOut).catch(error => console.log('err', error));
     this.setState({ ...INITIAL_STATE });
     handleCloseClick();
   };
 
   render() {
-    const btnMobile = () => (
-      <>
-        <div className={s.wrapArrow}>
-          <img src={Arrow} alt="arrow" className={s.arrow} />
-        </div>
-        <h2 className={s.titleArrow}>Add Income</h2>
-      </>
-    );
-
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
           <div className={s.wrapBtn}>
-            <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} />
+            <button type="button" className={s.arrowBtn} onClick={this.handleBtnClick}>
+              <div className={s.wrapArrow}>
+                <img src={Arrow} alt="arrow" className={s.arrow} />
+              </div>
+              <h2 className={s.titleArrow}>Add Income</h2>
+            </button>
           </div>
           <h2 className={s.title}>Add Income</h2>
 
@@ -140,7 +139,7 @@ class Modal extends Component {
               onChange={this.handleAmountAndCommentChange}
               required
             />
-            <DatePicker style={s.dateInp} selected={date} onChange={this.handleChangeDate} />
+            <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} />
 
             <h3 className={s.subtitle}>Category</h3>
 
@@ -180,7 +179,6 @@ class Modal extends Component {
               value={comments}
               placeholder="Your comment"
               maxLength="56"
-              required
             />
 
             <Button style={s.btn} type="submit" value="Add" />
@@ -194,11 +192,14 @@ class Modal extends Component {
 Modal.defaultProps = {
   user: null,
   token: null,
+  totalBalance: 0,
+  addToData: () => null,
   handleSubmitForm: () => null,
   handleCloseClick: () => null
 };
 
 Modal.propTypes = {
+  addToData: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
@@ -206,12 +207,9 @@ Modal.propTypes = {
   }),
   token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
-  handleCloseClick: PropTypes.func
-  // addToData: PropTypes.func.isRequired,
-  // setTotalBalance: PropTypes.func.isRequired
+  handleCloseClick: PropTypes.func,
+  totalBalance: PropTypes.number
 };
-
-// export default Modal;
 
 const mapState = state => ({
   user: getUser(state),

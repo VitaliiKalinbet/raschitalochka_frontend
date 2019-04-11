@@ -8,6 +8,7 @@ const user = (state = null, { type, payload }) => {
       return payload.user;
 
     case actionTypes.LOGIN_ERROR:
+    case actionTypes.LOGOUT_SUCCESS:
       return null;
 
     default:
@@ -20,6 +21,7 @@ const token = (state = null, { type, payload }) => {
       return payload.token;
 
     case actionTypes.LOGIN_ERROR:
+    case actionTypes.LOGOUT_SUCCESS:
       return null;
 
     default:
@@ -33,7 +35,9 @@ const isAuthenticated = (state = false, { type }) => {
       return true;
 
     case actionTypes.LOGIN_ERROR:
+    case actionTypes.LOGOUT_SUCCESS:
       return false;
+
     default:
       return state;
   }

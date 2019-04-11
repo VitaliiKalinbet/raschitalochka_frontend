@@ -15,7 +15,7 @@ import s from './ModalCost.module.css';
 const INITIAL_STATE = {
   date: new Date(),
   category: '',
-  amount: null,
+  amount: 'null',
   comments: '',
   balanceAfter: 0
 };
@@ -82,7 +82,7 @@ class Modal extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    const { handleCloseClick, user, token, setTotalBalance, addToData, totalBalance } = this.props;
+    const { handleCloseClick, user, token, addToData, totalBalance } = this.props;
     const { amount, date } = this.state;
     const dateInMilliseconds = date.getTime();
 
@@ -90,29 +90,28 @@ class Modal extends Component {
       type: '-'
     };
 
-    const finance = { ...this.state, ...typeAndBalanceOfModal(totalBalance, amount), ...{ date: dateInMilliseconds } };
+    const finance = {
+      ...this.state,
+      ...typeAndBalanceOfModal(totalBalance, amount),
+      ...{ date: dateInMilliseconds },
+      ...{ createdAt: new Date().getTime() }
+    };
 
     const newBalance = totalBalance - amount;
 
-    const balanceOut = newBalance > 0 ? newBalance : Math.abs(newBalance);
-    console.log(totalBalance, amount);
-
-    console.log(balanceOut);
-
-    const financeOut = { ...this.state, ...{ date: dateInMilliseconds }, ...type, balanceAfter: balanceOut };
-    // console.log(finance);
-    setTotalBalance(finance.type, newBalance);
-    addToData(finance);
+    const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
+    const typeBalanceAfter = newBalance > 0 ? '+' : '-';
+    const financeOut = {
+      ...this.state,
+      ...{ date: dateInMilliseconds },
+      ...type,
+      balanceAfter,
+      typeBalanceAfter
+    };
+    addToData(finance, typeBalanceAfter, newBalance);
 
     API.postIncomeAndCosts(user.id, token, financeOut)
-      .then(() => {
-        // console.log('then', finance.type, finance.amount, data.finance.data);
-        // res.data.finance.data;
-        // console.log(data, 'dataaaaa');
-        // console.log(finance.balanceAfter, 'balance');
-        // const newBalance = type === '+' ? totalBalance + finance.balanceAfter : totalBalance - finance.balanceAfter;
-      })
-      // .then((res) =>  )
+      .then(() => {})
       .catch(error => console.log('err', error));
 
     this.setState({ ...INITIAL_STATE });
@@ -122,21 +121,16 @@ class Modal extends Component {
   render() {
     const { handleSubmitForm } = this.props;
     const { date, category, amount, comments } = this.state;
-
-    const btnMobile = () => (
-      <>
-        <div className={s.wrapArrow}>
-          <img src={Arrow} alt="arrow" className={s.arrow} />
-        </div>
-        <h2 className={s.titleArrow}>Add Cost</h2>
-      </>
-    );
-
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
           <div className={s.wrapBtn}>
-            <Button type="button" style={s.arrowBtn} value={btnMobile()} onClick={this.handleBtnClick} />
+            <button type="button" className={s.arrowBtn} onClick={this.handleBtnClick}>
+              <div className={s.wrapArrow}>
+                <img src={Arrow} alt="arrow" className={s.arrow} />
+              </div>
+              <h2 className={s.titleArrow}>Add Cost</h2>
+            </button>
           </div>
 
           <h2 className={s.title}>Add Cost</h2>
@@ -154,7 +148,8 @@ class Modal extends Component {
               required
             />
 
-            <DatePicker style={s.dateInp} selected={date} onChange={this.handleChangeDate} clearIcon={null} />
+            {/* <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} /> */}
+            <DatePicker date={date} onChange={this.handleChangeDate} clearIcon={null} />
 
             <h3 className={s.subtitle}>Category</h3>
 
@@ -293,7 +288,6 @@ class Modal extends Component {
               value={comments}
               placeholder="Your comment"
               maxLength="56"
-              required
             />
 
             <Button style={s.btn} type="submit" value="Add" />
@@ -321,11 +315,8 @@ Modal.propTypes = {
   handleSubmitForm: PropTypes.func,
   handleCloseClick: PropTypes.func,
   addToData: PropTypes.func.isRequired,
-  setTotalBalance: PropTypes.func.isRequired,
   totalBalance: PropTypes.number.isRequired
 };
-
-// export default Modal;
 
 const mapState = state => ({
   user: getUser(state),

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 
+import withWidth from '../../hoc/withWidth';
 import { getIsAuthenticated } from '../../redux/reducers/session/sessionSelectors';
 import logo from '../../assets/images/logo.svg';
 import logoWite from '../../assets/images/registration/logo_white.png';
@@ -27,15 +28,12 @@ const INITIAL_STATE = {
   name: '',
   lineState: 0,
   errorMsg: '',
-  successMsg: '',
-  width: 768
+  successMsg: ''
 };
 class Registration extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
@@ -53,7 +51,6 @@ class Registration extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
     window.addEventListener('keydown', this.pressEnter.bind(this));
   }
 
@@ -85,18 +82,21 @@ class Registration extends Component {
     return this.setState({ errorMsg: '' });
   };
 
-  handSuccesRedirectyToLogin = () => {
+  handSuccesRedirectToLogin = () => {
     const { history } = this.props;
     return history.push('/login');
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password, name, lineState } = this.state;
+    const { email, password, confirmPass, name, lineState } = this.state;
     if (!email || !password || !name) {
       return this.setState({ errorMsg: 'Please fill all fields' });
     }
 
+    if (password.length <= 5 || confirmPass.length <= 5) {
+      return this.setState({ errorMsg: 'Passwords are too short, please check it and try again' });
+    }
     if (lineState !== 1) {
       return this.setState({ errorMsg: 'Passwords are not equals, please check it and try again' });
     }
@@ -113,7 +113,7 @@ class Registration extends Component {
         }
 
         setTimeout(() => {
-          return this.handSuccesRedirectyToLogin();
+          return this.handSuccesRedirectToLogin();
         }, 2000);
       })
       .catch(() => this.setState({ errorMsg: 'Failed to login' }));
@@ -125,15 +125,12 @@ class Registration extends Component {
     if (e.code === 'Enter') this.handleSubmit(e);
   };
 
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { width, email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
+    const { email, password, confirmPass, name, lineState, errorMsg, successMsg } = this.state;
+    const { width } = this.props;
     return (
-      <div className={s.wrap}>
-        {width >= 1280 && (
+      <div className={s.container}>
+        {width >= 1024 && (
           <div className={s.bgWrap}>
             <div className={s.logoWrap}>
               <img className={s.logo} src={logoWite} alt="app logo" />
@@ -234,11 +231,12 @@ Registration.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  width: PropTypes.number.isRequired
 };
 
 const mstp = state => ({
   isAuthenticated: getIsAuthenticated(state)
 });
 
-export default connect(mstp)(Registration);
+export default connect(mstp)(withWidth(Registration));

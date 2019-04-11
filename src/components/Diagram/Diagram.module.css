@@ -3,9 +3,10 @@
 	flex-direction: column;
   align-items: center;
 }
- .wrap{
-   width: 100%;
- } 
+
+.wrap{
+  width: 100%;
+}
 
 
 .chartWrap{
@@ -96,11 +97,18 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  .container{
+    width: 100%;
+  }
+
+  .title {
+    align-self: stretch;
+  }
+
   .wrap{
     display: flex;
-    min-height: 700px;
-    
+    min-height: 600px;
   }
 
   .chartWrap{
@@ -111,11 +119,14 @@
     box-shadow: none;
     margin: 0;
   }
+
   .tableContaiter{
+    padding-top: 60px;
+    align-self: flex-start;
     width: 50%;
-        display: flex;
+    display: flex;
     flex-direction: column;
-     justify-content: center;
+    justify-content: center;
     align-items: center;
   }
   .submitBtn{
