@@ -25,11 +25,15 @@ export const login = credentials => dispatch => {
 
   axios
     .post('/api/login', credentials)
-    .then(({ data }) => {
-      setAuthHeader(data.token);
-      dispatch(loginSuccess(data));
+    .then(resp => {
+      console.log(resp);
+      setAuthHeader(resp.data.token);
+      dispatch(loginSuccess(resp.data));
     })
-    .catch(error => dispatch(loginError(error)));
+    .catch(error => {
+      console.log(error.response.data.message);
+      dispatch(loginError(error.response.data.message));
+    });
 };
 
 export const logout = () => (dispatch, getState) => {
@@ -46,8 +50,7 @@ export const logout = () => (dispatch, getState) => {
   // setAuthHeader(token);
   axios
     .get('/api/logout', {}, config)
-    .then(res => {
-      console.log(res);
+    .then(() => {
       return dispatch(logoutSuccess());
     })
     .catch(error => logoutError(error));

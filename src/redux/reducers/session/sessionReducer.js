@@ -2,14 +2,23 @@ import { combineReducers } from 'redux';
 
 import * as actionTypes from './sessionActionsTypes';
 
-const user = (state = null, { type, payload }) => {
+const user = (
+  state = {
+    error: ''
+  },
+  { type, payload }
+) => {
   switch (type) {
     case actionTypes.LOGIN_SUCCESS:
       return payload.user;
 
     case actionTypes.LOGIN_ERROR:
+      return {
+        ...payload
+      };
+
     case actionTypes.LOGOUT_SUCCESS:
-      return null;
+      return state;
 
     default:
       return state;

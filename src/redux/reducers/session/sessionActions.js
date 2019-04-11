@@ -15,6 +15,7 @@ export const loginError = error => ({
     error
   }
 });
+
 export const logoutRequest = () => ({
   type: actionTypes.LOGOUT_REQUEST
 });

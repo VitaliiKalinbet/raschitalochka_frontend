@@ -104,7 +104,6 @@ class Home extends Component {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, totalBalance } = this.props;
     const sortedData = [...data].sort((a, b) => (a.date > b.date ? -1 : 1));
-
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
