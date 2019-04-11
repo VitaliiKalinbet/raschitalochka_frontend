@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import withWidth from '../../hoc/withWidth';
 
-import Button from '../Button/Button';
 import Table from '../Table/Table';
 import Chart from '../Chart/Chart';
 import { getTotalCost, getTotalIncome, getFinanceData } from '../../redux/reducers/finance/financeSelectors';
@@ -106,7 +105,6 @@ class Diagram extends Component {
           <div className={s.chartWrap}>
             {width >= 768 && width < 1024 && <p className={s.title}>Cost Diagram</p>}
             <Chart data={chartData} width={width} options={options} />
-            <Button style={s.submitBtn} onClick={this.handleUpdate} type="button" value="Update" />
           </div>
           <div className={s.tableContaiter}>
             <div className={s.selectors}>
