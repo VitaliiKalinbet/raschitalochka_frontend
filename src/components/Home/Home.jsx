@@ -40,7 +40,8 @@ const createDate = mill => {
 };
 
 const colorDependingOnTheCategory = category => {
-  switch (category) {
+  const lowerCaseCategory = toString(category).toLowerCase();
+  switch (lowerCaseCategory) {
     case 'regular income':
       return s.colorRegularIncome;
     case 'irregular income':
@@ -157,7 +158,7 @@ class Home extends Component {
                     <div
                       // eslint-disable-next-line no-underscore-dangle
                       key={item._id || newId()}
-                      className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
+                      className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category)}`}
                     >
                       <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
                         <div className={s.firstColContentForMobile}>
