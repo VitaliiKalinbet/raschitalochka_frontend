@@ -1,46 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import noScroll from 'no-scroll';
-import Loader from 'react-loader-spinner';
-import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
-
+import newId from 'uuid/v4';
+import { getTotalBalance, getFinanceData } from '../../redux/reducers/finance/financeSelectors';
+import * as financeOperations from '../../redux/reducers/finance/financeOperations';
 import Button from '../Button/Button';
 import ModalIncome from '../ModalIncome/ModalIncome';
 import ModalCost from '../ModalCost/ModalCost';
-
 import s from './Home.module.css';
+
+const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
 
 const createDate = mill => {
   const date = new Date(mill);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  const currentMonth = date.getMonth() + 1;
+  const month = currentMonth < 10 ? `0${currentMonth}` : currentMonth;
   const year = date
     .getYear()
     .toString()
     .split('')
     .slice(1)
     .join('');
-
-  return `${day}.${month}.${year}`;
+  return `${day}.${month}.20${year}`;
 };
 
-// const colorsClasses = [
-//   s.colorFirst,
-//   s.colorSecond,
-//   s.colorThird,
-//   s.colorFourth,
-//   s.colorFifth,
-//   s.colorSixth,
-//   s.colorSeventh,
-//   s.colorEighth,
-//   s.colorNinth
-// ];
-
-// const randomClassOfColor = () => colorsClasses[Math.floor(Math.random() * colorsClasses.length)];
-
 const colorDependingOnTheCategory = category => {
-  switch (category) {
+  const lowerCaseCategory = toString(category).toLowerCase();
+  switch (lowerCaseCategory) {
     case 'regular income':
       return s.colorRegularIncome;
     case 'irregular income':
@@ -75,45 +62,49 @@ const checkType = type => {
 const checkIdx = idx => (idx % 2 === 0 ? s.contentRows : s.contentRowsSilver);
 
 class Home extends Component {
-  state = {
-    isModalIncomeOpen: false,
-    isModalCostOpen: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalIncomeOpen: false,
+      isModalCostOpen: false
+      // data: this.props.data
+    };
+  }
 
-  //   componentDidMount() {}
+  componentDidMount() {
+    const { data } = this.props;
+    if (data.length === 0) this.setState({ isModalIncomeOpen: true });
+  }
 
   handleOpenModalIncome = () => {
     this.setState({
       isModalIncomeOpen: true
     });
-    noScroll.on();
   };
 
   handleCloseModalIncome = () => {
     this.setState({
       isModalIncomeOpen: false
     });
-    noScroll.off();
   };
 
   handleOpenModalCost = () => {
     this.setState({
       isModalCostOpen: true
     });
-    noScroll.on();
   };
 
   handleCloseModalCost = () => {
     this.setState({
       isModalCostOpen: false
     });
-    noScroll.off();
   };
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
-    const { data } = this.props;
-    // const data = [];
+    const { data, addToData, totalBalance } = this.props;
+    const sortedData = [...data].sort((a, b) => (a.date > b.date ? -1 : 1));
+
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -121,81 +112,88 @@ class Home extends Component {
           <Button style={s.btn} value="Add Cost" onClick={this.handleOpenModalCost} />
         </div>
         <div>
-          <table className={s.table}>
-            <tr className={s.mainRow}>
-              <th className={s.firstCol}>Date</th>
-              <th className={s.typeCol}>Type</th>
-              <th className={s.categoryCol}>Category</th>
-              <th className={s.commentCol}>Comments</th>
-              <th className={s.amountCol}>Amount, UAH</th>
-              <th className={s.lastCol}>Balance After</th>
-            </tr>
-            {data.length > 0 ? (
-              data.map((item, idx) => {
-                const date = createDate(item.date);
-                return (
-                  <tr
-                    key={item.dateEvent}
-                    className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category.toLowerCase())}`}
-                  >
-                    <td className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
-                      <div className={s.firstColContentForMobile}>
-                        <div className={s.mobileTh}>{item.category}</div>
-                        <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
-                      </div>
-                      <div className={s.mobileContent}>{date}</div>
-                    </td>
-                    <td className={`${s.typeColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Type</div>
-                      <div className={s.mobileContent}>{item.type}</div>
-                    </td>
-                    <td className={`${s.categoryColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Category</div>
-                      <div className={s.mobileContent}>{item.category}</div>
-                    </td>
-                    <td className={`${s.commentColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Comments</div>
-                      <div className={s.mobileContent}>{item.comments}</div>
-                    </td>
-                    <td className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Amount, UAH</div>
-                      <div className={s.mobileContent}>{item.amount}</div>
-                    </td>
-                    <td className={`${s.lastColContent} ${s.noMobile}`}>
-                      <div className={s.mobileTh}>Balance After</div>
-                      <div className={s.mobileContent}>{item.balanceAfter}</div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <div className={s.loader}>
-                <Loader type="Oval" color="grey" height={80} width={80} />
+          <div className={s.table}>
+            <div>
+              <div className={s.mainRow}>
+                <div className={s.firstCol}>Date</div>
+                <div className={s.typeCol}>Type</div>
+                <div className={s.categoryCol}>Category</div>
+                <div className={s.commentCol}>Comments</div>
+                <div className={s.amountCol}>Amount, UAH</div>
+                <div className={s.lastCol}>Balance After</div>
               </div>
-            )}
-          </table>
+              {sortedData.length > 0 &&
+                sortedData.map((item, idx) => {
+                  const date = createDate(item.date);
+                  return (
+                    <div
+                      // eslint-disable-next-line no-underscore-dangle
+                      key={item._id || newId()}
+                      className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category)}`}
+                    >
+                      <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
+                        <div className={s.firstColContentForMobile}>
+                          <div className={s.mobileTh}>{item.category}</div>
+                          <div className={s.mobileThRight}>
+                            <div>{item.comments}</div>
+                            <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
+                          </div>
+                        </div>
+                        <div className={s.mobileContent}>{date}</div>
+                      </div>
+                      <div className={`${s.typeColContent} ${s.noMobile}`}>
+                        <div className={s.mobileContent}>{item.type}</div>
+                      </div>
+                      <div className={`${s.categoryColContent} ${s.noMobile}`}>
+                        <div className={s.mobileContent}>{item.category}</div>
+                      </div>
+                      <div className={`${s.commentColContent} ${s.noMobile}`}>
+                        <div className={s.mobileContent}>{item.comments}</div>
+                      </div>
+                      <div className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
+                        <div className={s.mobileContent}>{item.amount}</div>
+                      </div>
+                      <div className={`${s.lastColContent} ${s.noMobile}`}>
+                        <div className={s.mobileContent}>{checkMinus(item)}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
         </div>
 
-        {isModalIncomeOpen && <ModalIncome handleCloseClick={this.handleCloseModalIncome} />}
-        {isModalCostOpen && <ModalCost handleCloseClick={this.handleCloseModalCost} />}
+        {isModalIncomeOpen && (
+          <ModalIncome
+            totalBalance={totalBalance}
+            addToData={addToData}
+            handleCloseClick={this.handleCloseModalIncome}
+          />
+        )}
+        {isModalCostOpen && (
+          <ModalCost totalBalance={totalBalance} addToData={addToData} handleCloseClick={this.handleCloseModalCost} />
+        )}
       </div>
     );
   }
 }
 
-Home.defaultProps = {
-  data: []
+Home.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addToData: PropTypes.func.isRequired,
+  totalBalance: PropTypes.number.isRequired
 };
 
 const mapState = state => ({
-  user: getUser(state),
-  token: getToken(state)
+  totalBalance: getTotalBalance(state),
+  data: getFinanceData(state)
 });
 
-export default connect(mapState)(Home);
-
-// export default Home;
-
-Home.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object)
+const mapDispatch = {
+  addToData: financeOperations.addToData
 };
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Home);

@@ -1,46 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as selectors from '../../redux/modules/User/selectors';
-import operations from '../../redux/modules/User/operations';
+import { Redirect } from 'react-router-dom';
 
+import withAuth from '../../hoc/withAuth';
 import UserControl from '../UserControl/UserControl';
 import Logo from '../Logo/Logo';
 
 import * as s from './Header.module.css';
 
-const Header = ({ isAuthenticated, user, onSignOut }) => (
+const Header = ({ isAuthenticated, user, logout }) => (
   <header className={s.container}>
     <div className={s.content}>
       <Logo />
-      {isAuthenticated ? <UserControl user={user} onSignOut={onSignOut} /> : null}
-      <h2>UserControl</h2>
+      {isAuthenticated ? <UserControl user={user} logout={logout} /> : <Redirect to="/login" />}
     </div>
   </header>
 );
 
-const mapState = state => ({
-  isAuthenticated: selectors.isAuthenticated(state),
-  user: selectors.getUser(state)
-});
-
-const mapDispatch = {
-  onSignOut: operations.signOut
-};
-
 Header.propTypes = {
   isAuthenticated: PropTypes.bool,
-  user: PropTypes.objectOf(),
-  onSignOut: PropTypes.func
+  user: PropTypes.shape({ email: PropTypes.string }),
+  logout: PropTypes.func
 };
 
 Header.defaultProps = {
-  isAuthenticated: false,
-  user: () => {},
-  onSignOut: () => {}
+  isAuthenticated: null,
+  user: null,
+  logout: () => null
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Header);
+export default withAuth(Header);

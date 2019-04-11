@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-decoration: none;
 }
 .heading {
   display: none;
@@ -11,19 +12,19 @@
   font-weight: 700;
   line-height: 30px;
   letter-spacing: 1.2px;
+  
 }
 
 .logo {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.imgContainer {
   width: 32px;
   height: 24px;
   margin-right: 12px;
 }
+
+
 
 @media(min-width: 768px) {
   .heading {

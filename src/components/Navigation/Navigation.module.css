@@ -3,7 +3,7 @@
   margin: auto;
   box-shadow: 2px 3px 3px rgba(92, 135, 94, 0.2);
   background-color: #516d57;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .nav {
   max-width: 320px;
@@ -12,33 +12,29 @@
   margin: 0;
   margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
-.listItem {
-  margin-right: 13px;
-  line-height: 1;
-}
 
-.listItem {
+.linkHome, .linkDiagram, .linkCurrency {
   display: inline-block;
   text-decoration: none;
-  width: 30px;
-  height: 25px;
+  width: 85px;
+  height: 35px;
   border-radius: 4px;
   background-color: #3f5544;
 }
 
 .linkText {
   display: none;
-  color: #6b7d83;
+  /* color: #6b7d83; */
   font-family: "Helvetica Neue Cyr - Roman";
   font-size: 15px;
   font-weight: 400;
   letter-spacing: 0.45px;
 }
 .linkText .balanceAmount {
-  color: #6b7d83;
+  /* color: #6b7d83; */
   font-family: "Helvetica Neue Cyr - Roman";
   font-size: 15px;
   font-weight: 400;
@@ -46,24 +42,28 @@
   letter-spacing: 0.45px;
 }
 
-/* .link:nth-child(1) {
+.linkHome {
   background-image: url('../../assets/images/home.png');
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-position: center;
 }
-.link:nth-child(2) {
+.linkDiagram {
   background-image: url('../../assets/images/diagrams.png');
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-position: center;
 }
-.link:nth-child(3) {
+.linkCurrency {
   background-image: url('../../assets/images/balance.png');
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-position: center;
-} */
+}
 
 .activeLink {
-  composes: listItem;
+  display: inline-block;
+  text-decoration: none;
+  width: 85px;
+  height: 35px;
+  border-radius: 4px;
   background-color: #669668;
 }
 
@@ -75,27 +75,43 @@
     box-shadow: none;
   }
   .nav {
-    max-width: 492px;
+    max-width: 640px;
     display: flex;
+    justify-content: center;
     padding: 35px 0 30px;
   }
+
   .linkText {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    line-height: 1;
   }
-  
+
+  .linkHome, .linkDiagram, .linkCurrency {
+    background-image: none;
+    background-color: transparent;
+    width: 40px;
+    height: 20px;
+    color: #6b7d83;
+  }
+
   .nav .listItem {
     flex: 1 1 auto;
     height: 15px;
     padding-left: 30px;
-    border-right: 1px solid #6b7d83; 
+    border-right: 1px solid #6b7d83;
+    margin-right: 20px;
     border-radius: 0;
     background-color: #ffffff;
     position: relative;
   }
+
   .nav .listItem:last-child {
     text-align: left;
-    border-right: 0; 
+    border-right: 0;
     border-radius: 0;
+    width: 130px;
+
     flex: 2 1 auto;
     padding-left: 0px;
     background-color: #ffffff;
@@ -110,7 +126,7 @@
     width: 16px;
     height: 13px;
     background-image: url('../../assets/images/home@768.png');
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
   }
 
@@ -122,17 +138,108 @@
     width: 18px;
     height: 10px;
     background-image: url('../../assets/images/Diagrams@768.png');
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
   }
-  
+
+  .nav > .listItem:nth-child(3)::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 12px;
+    background-image: url('../../assets/images/balance@768.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
   .activeLink {
     display: inline-block;
     text-decoration: none;
-    width: 0px;
-    height: 0px;
+    font-weight: bold;
+    width: 40px;
+    height: 20px;
     color: #669668;
     background-color: #ffffff;
   }
- 
+
+}
+
+@media(min-width: 1024px) {
+  .container {
+    max-width: 359px;
+    background-color: #516d57;
+    border-radius: 4px;
+    margin-bottom: 40px;
+  }
+  .nav {
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-around;
+    padding: 26px 0;
+  }
+  .nav .listItem {
+    height: 30px;
+    padding-left: 0;
+    border-right: none;
+    border-radius: 0;
+    background-color: transparent;
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+  .nav > .listItem:first-child::before {
+    top: 4px;
+    left: 36px;
+    width: 16px;
+    height: 13px;
+    background-image: url('../../assets/images/home@1920.png');
+  }
+
+  .nav .listItem:last-child {
+    border-right: 0;
+    border-radius: 0;
+    padding-left: 0px;
+    background-color: transparent;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .nav .listItem:last-child::before {
+    top: 6px;
+    left: 36px;
+    width: 16px;
+    height: 13px;
+    background-image: url('../../assets/images/Diagrams@1920.png');
+  }
+
+  .linkHome, .linkDiagram {
+    background-image: none;
+    background-color: transparent;
+    width: 100%;
+    height: 20px;
+    color: #6b7d83;
+    line-height: 30px;
+  }
+
+  .linkText {
+    padding-left: 60px;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+
+  .activeLink {
+    display: inline-block;
+    text-decoration: none;
+    height: auto;
+    color: #ffffff;
+    background-color: #6fa76f;
+    border-radius: 0;
+    line-height: 30px;
+  }
 }

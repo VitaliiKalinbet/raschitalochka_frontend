@@ -4,19 +4,19 @@ import DatePicker from 'react-date-picker/dist/entry.nostyle';
 // import DatePicker from 'react-date-picker';
 import './style.scss';
 
-const Picker = ({ selected, onChange }) => (
-  <DatePicker className="react-date-picker" onChange={onChange} value={selected} />
-);
+const Picker = ({ date, onChange }) => {
+  return <DatePicker className="react-date-picker" onChange={onChange} value={date} format="dd-MM" />;
+};
 
 Picker.defaultProps = {
   //   style: '',
-  selected: '',
+  date: {},
   onChange: () => null
 };
 
 Picker.propTypes = {
   //   style: PropTypes.string,
-  selected: PropTypes.string,
+  date: PropTypes.instanceOf(Date),
   onChange: PropTypes.func
 };
 

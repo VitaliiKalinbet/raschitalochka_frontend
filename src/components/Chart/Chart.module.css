@@ -1,9 +1,9 @@
-.wrap{
+.diagramWrap{
 	padding-top: 2.5rem;
 	margin-bottom: 1.5rem;
 }
 @media (min-width: 1280px) {
-	.wrap{
+	.diagramWrap{
 		padding: 0;
 		display: flex;
 		flex-direction: column;

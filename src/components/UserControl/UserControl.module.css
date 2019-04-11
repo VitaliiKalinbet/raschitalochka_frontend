@@ -1,13 +1,17 @@
 .container {
   max-width: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .text {
-font-family: "Helvetica Neue Cyr - Roman";
-font-size: 15px;
-font-weight: 400;
-line-height: 59.27px;
-color: #669668;
-letter-spacing: 0.45px;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue Cyr - Roman";
+  font-size: 15px;
+  font-weight: 400;
+  color: #669668;
+  letter-spacing: 0.45px;
 }
 
 .button {
@@ -18,36 +22,54 @@ letter-spacing: 0.45px;
   margin-left: 19px;
   width: auto;
   overflow: visible;
-  background: transparent;   
+  background: transparent;
   color: inherit;
   font: inherit;
   line-height: normal;
 }
-.button-text {
+.buttonText {
   font-family: "Helvetica Neue Cyr - Roman";
   font-size: 15px;
   font-weight: 400;
-  line-height: 59.27px;
+  line-height: 1;
   color: #669668;
   letter-spacing: 0.45px;
   display: none;
 }
 .button::before {
+  display: inline-block;
   content: "";
   position: absolute;
   background: url(../../assets/images/exit.png);
-  top: 0;
-  left: 0;
+  top: -7px;
+  left: -14px;
   width: 14px;
   height: 14px;
-  margin-right: 10px;
 }
 
 @media(min-width: 768px) {
   .container {
-    max-width: 190px;
+    max-width: 290px;
   }
-  .button-text {
+
+  .button::before {
     display: inline-block;
+    content: "";
+    position: absolute;
+    background: url(../../assets/images/exit.png);
+    top: 2px;
+    left: -20px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .buttonText {
+    display: inline-block;
+  }
+  .text {
+    color: #6b7d83;
+    padding-right: 19px;
+    border-right: 1px solid #6b7d83;
+    margin-right: 19px;
   }
 }

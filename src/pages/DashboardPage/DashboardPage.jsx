@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
-class DashboardPage extends Component {
-  state = {};
+import withRequest from '../../hoc/withRequest';
+import s from './DashboardPage.module.css';
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Sidebar />
-        <Main {...this.props} />
-      </div>
-    );
-  }
-}
+const DashboardPage = () => (
+  <>
+    <Header />
+    <div className={s.mainWrapper}>
+      <Sidebar />
+      <Main />
+    </div>
+  </>
+);
 
-export default DashboardPage;
+export default withRequest(DashboardPage);

@@ -1,6 +1,7 @@
 .container {
   max-width: 95%;
   margin: auto;
+  margin-bottom: 20px;
   box-shadow: 14px 5px 9px rgba(1, 1, 0, 0.08);
   background-color: #516d57;
   border-radius: 4px;
@@ -10,7 +11,7 @@
   max-width: 306px;
   margin: auto;
   text-align: center;
-  padding: 15px 0 13px;
+  padding: 10px 0 10px;
 }
 
 .text {
@@ -18,12 +19,28 @@
   font-family: "Helvetica Neue Cyr";
   font-size: 15px;
   font-weight: 700;
-  line-height: 30px;
+  line-height: 1.5;
   letter-spacing: 0.45px;
 }
 
 @media(min-width: 768px) {
   .container {
     display: none;
+  }
+}
+
+@media(min-width: 1024px) {
+  .container {
+    display: block;
+    max-width: 359px;
+    background-color: #516d57;
+    border-radius: 4px;
+    margin-bottom: 40px;
+  }
+  .content {
+    max-width: 100%;
+    display: flex;
+    padding: 40px 30px;
+    justify-content: space-between;
   }
 }
