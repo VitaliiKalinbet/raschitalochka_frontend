@@ -77,8 +77,8 @@ export const getMonths = arr => {
 export const getYears = arr => {
   const uniqYear = [];
   arr.forEach(({ date }) => {
-    const year = String(new Date(date).getFullYear());
+    const year = new Date(date).getFullYear();
     if (!uniqYear.includes(year)) uniqYear.push(year);
   });
-  return uniqYear;
+  return uniqYear.sort((prev, next) => prev - next);
 };

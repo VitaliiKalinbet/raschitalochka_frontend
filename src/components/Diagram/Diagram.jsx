@@ -50,7 +50,7 @@ class Diagram extends Component {
 
   handleChangeYear = e => {
     e.preventDefault();
-    const { data } = this.state;
+    const { data } = this.props;
     const { value } = e.target;
     this.setState({
       selectedYear: value,

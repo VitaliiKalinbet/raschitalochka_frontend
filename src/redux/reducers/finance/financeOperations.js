@@ -20,6 +20,8 @@ export const getUserFinance = (id, token) => dispatch => {
   axios
     .get(`/api/finance/${id}`)
     .then(({ data }) => {
+      data.finance.data.map(item => console.log(new Date(item.date)));
+      // console.log(data);
       dispatch(typeTotalBalanceSuccess(data.finance.typeTotalBalance));
       dispatch(totalBalanceSuccess(data.finance.totalBalance));
       return dispatch(financeSuccess(data.finance.data));
