@@ -15,7 +15,7 @@ import s from './ModalCost.module.css';
 const INITIAL_STATE = {
   date: new Date(),
   category: '',
-  amount: 'null',
+  amount: '',
   comments: '',
   balanceAfter: 0
 };
@@ -145,6 +145,7 @@ class Modal extends Component {
               pattern="[0-9]+([\.,][0-9]+)?"
               step="1.00"
               onChange={this.handleAmountAndCommentChange}
+              autoFocus
               required
             />
 

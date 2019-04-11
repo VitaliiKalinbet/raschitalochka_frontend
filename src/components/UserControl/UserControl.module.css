@@ -26,6 +26,7 @@
   color: inherit;
   font: inherit;
   line-height: normal;
+  cursor: pointer;
 }
 .buttonText {
   font-family: "Helvetica Neue Cyr - Roman";
