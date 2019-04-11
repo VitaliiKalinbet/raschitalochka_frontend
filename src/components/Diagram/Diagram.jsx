@@ -6,11 +6,11 @@ import withWidth from '../../hoc/withWidth';
 
 import Table from '../Table/Table';
 import Chart from '../Chart/Chart';
-import { getTotalCost, getTotalIncome, getFinanceData } from '../../redux/reducers/finance/financeSelectors';
+import { getFinanceData } from '../../redux/reducers/finance/financeSelectors';
 import * as financeOperations from '../../redux/reducers/finance/financeOperations';
 import { options } from './config';
 import {
-  // getSortedData,
+  getTotalByType,
   getChartData,
   getCurrentMonth,
   getCurrentYear,
@@ -25,16 +25,12 @@ import s from './Diagram.module.css';
 
 class Diagram extends Component {
   state = {
-    // currentMonth: '',
-    // currentYear: '',
     selectedMonth: '',
     selectedYear: ''
   };
 
   componentDidMount() {
     this.setState({
-      // currentMonth: getCurrentMonth(),
-      // currentYear: getCurrentYear(),
       selectedMonth: getCurrentMonth(),
       selectedYear: getCurrentYear()
     });
@@ -64,39 +60,16 @@ class Diagram extends Component {
   };
 
   render() {
-    // const {
-    //   tableData,
-    //   options,
-    //   chartData,
-    //   totalCosts,
-    //   totalIncome,
-    //   width,
-    //   onChange,
-    //   selectedMonth,
-    //   months,
-    //   years,
-    //   onChangeYear,
-    //   selectedYear,
-    //   onUpdate
-    // } = this.props;
-    const {
-      selectedMonth,
-      selectedYear
-      // currentMonth,currentYear
-    } = this.state;
-    const {
-      data,
-      totalCosts,
-      totalIncome,
-      width
-      //  setTotalBalance,
-      // addToData
-    } = this.props;
+    const { selectedMonth, selectedYear } = this.state;
+    const { data, width } = this.props;
     const filteredDataByYearAndMonth = getFilteredDataByYearAndMonth(data, selectedYear, selectedMonth);
     const tableData = getTableData(filteredDataByYearAndMonth);
     const chartData = getChartData(tableData);
     const months = getMonths(getFilteredDataBySelectedYear(data, selectedYear));
     const years = getYears(data);
+
+    const totalCosts = getTotalByType(filteredDataByYearAndMonth, '-');
+    const totalIncome = getTotalByType(filteredDataByYearAndMonth, '+');
 
     return (
       <div className={s.container}>
@@ -133,37 +106,14 @@ class Diagram extends Component {
 
 Diagram.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  totalCosts: PropTypes.number.isRequired,
-  totalIncome: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
-  // options: PropTypes.shape({
-  //   legend: PropTypes.object
-  // }).isRequired,
-  // tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // chartData: PropTypes.shape({
-  //   datasets: PropTypes.array,
-  //   labels: PropTypes.array
-  // }).isRequired,
-  // onChange: PropTypes.func.isRequired,
-  // selectedMonth: PropTypes.string.isRequired,
-  // selectedYear: PropTypes.string.isRequired,
-  // onChangeYear: PropTypes.func.isRequired,
-  // onUpdate: PropTypes.func.isRequired,
-  // months: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  // years: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 const mstp = state => ({
-  // user: getUser(state),
-  // token: getToken(state),
-  data: getFinanceData(state),
-  totalCosts: getTotalCost(state),
-  totalIncome: getTotalIncome(state)
+  data: getFinanceData(state)
 });
 
 const mdtp = {
-  // getUserFinance: financeOperations.getUserFinance,
-  // setTotalBalance: financeOperations.setTotalBalance,
   addToData: financeOperations.addToData
 };
 
