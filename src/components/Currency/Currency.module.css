@@ -5,6 +5,15 @@
 
 .content {
   margin-bottom: 74px;
+  position: relative;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
 }
 
 .tableHeading {

@@ -8,7 +8,6 @@
   align-items: center;
   height: 100vh;
   margin: 0 auto;
-
 }
 
 .titleWrapper {
@@ -141,8 +140,6 @@
 
 }
 
-
-
 .submitBtn:focus {
   outline: none
 }
@@ -152,6 +149,22 @@
   text-align: center;
   color: rgb(107, 125, 131);
   line-height: 2.5;
+}
+
+.successMsg {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(67, 196, 78);
+  margin-top: 1rem;
+}
+
+.errorMsg {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(202, 73, 21);
+  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {
