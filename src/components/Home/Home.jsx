@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import noScroll from 'no-scroll';
-// import Loader from 'react-loader-spinner';
 import newId from 'uuid/v4';
-
 import { getTotalBalance, getFinanceData } from '../../redux/reducers/finance/financeSelectors';
 import * as financeOperations from '../../redux/reducers/finance/financeOperations';
-
 import Button from '../Button/Button';
 import ModalIncome from '../ModalIncome/ModalIncome';
 import ModalCost from '../ModalCost/ModalCost';
-
 import s from './Home.module.css';
-// import { getChartData } from '../Diagram/functions';
-
-// const getSortedData = (arr = []) =>
-//   arr.sort((a, b) => {
-//     if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
-//     return b.date - a.date;
-//   });
 
 const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
 
 const createDate = mill => {
   const date = new Date(mill);
   const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-
   const currentMonth = date.getMonth() + 1;
   const month = currentMonth < 10 ? `0${currentMonth}` : currentMonth;
   const year = date
@@ -35,7 +22,6 @@ const createDate = mill => {
     .split('')
     .slice(1)
     .join('');
-
   return `${day}.${month}.20${year}`;
 };
 
@@ -81,6 +67,7 @@ class Home extends Component {
     this.state = {
       isModalIncomeOpen: false,
       isModalCostOpen: false
+      // data: this.props.data
     };
   }
 
@@ -90,50 +77,34 @@ class Home extends Component {
   }
 
   handleOpenModalIncome = () => {
-    this.setState(
-      {
-        isModalIncomeOpen: true
-      }
-      // () => noScroll.off()
-    );
-    // noScroll.on();
+    this.setState({
+      isModalIncomeOpen: true
+    });
   };
 
   handleCloseModalIncome = () => {
-    this.setState(
-      {
-        isModalIncomeOpen: false
-      }
-      // () => noScroll.off()
-    );
+    this.setState({
+      isModalIncomeOpen: false
+    });
   };
 
   handleOpenModalCost = () => {
-    // console.log('click Modal Cost');
-    this.setState(
-      {
-        isModalCostOpen: true
-      }
-      // () => noScroll.on()
-    );
-
-    // console.log('click2 Modal Cost');
+    this.setState({
+      isModalCostOpen: true
+    });
   };
 
   handleCloseModalCost = () => {
-    this.setState(
-      {
-        isModalCostOpen: false
-      }
-      // () => noScroll.off()
-    );
+    this.setState({
+      isModalCostOpen: false
+    });
   };
 
   render() {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, totalBalance } = this.props;
 
-    const sortedData = data.sort((a, b) => (a > b ? 1 : -1));
+    const sortedData = [...data].sort((a, b) => (a > b ? 1 : -1));
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>
@@ -226,5 +197,3 @@ export default connect(
   mapState,
   mapDispatch
 )(Home);
-
-// export default Home;

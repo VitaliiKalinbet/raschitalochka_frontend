@@ -11,7 +11,7 @@ export default class Currency extends Component {
   componentDidMount = () => {
     const apiUrl = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11';
     const config = {
-      headers: { 'Access-Control-Allow-Origin': '*' }
+      headers: { 'Content-Type': 'application/json' }
     };
     axios
       .get(apiUrl, config)
