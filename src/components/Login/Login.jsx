@@ -112,6 +112,12 @@ class Login extends Component {
     );
   }
 }
+Login.defaultProps = {
+  user: PropTypes.shape({
+    error: null
+  })
+};
+
 Login.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
@@ -123,8 +129,8 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
   user: PropTypes.shape({
-    error: PropTypes.string.isRequired
-  }).isRequired
+    error: PropTypes.string
+  })
 };
 
 export default withAuth(withWidth(Login));
