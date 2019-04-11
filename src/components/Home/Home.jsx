@@ -15,11 +15,11 @@ import ModalCost from '../ModalCost/ModalCost';
 import s from './Home.module.css';
 // import { getChartData } from '../Diagram/functions';
 
-const getSortedData = (arr = []) =>
-  arr.sort((a, b) => {
-    if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
-    return b.date - a.date;
-  });
+// const getSortedData = (arr = []) =>
+//   arr.sort((a, b) => {
+//     if (a.date === b.date) return new Date(b.createdAt) - new Date(a.createdAt);
+//     return b.date - a.date;
+//   });
 
 const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
 
@@ -38,6 +38,7 @@ const createDate = mill => {
 
   return `${day}.${month}.20${year}`;
 };
+
 const colorDependingOnTheCategory = category => {
   switch (category) {
     case 'regular income':
@@ -131,7 +132,7 @@ class Home extends Component {
     const { isModalIncomeOpen, isModalCostOpen } = this.state;
     const { data, addToData, totalBalance } = this.props;
 
-    const sortedData = getSortedData(data);
+    const sortedData = data.sort((a, b) => (a > b ? 1 : -1));
     return (
       <div className={s.wrap}>
         <div className={s.btnsBlock}>

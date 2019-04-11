@@ -10,13 +10,15 @@ export default class Currency extends Component {
 
   componentDidMount = () => {
     const apiUrl = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11';
+    const config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
     axios
-      .get(apiUrl)
+      .get(apiUrl, config)
       .then(resp => {
-        console.log('resp axios privatbank', resp);
-        this.setState(state => {
-          const data = state.data.concat(resp.data);
-          return { data };
+        console.log('resp axios privatbank', resp.data);
+        this.setState({
+          data: resp.data
         });
       })
       .catch(err => console.log('privatbank api', err));
