@@ -14,6 +14,7 @@ import s from './ModalCost.module.css';
 
 const INITIAL_STATE = {
   date: new Date(),
+  updateDate: null,
   category: '',
   amount: '',
   comments: '',
@@ -83,8 +84,8 @@ class Modal extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     const { handleCloseClick, user, token, addToData, totalBalance } = this.props;
-    const { amount, date } = this.state;
-    const dateInMilliseconds = date.getTime();
+    const { amount, updateDate } = this.state;
+    const dateInMilliseconds = (updateDate && updateDate.getTime()) || new Date().getTime();
 
     const type = {
       type: '-'
