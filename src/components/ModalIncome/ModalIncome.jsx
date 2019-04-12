@@ -19,6 +19,8 @@ const INITIAL_STATE = {
   comments: ''
 };
 
+const checkFirstZero = str => (str[0] === '0' ? str.slice(1) : str);
+
 const typeAndBalanceOfModal = (prevBalance, amount) => ({
   type: '+',
   balanceAfter: prevBalance + amount
@@ -40,8 +42,9 @@ class Modal extends Component {
   }
 
   handleAmountAndCommentChange = ({ target: { value, name } }) => {
+    // console.log(typeof checkFirstZero(value));
     this.setState({
-      [name]: name === 'amount' ? Number(value) : value
+      [name]: name === 'amount' ? checkFirstZero(value) : value
     });
   };
 
@@ -88,11 +91,11 @@ class Modal extends Component {
       type: '+'
     };
 
-    const newBalance = totalBalance + amount;
+    const newBalance = totalBalance + Number(amount);
 
     const finance = {
       ...this.state,
-      ...typeAndBalanceOfModal(totalBalance, amount),
+      ...typeAndBalanceOfModal(totalBalance, Number(amount)),
       ...{ date: dateInMilliseconds },
       ...{ createdAt: new Date().getTime() }
     };

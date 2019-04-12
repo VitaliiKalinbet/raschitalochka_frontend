@@ -108,7 +108,7 @@
 
   .wrap{
     display: flex;
-    min-height: 600px;
+    min-height: 440px;
   }
 
   .chartWrap{
@@ -121,14 +121,19 @@
   }
 
   .tableContaiter{
-    padding-top: 60px;
-    align-self: flex-start;
+    /* padding-top: 60px;
+    align-self: flex-start; */
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  .selectors{
+    min-width: 320px;
+  }
+
   .submitBtn{
     margin: 0;
   }

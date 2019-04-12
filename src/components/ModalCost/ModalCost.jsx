@@ -12,6 +12,8 @@ import * as API from '../../services/api';
 
 import s from './ModalCost.module.css';
 
+const checkFirstZero = str => (str[0] === '0' ? str.slice(1) : str);
+
 const INITIAL_STATE = {
   date: new Date(),
   updateDate: null,
@@ -43,7 +45,7 @@ class Modal extends Component {
 
   handleAmountAndCommentChange = ({ target: { value, name } }) => {
     this.setState({
-      [name]: name === 'amount' ? Number(value) : value
+      [name]: name === 'amount' ? checkFirstZero(value) : value
     });
   };
 
