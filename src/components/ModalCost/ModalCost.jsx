@@ -25,15 +25,10 @@ const INITIAL_STATE = {
   balanceAfter: 0
 };
 
-const validDate = function(current) {
-  return current.valueOf() >= new Date().getTime();
-};
-
 const typeAndBalanceOfModal = (totalBalance, amount) => ({
   type: '-',
   balanceAfter: totalBalance - amount
 });
-
 class Modal extends Component {
   backdropRef = createRef();
 
@@ -127,6 +122,11 @@ class Modal extends Component {
     handleCloseClick();
   };
 
+  validDate = current => {
+    const { user } = this.props;
+    return current.valueOf() >= new Date(user.createdAt);
+  };
+
   render() {
     const { handleSubmitForm } = this.props;
     const { date, updateDate, category, amount, comments } = this.state;
@@ -161,7 +161,11 @@ class Modal extends Component {
             {/* <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} /> */}
             {/* <DatePicker date={updateDate || date} onChange={this.handleChangeDate} clearIcon={null} /> */}
             <div className={s.datetime}>
-              <Datetime isValidDate={validDate} onChange={this.handleChangeDate} defaultValue={updateDate || date} />
+              <Datetime
+                isValidDate={this.validDate}
+                onChange={this.handleChangeDate}
+                defaultValue={updateDate || date}
+              />
             </div>
             <h3 className={s.subtitle}>Category</h3>
 
@@ -321,7 +325,8 @@ Modal.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
-    name: PropTypes.string
+    name: PropTypes.string,
+    createdAt: PropTypes.string
   }),
   token: PropTypes.string,
   handleSubmitForm: PropTypes.func,
