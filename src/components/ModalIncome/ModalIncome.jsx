@@ -86,7 +86,8 @@ class Modal extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     const { handleCloseClick, user, token, totalBalance, addToData } = this.props;
-    const { amount, updateDate } = this.state;
+    const { amount, updateDate, category, comments } = this.state;
+    const intAmount = Number(amount);
     const dateInMilliseconds = (updateDate && updateDate.getTime()) || new Date().getTime();
     const type = {
       type: '+'
@@ -95,7 +96,9 @@ class Modal extends Component {
     const newBalance = totalBalance + Number(amount);
 
     const finance = {
-      ...this.state,
+      category,
+      comments,
+      amount: intAmount,
       ...typeAndBalanceOfModal(totalBalance, Number(amount)),
       ...{ date: dateInMilliseconds },
       ...{ createdAt: new Date().getTime() }

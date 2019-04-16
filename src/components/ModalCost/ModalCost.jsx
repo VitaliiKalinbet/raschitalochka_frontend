@@ -14,7 +14,7 @@ import * as API from '../../services/api';
 
 import s from './ModalCost.module.css';
 
-const checkFirstZero = str => (str[0] === '0' ? Number(str.slice(1)) : Number(str));
+const checkFirstZero = str => (str[0] === '0' ? str.slice(1) : str);
 
 const INITIAL_STATE = {
   date: new Date(),
@@ -87,21 +87,23 @@ class Modal extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     const { handleCloseClick, user, token, addToData, totalBalance } = this.props;
-    const { amount, updateDate } = this.state;
+    const { amount, updateDate, category, comments } = this.state;
+    const intAmount = Number(amount);
     const dateInMilliseconds = (updateDate && updateDate.getTime()) || new Date().getTime();
-
     const type = {
       type: '-'
     };
 
     const finance = {
-      ...this.state,
-      ...typeAndBalanceOfModal(totalBalance, amount),
+      category,
+      comments,
+      amount: intAmount,
+      ...typeAndBalanceOfModal(totalBalance, intAmount),
       ...{ date: dateInMilliseconds },
       ...{ createdAt: new Date().getTime() }
     };
 
-    const newBalance = totalBalance - amount;
+    const newBalance = totalBalance - intAmount;
 
     const balanceAfter = newBalance > 0 ? newBalance : Math.abs(newBalance);
     const typeBalanceAfter = newBalance > 0 ? '+' : '-';
