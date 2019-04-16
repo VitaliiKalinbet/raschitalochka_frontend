@@ -5,6 +5,7 @@
   background-color: #516d57;
   margin-bottom: 10px;
 }
+
 .nav {
   max-width: 320px;
   list-style: none;
@@ -16,7 +17,9 @@
   align-items: center;
 }
 
-.linkHome, .linkDiagram, .linkCurrency {
+.linkHome,
+.linkDiagram,
+.linkCurrency {
   display: inline-block;
   text-decoration: none;
   width: 85px;
@@ -33,6 +36,7 @@
   font-weight: 400;
   letter-spacing: 0.45px;
 }
+
 .linkText .balanceAmount {
   /* color: #6b7d83; */
   font-family: "Helvetica Neue Cyr - Roman";
@@ -47,11 +51,13 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .linkDiagram {
   background-image: url('../../assets/images/diagrams.png');
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .linkCurrency {
   background-image: url('../../assets/images/balance.png');
   background-repeat: no-repeat;
@@ -74,6 +80,7 @@
     background-color: #ffffff;
     box-shadow: none;
   }
+
   .nav {
     max-width: 640px;
     display: flex;
@@ -87,7 +94,9 @@
     line-height: 1;
   }
 
-  .linkHome, .linkDiagram, .linkCurrency {
+  .linkHome,
+  .linkDiagram,
+  .linkCurrency {
     background-image: none;
     background-color: transparent;
     width: 40px;
@@ -118,7 +127,7 @@
     margin-right: 0;
   }
 
-  .nav > .listItem:first-child::before {
+  .nav>.listItem:first-child::before {
     content: '';
     position: absolute;
     top: 2px;
@@ -130,7 +139,7 @@
     background-position: center;
   }
 
-  .nav > .listItem:nth-child(2)::before {
+  .nav>.listItem:nth-child(2)::before {
     content: '';
     position: absolute;
     top: 4px;
@@ -142,7 +151,7 @@
     background-position: center;
   }
 
-  .nav > .listItem:nth-child(3)::before {
+  .nav>.listItem:nth-child(3)::before {
     content: '';
     position: absolute;
     top: 2px;
@@ -174,13 +183,15 @@
     border-radius: 4px;
     margin-bottom: 22px;
   }
+
   .nav {
     max-width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: space-around;
-    padding: 26px 0;
+    padding: 14px 0;
   }
+
   .nav .listItem {
     height: 30px;
     padding-left: 0;
@@ -192,7 +203,7 @@
     margin: 0;
   }
 
-  .nav > .listItem:first-child::before {
+  .nav>.listItem:first-child::before {
     top: 4px;
     left: 36px;
     width: 16px;
@@ -217,7 +228,8 @@
     background-image: url('../../assets/images/Diagrams@1920.png');
   }
 
-  .linkHome, .linkDiagram {
+  .linkHome,
+  .linkDiagram {
     background-image: none;
     background-color: transparent;
     width: 100%;

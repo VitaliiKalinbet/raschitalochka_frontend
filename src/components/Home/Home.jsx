@@ -110,9 +110,9 @@ class Home extends Component {
           <Button style={`${s.btn} ${s.btnLeft}`} value="Add Income" onClick={this.handleOpenModalIncome} />
           <Button style={s.btn} value="Add Cost" onClick={this.handleOpenModalCost} />
         </div>
-        <div>
+        <>
           <div className={s.table}>
-            <div>
+            <>
               <div className={s.mainRow}>
                 <div className={s.firstCol}>Date</div>
                 <div className={s.typeCol}>Type</div>
@@ -121,46 +121,48 @@ class Home extends Component {
                 <div className={s.amountCol}>Amount, UAH</div>
                 <div className={s.lastCol}>Balance After</div>
               </div>
-              {sortedData.length > 0 &&
-                sortedData.map((item, idx) => {
-                  const date = createDate(item.date);
-                  return (
-                    <div
-                      // eslint-disable-next-line no-underscore-dangle
-                      key={item._id || newId()}
-                      className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category)}`}
-                    >
-                      <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
-                        <div className={s.firstColContentForMobile}>
-                          <div className={s.mobileTh}>{item.category}</div>
-                          <div className={s.mobileThRight}>
-                            <div>{item.comments}</div>
-                            <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
+              <div className={s.tableScroll}>
+                {sortedData.length > 0 &&
+                  sortedData.map((item, idx) => {
+                    const date = createDate(item.date);
+                    return (
+                      <div
+                        // eslint-disable-next-line no-underscore-dangle
+                        key={item._id || newId()}
+                        className={`${checkIdx(idx)} ${colorDependingOnTheCategory(item.category)}`}
+                      >
+                        <div className={`${s.firstColContent} ${idx % 2 !== 0 && s.mobileCell}`}>
+                          <div className={s.firstColContentForMobile}>
+                            <div className={s.mobileTh}>{item.category}</div>
+                            <div className={s.mobileThRight}>
+                              <div>{item.comments}</div>
+                              <div className={checkType(item.type)}>{`${item.type}${item.amount}`}</div>
+                            </div>
                           </div>
+                          <div className={s.mobileContent}>{date}</div>
                         </div>
-                        <div className={s.mobileContent}>{date}</div>
+                        <div className={`${s.typeColContent} ${s.noMobile}`}>
+                          <div className={s.mobileContent}>{item.type}</div>
+                        </div>
+                        <div className={`${s.categoryColContent} ${s.noMobile}`}>
+                          <div className={s.mobileContent}>{item.category}</div>
+                        </div>
+                        <div className={`${s.commentColContent} ${s.noMobile}`}>
+                          <div className={s.mobileContent}>{item.comments}</div>
+                        </div>
+                        <div className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
+                          <div className={s.mobileContent}>{item.amount}</div>
+                        </div>
+                        <div className={`${s.lastColContent} ${s.noMobile}`}>
+                          <div className={s.mobileContent}>{checkMinus(item)}</div>
+                        </div>
                       </div>
-                      <div className={`${s.typeColContent} ${s.noMobile}`}>
-                        <div className={s.mobileContent}>{item.type}</div>
-                      </div>
-                      <div className={`${s.categoryColContent} ${s.noMobile}`}>
-                        <div className={s.mobileContent}>{item.category}</div>
-                      </div>
-                      <div className={`${s.commentColContent} ${s.noMobile}`}>
-                        <div className={s.mobileContent}>{item.comments}</div>
-                      </div>
-                      <div className={`${s.amountColContent} ${checkType(item.type)} ${s.noMobile}`}>
-                        <div className={s.mobileContent}>{item.amount}</div>
-                      </div>
-                      <div className={`${s.lastColContent} ${s.noMobile}`}>
-                        <div className={s.mobileContent}>{checkMinus(item)}</div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+                    );
+                  })}
+              </div>
+            </>
           </div>
-        </div>
+        </>
 
         {isModalIncomeOpen && (
           <ModalIncome

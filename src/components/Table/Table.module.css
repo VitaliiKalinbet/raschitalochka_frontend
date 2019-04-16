@@ -114,6 +114,20 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .row {
+    font-size: 0.81rem;
+    color: rgb(40, 40, 40);
+    line-height: 1.385;
+    height: 1.5rem;
+    border-bottom: 1px solid rgb(243, 246, 246);
+  }
+
+  .total {
+    padding: 0.5rem 0 0 0;
+  }
+}
+
 @media (min-width: 1280px) {
   .table {
     height: auto;

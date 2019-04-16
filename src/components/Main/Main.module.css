@@ -4,5 +4,6 @@
     display: flex;
     justify-content: center;
     align-content: flex-start;
+    height: calc(90vh - 3.5rem);
   }
 }
