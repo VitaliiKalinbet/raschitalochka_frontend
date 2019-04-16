@@ -25,7 +25,7 @@ const validDate = function(current) {
   return current.valueOf() >= new Date().getTime();
 };
 
-const checkFirstZero = str => (str[0] === '0' ? str.slice(1) : str);
+const checkFirstZero = str => (str[0] === '0' ? Number(str.slice(1)) : Number(str));
 
 const typeAndBalanceOfModal = (prevBalance, amount) => ({
   type: '+',

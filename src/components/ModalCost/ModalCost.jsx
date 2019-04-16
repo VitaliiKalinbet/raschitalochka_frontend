@@ -14,7 +14,7 @@ import * as API from '../../services/api';
 
 import s from './ModalCost.module.css';
 
-const checkFirstZero = str => (str[0] === '0' ? str.slice(1) : str);
+const checkFirstZero = str => (str[0] === '0' ? Number(str.slice(1)) : Number(str));
 
 const INITIAL_STATE = {
   date: new Date(),

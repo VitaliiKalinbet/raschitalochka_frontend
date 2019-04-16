@@ -11,13 +11,11 @@ export const getCategoriesArr = arr => arr.filter(data => data.comments !== '');
 export const getCost = arr => arr.filter(item => item.type === '-');
 
 export const getFilteredDataBySelectedMonth = (arr, selctedMonth) => {
-  const cost = getCost(arr);
-  return cost.filter(el => months[new Date(el.date).getMonth()] === selctedMonth);
+  return arr.filter(el => months[new Date(el.date).getMonth()] === selctedMonth);
 };
 
 export const getFilteredDataBySelectedYear = (arr, selectedYear) => {
-  const cost = getCost(arr);
-  return cost.filter(el => String(new Date(el.date).getFullYear()) === selectedYear);
+  return arr.filter(el => String(new Date(el.date).getFullYear()) === selectedYear);
 };
 
 export const getFilteredDataByYearAndMonth = (data = [], year, month) =>
