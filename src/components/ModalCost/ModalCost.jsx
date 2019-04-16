@@ -1,7 +1,9 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DatePicker from '../DatePicker/DatePicker';
+// import DatePicker from '../DatePicker/DatePicker';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 
 import { getUser, getToken } from '../../redux/reducers/session/sessionSelectors';
 
@@ -21,6 +23,10 @@ const INITIAL_STATE = {
   amount: '',
   comments: '',
   balanceAfter: 0
+};
+
+const validDate = function(current) {
+  return current.valueOf() >= new Date().getTime();
 };
 
 const typeAndBalanceOfModal = (totalBalance, amount) => ({
@@ -55,9 +61,9 @@ class Modal extends Component {
     handleCloseClick();
   };
 
-  handleChangeDate = date => {
+  handleChangeDate = e => {
     this.setState({
-      date
+      updateDate: new Date(e.valueOf())
     });
   };
 
@@ -123,7 +129,7 @@ class Modal extends Component {
 
   render() {
     const { handleSubmitForm } = this.props;
-    const { date, category, amount, comments } = this.state;
+    const { date, updateDate, category, amount, comments } = this.state;
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
@@ -153,8 +159,10 @@ class Modal extends Component {
             />
 
             {/* <DatePicker style={s.dateInp} date={date} onChange={this.handleChangeDate} clearIcon={null} /> */}
-            <DatePicker date={date} onChange={this.handleChangeDate} clearIcon={null} />
-
+            {/* <DatePicker date={updateDate || date} onChange={this.handleChangeDate} clearIcon={null} /> */}
+            <div className={s.datetime}>
+              <Datetime isValidDate={validDate} onChange={this.handleChangeDate} defaultValue={updateDate || date} />
+            </div>
             <h3 className={s.subtitle}>Category</h3>
 
             <label htmlFor="radioMain" className={s.radioTop}>

@@ -37,10 +37,11 @@
     border-radius: 4px;
     margin-bottom: 22px;
   }
+
   .content {
     max-width: 100%;
     display: flex;
-    padding: 40px 30px;
+    padding: 20px 30px;
     justify-content: space-between;
   }
 }
