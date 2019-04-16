@@ -7,7 +7,7 @@
     "node": ">= 11.0.0",
     "npm": ">= 5.0.0"
   },
-  "homepage": "git@github.com:VitaliiKalinbet/raschitalochka_frontend.git",
+  "homepage": "https://rashchitalochka.vbguard.dev",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
