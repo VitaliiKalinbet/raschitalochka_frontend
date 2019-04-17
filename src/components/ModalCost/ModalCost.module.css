@@ -16,6 +16,10 @@
   padding-bottom: 45px;
   border-radius: 5px;
 }
+.hight{
+  height: 300px;
+  overflow: auto;
+}
 
 .arrowBtn {
   display: none;
