@@ -76,7 +76,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { data } = this.props;
+    const { data = [] } = this.props;
+    console.log(data);
     if (data.length === 0) this.setState({ isModalIncomeOpen: true });
   }
 
