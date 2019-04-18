@@ -77,7 +77,6 @@ class Home extends Component {
 
   componentDidMount() {
     const { data = [] } = this.props;
-    console.log(data);
     if (data.length === 0) this.setState({ isModalIncomeOpen: true });
   }
 
@@ -127,7 +126,7 @@ class Home extends Component {
                 <div className={s.lastCol}>Balance After</div>
               </div>
               <div className={s.tableScroll}>
-                {sortedData.length > 0 &&
+                {sortedData.length > 0 ? (
                   sortedData.map((item, idx) => {
                     const date = createDate(item.date);
                     return (
@@ -163,7 +162,12 @@ class Home extends Component {
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                ) : (
+                  <p className={s.addTransaction}>
+                    Please deposit current balance by clicking on the add income button (above)
+                  </p>
+                )}
               </div>
             </>
           </div>

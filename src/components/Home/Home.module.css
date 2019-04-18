@@ -1,3 +1,10 @@
+.addTransaction {
+  text-align: center;
+  padding: 3rem 0;
+  font-family: "HelveticaNeueCyr-Medium";
+  font-size: 1rem;
+}
+
 @media screen and (max-width: 767px) {
   .wrap {
     width: 100%;
@@ -20,7 +27,7 @@
     justify-content: center;
   }
 
-  .fixed{
+  .fixed {
     position: fixed;
   }
 

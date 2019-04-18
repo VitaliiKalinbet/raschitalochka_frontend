@@ -74,31 +74,35 @@ class Diagram extends Component {
     return (
       <div className={s.container}>
         {width >= 1024 && <p className={s.title}>Cost Diagram</p>}
-        <div className={s.wrap}>
-          <div className={s.chartWrap}>
-            {width >= 768 && width < 1024 && <p className={s.title}>Cost Diagram</p>}
-            <Chart data={chartData} width={width} options={options} />
-          </div>
-          <div className={s.tableContaiter}>
-            <div className={s.selectors}>
-              <select className={s.select} onChange={this.handleChange} value={selectedMonth} name="selectedMonth">
-                {months.map(month => (
-                  <option key={month} className={s.option} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-              <select className={s.select} onChange={this.handleChangeYear} value={selectedYear} name="selectedYear">
-                {years.map(year => (
-                  <option key={year} className={s.option} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
+        {tableData.length > 0 ? (
+          <div className={s.wrap}>
+            <div className={s.chartWrap}>
+              {width >= 768 && width < 1024 && <p className={s.title}>Cost Diagram</p>}
+              <Chart data={chartData} width={width} options={options} />
             </div>
-            <Table data={tableData} totalCosts={totalCosts} width={width} totalIncome={totalIncome} />
+            <div className={s.tableContaiter}>
+              <div className={s.selectors}>
+                <select className={s.select} onChange={this.handleChange} value={selectedMonth} name="selectedMonth">
+                  {months.map(month => (
+                    <option key={month} className={s.option} value={month}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+                <select className={s.select} onChange={this.handleChangeYear} value={selectedYear} name="selectedYear">
+                  {years.map(year => (
+                    <option key={year} className={s.option} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <Table data={tableData} totalCosts={totalCosts} width={width} totalIncome={totalIncome} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className={s.addCosts}>To build a schedule, please add the costs</p>
+        )}
       </div>
     );
   }

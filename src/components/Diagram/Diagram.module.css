@@ -25,6 +25,13 @@
   padding: 0 1.3rem
 }
 
+.addCosts {
+  text-align: center;
+  padding: 3rem 0;
+  font-family: "HelveticaNeueCyr-Medium";
+  font-size: 1rem;
+}
+
 .select,
 .option {
   font-size: 13px;
