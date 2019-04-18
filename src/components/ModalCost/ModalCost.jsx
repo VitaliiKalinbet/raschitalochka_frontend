@@ -165,6 +165,7 @@ class Modal extends Component {
             {/* <DatePicker date={updateDate || date} onChange={this.handleChangeDate} clearIcon={null} /> */}
             <div className={s.datetime}>
               <Datetime
+                dateFormat="DD.MM.YYYY"
                 isValidDate={this.validDate}
                 onChange={this.handleChangeDate}
                 defaultValue={updateDate || date}
