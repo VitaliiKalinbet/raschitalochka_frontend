@@ -10,6 +10,10 @@ import ModalCost from '../ModalCost/ModalCost';
 import s from './Home.module.css';
 
 const checkMinus = item => (item.typeBalanceAfter === '-' ? Number(`-${item.balanceAfter}`) : item.balanceAfter);
+const addFixed = (incomeOpen, costOpen) => {
+  if (incomeOpen || costOpen) return s.fixed;
+  return null;
+};
 
 const createDate = mill => {
   const date = new Date(mill);
@@ -72,7 +76,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { data } = this.props;
+    const { data = [] } = this.props;
+    console.log(data);
     if (data.length === 0) this.setState({ isModalIncomeOpen: true });
   }
 
@@ -105,7 +110,7 @@ class Home extends Component {
     const { data, addToData, totalBalance } = this.props;
     const sortedData = [...data].sort((a, b) => (a.date > b.date ? -1 : 1));
     return (
-      <div className={s.wrap}>
+      <div className={`${s.wrap} ${addFixed(isModalIncomeOpen, isModalCostOpen)}`}>
         <div className={s.btnsBlock}>
           <Button style={`${s.btn} ${s.btnLeft}`} value="Add Income" onClick={this.handleOpenModalIncome} />
           <Button style={s.btn} value="Add Cost" onClick={this.handleOpenModalCost} />

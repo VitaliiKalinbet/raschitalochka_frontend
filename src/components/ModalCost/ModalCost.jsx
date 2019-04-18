@@ -132,6 +132,7 @@ class Modal extends Component {
   render() {
     const { handleSubmitForm } = this.props;
     const { date, updateDate, category, amount, comments } = this.state;
+    const hight = window.innerHeight < 565 ? s.hight : null;
     return (
       <div className={s.backdrop} ref={this.backdropRef} onSubmit={handleSubmitForm}>
         <div className={s.modal}>
@@ -146,7 +147,7 @@ class Modal extends Component {
 
           <h2 className={s.title}>Add Cost</h2>
 
-          <form onSubmit={this.handleFormSubmit} className={s.form}>
+          <form onSubmit={this.handleFormSubmit} className={`${s.form} ${hight}`}>
             <input
               type="number"
               className={s.amountInp}

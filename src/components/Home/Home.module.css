@@ -20,6 +20,10 @@
     justify-content: center;
   }
 
+  .fixed{
+    position: fixed;
+  }
+
 
   .btn {
     width: 150px;
