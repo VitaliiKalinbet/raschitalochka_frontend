@@ -7,7 +7,7 @@ export const setBaseURL = () => {
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   axios.defaults.headers.get['Content-Type'] = 'application/json';
   axios.defaults.headers.put['Content-Type'] = 'application/json';
-  axios.defaults.baseURL = 'https://rashchitalochka.vbguard.dev';
+  axios.defaults.baseURL = 'https://raschitalochka.goit.co.ua';
 };
 
 // export const setBaseURLforLogout = () => {

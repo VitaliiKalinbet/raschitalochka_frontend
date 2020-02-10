@@ -104,7 +104,7 @@ class Login extends Component {
             <Link className={s.registerLink} to="/registration">
               Register
             </Link>
-            {user.error ? <p className={s.errorMsg}>{user.error}</p> : ''}
+            {user && user.error ? <p className={s.errorMsg}>{user.error}</p> : ''}
           </form>
           {width >= 768 && width < 1024 && slogan}
         </div>
