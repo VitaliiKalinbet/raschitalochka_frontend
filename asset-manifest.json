@@ -1,0 +1,22 @@
+{
+  "main.css": "/static/css/main.bc7ce3dd.chunk.css",
+  "main.js": "/static/js/main.20b61ad7.chunk.js",
+  "main.js.map": "/static/js/main.20b61ad7.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+  "static/css/2.3feaaed3.chunk.css": "/static/css/2.3feaaed3.chunk.css",
+  "static/js/2.284c6a7e.chunk.js": "/static/js/2.284c6a7e.chunk.js",
+  "static/js/2.284c6a7e.chunk.js.map": "/static/js/2.284c6a7e.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.209c12fd5e45ce018dece0ef98bc1830.js": "/precache-manifest.209c12fd5e45ce018dece0ef98bc1830.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/2.3feaaed3.chunk.css.map": "/static/css/2.3feaaed3.chunk.css.map",
+  "static/css/main.bc7ce3dd.chunk.css.map": "/static/css/main.bc7ce3dd.chunk.css.map",
+  "static/media/Registration.module.css": "/static/media/user-account-box.c49df476.svg",
+  "static/media/index.css": "/static/media/HelveticaNeueCyr-UltraLightItalic.eddbfc23.ttf",
+  "static/media/arrow.svg": "/static/media/arrow.897fefd6.svg",
+  "static/media/Login.module.css": "/static/media/waves-chart-bg.fad4dfde.svg",
+  "static/media/Currency.module.css": "/static/media/bg.psb.18260154.png",
+  "static/media/close.svg": "/static/media/close.9427a0b6.svg",
+  "static/media/logo.svg": "/static/media/logo.520cfd44.svg"
+}
