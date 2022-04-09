@@ -46,7 +46,7 @@
     "jest-watch-typeahead": "^0.2.1",
     "js-datepicker": "^4.0.10",
     "mini-css-extract-plugin": "0.5.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "no-scroll": "^2.1.1",
     "node-sass": "^4.11.0",
     "normalize.css": "8.0.1",
